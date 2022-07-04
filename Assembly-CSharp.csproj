@@ -41,8 +41,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets/Scripts/RoomManager.cs" />
-     <Compile Include="Assets/Scripts/Room.cs" />
+     <Compile Include="Assets/Tests/FloorGeneratorTests.cs" />
      <Reference Include="UnityEngine">
      <HintPath>/Applications/Unity/Hub/Editor/2022.1.6f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -748,8 +747,15 @@
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>/Users/deanwilson/Documents/game-development/drop-cube/Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
      </Reference>
+     <Reference Include="BoundfoxStudios.FluentAssertions">
+     <HintPath>/Users/deanwilson/Documents/game-development/drop-cube/Library/ScriptAssemblies/BoundfoxStudios.FluentAssertions.dll</HintPath>
+     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="DropCube.csproj">
+      <Project>{09089308-f49f-6fea-b66e-c813237463c9}</Project>
+      <Name>DropCube</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

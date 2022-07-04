@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637920860890000000
-    m_Hash: 2223940424
+      ticks: 637929441680000000
+    m_Hash: 1384716727
   m_LockFileStatus:
     m_FilePath: /Users/deanwilson/Documents/game-development/drop-cube/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637920861010000000
-    m_Hash: 3055348348
+      ticks: 637929441780000000
+    m_Hash: 2125876177
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -22,6 +22,66 @@ m_LocalPackages:
 m_ProjectPath: /Users/deanwilson/Documents/game-development/drop-cube/Packages
 m_EditorVersion: 2022.1.6f1 (e49a51cf6290)
 m_ResolvedPackages:
+- packageId: com.boundfoxstudios.fluentassertions@5.10.3-r5
+  testable: 1
+  isDirectDependency: 1
+  version: 5.10.3-r5
+  source: 1
+  resolvedPath: /Users/deanwilson/Documents/game-development/drop-cube/Library/PackageCache/com.boundfoxstudios.fluentassertions@5.10.3-r5
+  assetPath: Packages/com.boundfoxstudios.fluentassertions
+  name: com.boundfoxstudios.fluentassertions
+  displayName: FluentAssertions
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: tests
+  description: 'This package adds a support for Fluent Assertions to Unity to write
+    better maintainable unit tests.
+
+
+    For more information about Fluent Assertions,
+    please visit https://fluentassertions.com'
+  status: 4
+  errors: []
+  versions:
+    all:
+    - 0.1.0-preview
+    - 5.10.3-r1
+    - 5.10.3-r3
+    - 5.10.3-r5
+    compatible:
+    - 0.1.0-preview
+    - 5.10.3-r1
+    - 5.10.3-r3
+    - 5.10.3-r5
+    verified: 
+  dependencies: []
+  resolvedDependencies: []
+  keywords: []
+  registry:
+    id: scoped:package.openupm.com
+    name: package.openupm.com
+    url: https://package.openupm.com
+    scopes:
+    - com.boundfoxstudios.fluentassertions
+    - com.openupm
+    isDefault: 0
+    capabilities: 0
+  hideInEditor: 0
+  isAssetStorePackage: 0
+  datePublishedTicks: 637552296802950000
+  documentationUrl: 
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 
+    nextVersion: 
 - packageId: com.unity.collab-proxy@1.15.18
   testable: 0
   isDirectDependency: 1
@@ -219,7 +279,7 @@ m_ResolvedPackages:
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
   - name: com.unity.ide.rider
-    version: 3.0.14
+    version: 3.0.15
   - name: com.unity.ide.vscode
     version: 1.2.5
   - name: com.unity.editorcoroutines
@@ -251,12 +311,12 @@ m_ResolvedPackages:
   unityLifecycle:
     version: 1.0.1
     nextVersion: 
-- packageId: com.unity.ide.rider@3.0.14
+- packageId: com.unity.ide.rider@3.0.15
   testable: 0
   isDirectDependency: 1
-  version: 3.0.14
+  version: 3.0.15
   source: 1
-  resolvedPath: /Users/deanwilson/Documents/game-development/drop-cube/Library/PackageCache/com.unity.ide.rider@3.0.14
+  resolvedPath: /Users/deanwilson/Documents/game-development/drop-cube/Library/PackageCache/com.unity.ide.rider@3.0.15
   assetPath: Packages/com.unity.ide.rider
   name: com.unity.ide.rider
   displayName: JetBrains Rider Editor
@@ -324,13 +384,13 @@ m_ResolvedPackages:
     capabilities: 7
   hideInEditor: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 637861245770000000
+  datePublishedTicks: 637914298700000000
   documentationUrl: 
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.rider.git
-    revision: e6bfc84a08a0876a2c20ec2ee0883b5ece331dfd
+    revision: b61ff0378932fdf03b5891e09c91728337de674c
     path: 
   unityLifecycle:
     version: 3.0.14

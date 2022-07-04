@@ -1,0 +1,26 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/DotNetCliExePath/@EntryValue">/Users/deanwilson/.dotnet/dotnet</s:String>
+	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">1114112</s:Int64>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">/Users/deanwilson/.dotnet/sdk/6.0.300/MSBuild.dll</s:String>
+	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/SolutionBuilderNext/ShouldRestoreNugetPackages/@EntryValue">True</s:Boolean>
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8e9b6130_002D9a92_002D4851_002Db3d9_002D6cdbe18614b6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+IsRandomlySelectedTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+SetupFLoorPortionTests.ReturnsFloorPortionGameObject&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+SetupFLoorPortionTests.Returns_Floor_Portion_At_Parent_Position&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+SetupFloorPortionTests.ReturnsFloorPortionAtParentPosition&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+SetupFloorPortionTests.ReturnsFloorPortionGameObject&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+SetupFloorPortionTests.ReturnsFloorPortionOfGivenSize&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+SelectDoorSide&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+SelectOffsetSideTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+SelectDoorSideTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+ChangeAllocationTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+GetValueIfTrueTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+ApplyOffsetTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::A094C2BE-2B94-FE0F-65FC-FC7471A355BE::.NETFramework,Version=v4.7.1::FloorGeneratorTests+GenerateFloorObjectsTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	</wpf:ResourceDictionary>
