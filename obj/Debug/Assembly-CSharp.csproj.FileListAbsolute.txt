@@ -1,2 +1,0 @@
-/Users/deanwilson/Documents/game-development/drop-cube/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
-/Users/deanwilson/Documents/game-development/drop-cube/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
