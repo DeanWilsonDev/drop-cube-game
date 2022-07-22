@@ -7,7 +7,7 @@ namespace BlackPad.DropCube.Level {
     GameObject _leftSide;
     GameObject _rightSide;
     [SerializeField] float totalRoomWidth = 25;
-    [SerializeField] float doorSize = 3f;
+    [SerializeField] float doorSize = 5f;
     [SerializeField] Walls walls;
     [SerializeField] Floor floor;
     [SerializeField] Door door;
