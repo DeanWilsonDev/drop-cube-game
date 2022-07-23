@@ -4,7 +4,7 @@ namespace BlackPad.DropCube.Controls {
   public class TestTouch : MonoBehaviour {
 
     InputManager _inputManager;
-    Camera _cameraMain;
+    UnityEngine.Camera _cameraMain;
     bool _isTouching;
     [SerializeField] float speed;
     
@@ -12,7 +12,7 @@ namespace BlackPad.DropCube.Controls {
     // Start is called before the first frame update
     void Awake() {
       _inputManager = InputManager.Instance;
-      _cameraMain = Camera.main;
+      _cameraMain = UnityEngine.Camera.main;
     }
 
     void OnEnable() {
