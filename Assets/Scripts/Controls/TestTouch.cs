@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Controls {
@@ -7,6 +6,8 @@ namespace BlackPad.DropCube.Controls {
     InputManager _inputManager;
     Camera _cameraMain;
     bool _isTouching;
+    [SerializeField] float speed;
+    
 
     // Start is called before the first frame update
     void Awake() {
@@ -24,8 +25,10 @@ namespace BlackPad.DropCube.Controls {
     void Move(Vector2 screenPosition) {
       var screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, _cameraMain.nearClipPlane);
       var worldCoordinates = _cameraMain.ScreenToWorldPoint(screenCoordinates);
-      var destination = new Vector3(worldCoordinates.x, transform.position.y, 0);
-      transform.position = destination;
+      var position = transform.position;
+      var destination = new Vector3(worldCoordinates.x, position.y, 0);
+      position = Vector3.MoveTowards(position, destination, speed * Time.deltaTime);
+      transform.position = position;
     }
 
     void StopMoving() {}
