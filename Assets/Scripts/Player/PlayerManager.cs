@@ -18,7 +18,7 @@ namespace BlackPad.DropCube.Player
 
         public void Reset() => player.transform.position = Vector3.zero;
 
-        // Start is called before the first frame update
-        void Start() => Initialize();
+        // Start is called before the first frame upsdate
+        void Awake() => Initialize();
     }
 }

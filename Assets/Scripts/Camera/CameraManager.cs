@@ -1,6 +1,8 @@
+using System;
 using BlackPad.Core;
 using BlackPad.DropCube.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BlackPad.DropCube.Camera {
   public class CameraManager: Singleton<MonoBehaviour> {
@@ -18,9 +20,12 @@ namespace BlackPad.DropCube.Camera {
       threshold = 2.5f;
     }
     
-    // Start is called before the first frame update
-    void Start() {
+    void Awake() {
       Initialize();
+
+    }
+
+    void Start() {
       _player = GetComponent<PlayerManager>().player;
       _camera = UnityEngine.Camera.main;
     }
@@ -37,10 +42,8 @@ namespace BlackPad.DropCube.Camera {
       var topOfScreen = _camera.ScreenToWorldPoint(new Vector3(0, Screen.height, _camera.nearClipPlane));  
       var distanceFromTopOfScreen = topOfScreen.y - playerTransformPosition.y;
       _camera.transform.position = Vector3.SmoothDamp(cameraTransformPosition, targetPosition, ref velocity, smoothTime, maxSpeed + distanceFromTopOfScreen);
-      if (playerTransformPosition.y >= topOfScreen.y + threshold) {
-        // Restart the game somehow
-        print("Dead");
-      }
+      if (!(playerTransformPosition.y >= topOfScreen.y + threshold)) return;
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
   }
 }
