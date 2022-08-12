@@ -8,11 +8,9 @@ namespace BlackPad.DropCube.Controls {
   public class InputManager : Singleton<InputManager> {
 
     public delegate void StartTouchEvent(Vector2 position);
-
     public event StartTouchEvent OnTouchStart;
 
     public delegate void EndTouchEvent();
-
     public event EndTouchEvent OnTouchEnd;
 
     bool _isTouching;

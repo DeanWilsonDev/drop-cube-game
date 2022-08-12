@@ -5,7 +5,7 @@ namespace BlackPad.DropCube.Level {
   public static class FloorGenerator {
 
     const float MinOffset = 0;
-    const float MaxOffset = 5;
+    const float MaxOffset = 3;
     
     public static GameObject SetupFloorPortion(Component parent, float size) {
       var floorSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -56,20 +56,20 @@ namespace BlackPad.DropCube.Level {
       return floorAllocation;
     }
     
-    public static float[] SelectOffsetSide(float[] floorAllocation) {
+    public static float[] SelectOffsetSide(float[] floorAllocation, float availableSpace) {
       var isSelected = DetermineIfRandomlySelected();
       var offsetFlags = new[] {
         isSelected,
         !isSelected
       };
-      var offset = Random.Range(MinOffset, MaxOffset);
+      var offset = Random.Range(MinOffset, availableSpace / MaxOffset);
       return ApplyOffset(offset, offsetFlags, floorAllocation);
     }
 
     public static GameObject[] GenerateFloorObjects(Component parent, float availableSpace, GameObject door) {
       var floors = new GameObject[2];
       var floorAllocation = SelectDoorSide(availableSpace, door);
-      var offsetFloorAllocation = SelectOffsetSide(floorAllocation);
+      var offsetFloorAllocation = SelectOffsetSide(floorAllocation, availableSpace);
       for (var i = 0; i < 2; i++) {
         floors[i] = SetupFloorPortion(parent, offsetFloorAllocation[i]);
         floors[i]

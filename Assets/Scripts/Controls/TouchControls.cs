@@ -35,7 +35,7 @@ namespace BlackPad.DropCube.Controls
                     ""id"": ""17298213-a317-4109-8a92-7889d8b968e8"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Hold(duration=0.01)"",
                     ""initialStateCheck"": false
                 },
                 {

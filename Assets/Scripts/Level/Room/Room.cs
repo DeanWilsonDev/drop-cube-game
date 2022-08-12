@@ -6,19 +6,27 @@ namespace BlackPad.DropCube.Level {
 
     GameObject _leftSide;
     GameObject _rightSide;
-    [SerializeField] float totalRoomWidth = 25;
     [SerializeField] float doorSize = 5f;
     [SerializeField] Walls walls;
+    [SerializeField] BackWall backWall;
     [SerializeField] Floor floor;
     [SerializeField] Door door;
     [SerializeField] float roomHeight = 10f;
+    [SerializeField] float roomWidth = 25;
 
-    public float RoomHeight => roomHeight;
+    public float RoomHeight {
+      get => roomHeight;
+      set => roomHeight = value;
+    }
+    public float RoomWidth {
+      get => roomWidth;
+      set => roomWidth = value;
+    }
     void Start() => SetupRoom();
 
     void SetupRoom() {
       SetupDoor();
-      SetupFloor(totalRoomWidth);
+      SetupFloor(roomWidth);
       SetupWalls();
     }
 
@@ -27,7 +35,9 @@ namespace BlackPad.DropCube.Level {
     void SetupFloor(float availableSpace) =>
       floor = FloorGenerator.InitializeFloor(transform, availableSpace, door.gameObject);
 
-    void SetupWalls() => walls = WallGenerator.InitializeWall(transform, roomHeight, totalRoomWidth);
-
+    void SetupWalls() {
+      walls = WallGenerator.InitializeWall(transform, roomHeight, roomWidth);
+      backWall = BackWallGenerator.InitializeBackWall(transform, roomHeight, roomWidth);
+    }
   }
 }

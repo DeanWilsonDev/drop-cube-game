@@ -1,18 +1,24 @@
-using System.Collections;
+using BlackPad.DropCube.Controls;
 using UnityEngine;
 
-namespace BlackPad.DropCube.Controls {
-  public class TestTouch : MonoBehaviour {
+namespace BlackPad.DropCube.Player {
+  public class PlayerInput : MonoBehaviour {
 
     InputManager _inputManager;
-    Camera _cameraMain;
+    UnityEngine.Camera _cameraMain;
     bool _isTouching;
+    [SerializeField] float speed;
+
+
+    public void Initialize() => speed = 35;
 
     // Start is called before the first frame update
     void Awake() {
       _inputManager = InputManager.Instance;
-      _cameraMain = Camera.main;
+      _cameraMain = UnityEngine.Camera.main;
     }
+
+    void Start() => Initialize();
 
     void OnEnable() {
       _inputManager.OnTouchStart += Move;
@@ -24,8 +30,10 @@ namespace BlackPad.DropCube.Controls {
     void Move(Vector2 screenPosition) {
       var screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, _cameraMain.nearClipPlane);
       var worldCoordinates = _cameraMain.ScreenToWorldPoint(screenCoordinates);
-      var destination = new Vector3(worldCoordinates.x, transform.position.y, 0);
-      transform.position = destination;
+      var position = transform.position;
+      var destination = new Vector3(worldCoordinates.x, position.y, 0);
+      position = Vector3.MoveTowards(position, destination, speed * Time.deltaTime);
+      transform.position = position;
     }
 
     void StopMoving() {}

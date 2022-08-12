@@ -7,6 +7,10 @@ namespace BlackPad.DropCube.Level {
         int _roomNumber = 1;
         [SerializeField] int startingRoomAmount;
 
+        [SerializeField] float roomHeight = 10f;
+
+        [SerializeField] float roomWidth = 50f;
+        
         // Start is called before the first frame update
         void Start() {
             var parent = transform;
@@ -21,7 +25,8 @@ namespace BlackPad.DropCube.Level {
                 };
                 roomObject.AddComponent<Room>();
                 var roomComponent = roomObject.GetComponent<Room>();
-
+                roomComponent.RoomHeight = roomHeight;
+                roomComponent.RoomWidth = roomWidth;
                 roomObject.transform.position = new Vector3(
                     parentPosition.x,
                     parentPosition.y - (roomComponent.RoomHeight * _roomNumber),
