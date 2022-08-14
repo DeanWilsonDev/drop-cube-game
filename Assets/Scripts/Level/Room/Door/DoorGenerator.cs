@@ -10,7 +10,7 @@ namespace BlackPad.DropCube.Level
         public static Door InitializeDoor(Component parent, float doorSize) {
             var parentTransform = parent.transform;
                 
-            var doorObject = new GameObject() {
+            var doorParent = new GameObject() {
                 transform = {
                     position = parentTransform.position,
                     localScale = new Vector3(doorSize, 1, 5),
@@ -18,9 +18,7 @@ namespace BlackPad.DropCube.Level
                 },
                 name = "Door"
             };
-            
-            var door = doorObject.AddComponent<Door>();
-            
+            var door = doorParent.AddComponent<Door>();
             return door;
         }
     }

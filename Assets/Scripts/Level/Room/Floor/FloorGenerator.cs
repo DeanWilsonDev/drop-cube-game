@@ -115,12 +115,20 @@ namespace BlackPad.DropCube.Level {
       var leftSide = floors[0];
       var rightSide = floors[1];
       
-      leftSide.transform.position = GetLeftSideTransformPosition(leftSide);
+      var leftSideTransformPosition = GetLeftSideTransformPosition(leftSide);
+      leftSide.transform.position = leftSideTransformPosition;
+      var doorLocalScale = door.transform.localScale;
       rightSide.transform.position = GetRightSideTransformPosition(
         parent.transform.position,
         rightSide,
         leftSide,
-        door.transform.localScale.x
+        doorLocalScale.x
+      );
+
+      door.transform.position = new Vector3(
+        leftSideTransformPosition.x + (leftSide.transform.localScale.x / 2) + (doorLocalScale.x / 2),
+        leftSideTransformPosition.y,
+        leftSideTransformPosition.z
       );
       
       return new[] {

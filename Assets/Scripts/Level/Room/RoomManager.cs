@@ -1,8 +1,9 @@
+using BlackPad.Core;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level {
 
-    public class RoomManager : MonoBehaviour {
+    public class RoomManager : Singleton<RoomManager> {
 
         int _roomNumber = 1;
         [SerializeField] int startingRoomAmount;
@@ -10,7 +11,8 @@ namespace BlackPad.DropCube.Level {
         [SerializeField] float roomHeight = 10f;
 
         [SerializeField] float roomWidth = 50f;
-        
+        public GameObject doorPrefab;
+
         // Start is called before the first frame update
         void Start() {
             var parent = transform;

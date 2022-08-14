@@ -171,6 +171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingRoomAmount: 10
+  roomHeight: 20
+  roomWidth: 50
 --- !u!114 &342869671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,9 +197,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1158ee68aab4908a238c0c98e4554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
-  smoothTime: 0.3
-  threshold: 3
+  maxSpeed: 0
+  smoothTime: 0
+  threshold: 0
 --- !u!114 &342869673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +356,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 25
+  near clip plane: 65.5
   far clip plane: 1000
   field of view: 80
   orthographic: 0
@@ -382,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879639227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: -23, z: -30.18}
+  m_LocalPosition: {x: 22.1, y: -50.6, z: -68.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

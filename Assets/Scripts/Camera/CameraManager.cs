@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace BlackPad.DropCube.Camera {
-  public class CameraManager: Singleton<MonoBehaviour> {
+  public class CameraManager: Singleton<CameraManager> {
 
     [SerializeField] float maxSpeed;
     GameObject _player;
@@ -15,9 +15,9 @@ namespace BlackPad.DropCube.Camera {
     UnityEngine.Camera _camera;
 
     public void Initialize() {
-      maxSpeed = 5;
-      smoothTime = 0.3f;
-      threshold = 2.5f;
+      maxSpeed = 7;
+      smoothTime = 01f;
+      threshold = 1f;
     }
     
     void Awake() {

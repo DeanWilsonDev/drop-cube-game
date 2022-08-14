@@ -1,8 +1,9 @@
+using BlackPad.Core;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Player
 {
-    public class PlayerManager : MonoBehaviour {
+    public class PlayerManager : Singleton<PlayerManager> {
 
         public GameObject player;
 

@@ -3,7 +3,8 @@ guid: d7e17ab4c9be841459477636b694acb5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - doorPrefab: {fileID: 9077867185892956958, guid: b88a29a33f24f43c78e1bda2278db268, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

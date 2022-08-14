@@ -13,7 +13,6 @@ namespace BlackPad.DropCube.Level {
     [SerializeField] Door door;
     [SerializeField] float roomHeight = 10f;
     [SerializeField] float roomWidth = 25;
-
     public float RoomHeight {
       get => roomHeight;
       set => roomHeight = value;
