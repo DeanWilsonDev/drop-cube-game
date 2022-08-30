@@ -21,6 +21,8 @@ namespace BlackPad.DropCube.Level {
       get => roomWidth;
       set => roomWidth = value;
     }
+
+    
     void Start() => SetupRoom();
 
     void SetupRoom() {

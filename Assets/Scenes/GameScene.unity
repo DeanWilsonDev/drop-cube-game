@@ -173,6 +173,7 @@ MonoBehaviour:
   startingRoomAmount: 10
   roomHeight: 20
   roomWidth: 50
+  doorPrefab: {fileID: 582723823786027828, guid: 7ef1aacfc973644d0a6bacdc24c1bffe, type: 3}
 --- !u!114 &342869671
 MonoBehaviour:
   m_ObjectHideFlags: 0

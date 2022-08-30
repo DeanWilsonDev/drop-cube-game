@@ -13,11 +13,12 @@ namespace BlackPad.DropCube.Level {
         [SerializeField] float roomWidth = 50f;
         public GameObject doorPrefab;
 
+        
+        
         // Start is called before the first frame update
         void Start() {
             var parent = transform;
             var parentPosition = parent.position;
-
             for (var i = 0; i < startingRoomAmount; i++) {
                 var roomObject = new GameObject {
                     transform = {
@@ -37,9 +38,6 @@ namespace BlackPad.DropCube.Level {
                 _roomNumber++;
             }
         }
-
-        // Update is called once per frame
-        void Update() { }
 
     }
 }

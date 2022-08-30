@@ -7,10 +7,10 @@ namespace BlackPad.DropCube.Player {
     InputManager _inputManager;
     UnityEngine.Camera _cameraMain;
     bool _isTouching;
-    [SerializeField] float speed;
+    float _speed; 
+    
 
-
-    public void Initialize() => speed = 35;
+    public void Initialize() => _speed = 50;
 
     // Start is called before the first frame update
     void Awake() {
@@ -32,7 +32,7 @@ namespace BlackPad.DropCube.Player {
       var worldCoordinates = _cameraMain.ScreenToWorldPoint(screenCoordinates);
       var position = transform.position;
       var destination = new Vector3(worldCoordinates.x, position.y, 0);
-      position = Vector3.MoveTowards(position, destination, speed * Time.deltaTime);
+      position = Vector3.MoveTowards(position, destination, _speed * Time.deltaTime);
       transform.position = position;
     }
 

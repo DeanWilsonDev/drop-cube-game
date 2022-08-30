@@ -6,29 +6,30 @@ namespace BlackPad.DropCube.Level
     public class Door : MonoBehaviour {
 
         BoxCollider _doorCollider;
-        bool _isClosedDoor;
-        [SerializeField] GameObject doorObject;
+        [SerializeField] bool isClosedDoor;
+        GameObject _doorObject;
+        const string DoorPrefabPath = "Prefabs/Door";
 
-        GameObject _gameManager;
-        
         void Awake() {
-            _gameManager = GameObject.FindGameObjectWithTag("GameManager");
+            isClosedDoor = Random.Range(0, 100) >= 50;
+            _doorObject = Resources.Load<GameObject>(DoorPrefabPath);
+        }
+
+        void Start() {
             SetupDoorPrefab();
             SetupDoorCollider();
         }
 
         void SetupDoorPrefab() {
-            var doorPrefab = _gameManager.GetComponent<RoomManager>()
-                .doorPrefab;
-            Debug.Log(gameObject.name);
-            doorObject = Instantiate(doorPrefab, transform.position, Quaternion.identity);
-            doorObject.transform.parent = gameObject.transform;
+            if (!isClosedDoor) return;
+            _doorObject = Instantiate(_doorObject, transform.position, Quaternion.identity);
+            _doorObject.transform.parent = gameObject.transform;
         }
         
         void SetupDoorCollider() {
             _doorCollider = gameObject.AddComponent<BoxCollider>();
     
-            if(!_isClosedDoor) {
+            if(!isClosedDoor) {
                 _doorCollider.isTrigger = true;
             }
             

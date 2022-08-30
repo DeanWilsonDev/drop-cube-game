@@ -16,6 +16,7 @@ namespace BlackPad.Core
                     hideFlags = HideFlags.HideAndDontSave
                 };
                 _instance = obj.AddComponent<T>();
+                Debug.Log(_instance);
                 return _instance;
             }
         }
