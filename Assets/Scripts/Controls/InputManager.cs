@@ -13,23 +13,23 @@ namespace BlackPad.DropCube.Controls {
     public delegate void EndTouchEvent();
     public event EndTouchEvent OnTouchEnd;
 
-    bool _isTouching;
-    TouchControls _touchControls;
+    bool isTouching;
+    TouchControls touchControls;
 
-    void Awake() => _touchControls = new TouchControls();
+    void Awake() => touchControls = new TouchControls();
 
-    void OnEnable() => _touchControls.Enable();
+    void OnEnable() => touchControls.Enable();
 
-    void OnDisable() => _touchControls.Disable();
+    void OnDisable() => touchControls.Disable();
 
     void Start() {
-      _touchControls.Touch.TouchInput.performed += StartTouch;
-      _touchControls.Touch.TouchInput.canceled += EndTouch;
+      touchControls.Touch.TouchInput.performed += StartTouch;
+      touchControls.Touch.TouchInput.canceled += EndTouch;
     }
 
     IEnumerator HoldTouch() {
-      while (_isTouching) {
-        var screenPosition = _touchControls.Touch.TouchPosition.ReadValue<Vector2>();
+      while (isTouching) {
+        var screenPosition = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
         OnTouchStart?.Invoke(
           screenPosition
         );
@@ -38,14 +38,14 @@ namespace BlackPad.DropCube.Controls {
     }
 
     void StartTouch(InputAction.CallbackContext context) {
-      _isTouching = true;
+      isTouching = true;
       StartCoroutine(HoldTouch());
     }
 
     void EndTouch(InputAction.CallbackContext context) {
-      if (!_isTouching) return;
+      if (!isTouching) return;
       OnTouchEnd?.Invoke();
-      _isTouching = false;
+      isTouching = false;
     }
 
   }

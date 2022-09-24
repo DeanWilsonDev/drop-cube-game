@@ -1,47 +1,41 @@
+using System.Collections.Generic;
+using BlackPad.DropCube.Data;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level {
 
   public class Room : MonoBehaviour {
-
-    GameObject _leftSide;
-    GameObject _rightSide;
-    FloorGenerator floorGenerator;
-    [SerializeField] Walls walls;
-    [SerializeField] BackWall backWall;
-    [SerializeField] Floor floor;
-    [SerializeField] Door door;
+    
+    // Door Variables
+    [Header("Door Variables")]
+    [SerializeField] Door doorComponent;
+    [SerializeField] GameObject doorPrefab;
+    [SerializeField] float doorSize;
+    bool isClosedDoor;
+    
+    [Header("Switch")]
+    [SerializeField] GameObject switchPrefab;
+    [SerializeField] Switch switchComponent;
+    
+    [Header("Room Variables")]
     [SerializeField] float roomHeight ;
     [SerializeField] float roomWidth;
-    
-    public float RoomHeight {
-      get => roomHeight;
-      set => roomHeight = value;
-    }
-    
-    public float RoomWidth {
-      get => roomWidth;
-      set => roomWidth = value;
-    }
+    GameObject leftSide;
+    GameObject rightSide;
+    [SerializeField] Wall walls;
+    [SerializeField] BackWall backWall;
+    [SerializeField] Floor floor;
+    [SerializeField] List<Color> colorPalette;
 
-    
-    void Start() {
-      floorGenerator = new FloorGenerator(transform, roomWidth, RoomManager.Instance.DoorSize);
-      SetupRoom();
+    bool CheckIsDoorClosed() {
+      return isClosedDoor = Random.Range(0, 100) >= 50;
     }
 
-    void SetupRoom() {
-      SetupFloor(roomWidth);
-      SetupWalls();
-    }
-
-
-    void SetupFloor(float availableSpace) =>
-      floor = floorGenerator.InitializeFloor();
-
-    void SetupWalls() {
-      walls = WallGenerator.InitializeWall(transform, roomHeight, roomWidth);
-      backWall = BackWallGenerator.InitializeBackWall(transform, roomHeight, roomWidth);
+    public Room SetupRoom(float roomHeight, float roomWidth, List<Color> colorPalette) {
+      this.roomHeight = roomHeight;
+      this.roomWidth = roomWidth;
+      this.colorPalette = colorPalette;
+      return this;
     }
   }
 }

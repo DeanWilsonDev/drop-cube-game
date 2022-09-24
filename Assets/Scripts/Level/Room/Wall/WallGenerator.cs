@@ -1,58 +1,143 @@
+using System.Collections.Generic;
+using BlackPad.Core.Utilities;
+using BlackPad.DropCube.Core;
 using UnityEngine;
 
-public static class WallGenerator
-{
-    static GameObject GenerateWall(Component parent, float roomHeight, string wallGameObjectName) {
-        var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        wall.transform.localScale = new Vector3(1, roomHeight, 5);
-        var parentTransform = parent.transform;
-        var parentPosition = parentTransform.position;
-        wall.transform.position = new Vector3(
-            parentPosition.x,
-            parentPosition.y + (wall.transform.localScale.y / 2),
-            parentPosition.z
-        );
-        wall.transform.parent = parentTransform;
-        wall.gameObject.name = wallGameObjectName;
-        return wall;
+namespace BlackPad.DropCube.Level {
+
+  public class WallGenerator : Generator, IGenerator<Wall> {
+
+    const string WallsParentObjectName = "Walls";
+    const string LeftWallName = "Left Wall";
+    const string RightWallName = "Right Wall";
+    const string BackWallName = "Back Wall";
+
+    readonly int colorId = Shader.PropertyToID(
+      "_Color"
+    );
+
+    GameObject walls;
+    readonly float roomHeight;
+    readonly Component parent;
+    readonly float roomWidth;
+    BackWall backWall;
+    Wall rightWall;
+    Wall leftWall;
+
+    public WallGenerator(Component parent, float roomHeight, float roomWidth) {
+      this.parent = parent;
+      this.roomHeight = roomHeight;
+      this.roomWidth = roomWidth;
     }
 
-    static Vector3 GetRightWallTransformPosition(Component parent, Component rightWall, float totalRoomWidth) {
-        var transformPosition = parent.transform.position;
-        return new Vector3(
-            transformPosition.x + totalRoomWidth,
-            rightWall.transform.position.y,
-            transformPosition.z
-        );
-    }
-    
-    static GameObject GenerateWalls(Component parent, float roomHeight, float totalRoomWidth) {
-        
-        var leftWall = GenerateWall(parent, roomHeight, "Left Wall");
-        var rightWall = GenerateWall(parent, roomHeight, "Right Wall");
-        
-        var walls = new GameObject {
-            name = "Walls"
-        };
-        
-        walls.AddComponent<Walls>();
+    BackWall GenerateBackWall() {
+      var backWallObject = GameObject.CreatePrimitive(
+        PrimitiveType.Cube
+      );
+      backWallObject.name = BackWallName;
+      backWallObject.transform.localScale = new Vector3(
+        roomWidth,
+        roomHeight,
+        1
+      );
 
-        rightWall.transform.position = GetRightWallTransformPosition(parent, rightWall.transform, totalRoomWidth);
+      var renderer = backWallObject.GetComponent<Renderer>();
+      
+      renderer.material.SetColor(
+        colorId,
+        Color.black
+      );
+      backWallObject.transform.parent = parent.transform;
+      return backWallObject.AddComponent<BackWall>();
+    }
 
-        leftWall.transform.parent = walls.transform;
-        rightWall.transform.parent = walls.transform;
-        walls.transform.parent = parent.transform;
-        
-        var wallComponent = walls.GetComponent<Walls>();
-        wallComponent.wallGameObjects.Add(leftWall);
-        wallComponent.wallGameObjects.Add(rightWall);
-        
-        return walls;
+    Wall GenerateWall(string wallObjectName) {
+      var wall = GameObject.CreatePrimitive(
+        PrimitiveType.Cube
+      );
+      wall.transform.localScale = new Vector3(
+        1,
+        roomHeight,
+        5
+      );
+      var parentTransform = parent.transform;
+      var parentPosition = parentTransform.position;
+      wall.transform.position = new Vector3(
+        parentPosition.x,
+        parentPosition.y + (wall.transform.localScale.y / 2),
+        parentPosition.z
+      );
+      wall.gameObject.name = wallObjectName;
+      return wall.AddComponent<Wall>();
     }
-    
-    public static Walls InitializeWall(Component parent, float roomHeight, float totalRoomWidth) {
-        var wall = GenerateWalls(parent, roomHeight, totalRoomWidth)
-            .GetComponent<Walls>();
-        return wall;
+
+    GameObject GenerateWalls() {
+      this.leftWall = GenerateWall(
+        LeftWallName
+      );
+
+      this.rightWall = GenerateWall(
+        RightWallName
+      );
+
+      backWall = GenerateBackWall();
+      walls = new GameObject {
+        name = WallsParentObjectName
+      };
+      
+      leftWall.transform.parent = walls.transform;
+      rightWall.transform.parent = walls.transform;
+      backWall.transform.parent = walls.transform;
+      walls.transform.parent = parent.transform;
+      
+      var wallComponent = walls.AddComponent<Wall>();
+      
+      wallComponent.wallGameObjects = new List<GameObject> { 
+        leftWall.gameObject,
+        rightWall.gameObject,
+        backWall.gameObject
+      };
+
+      return walls;
     }
+
+    public Wall Initialize() {
+      return GenerateWalls()
+        .GetComponent<Wall>();
+    }
+
+    public void SetupPrefab(GameObject prefab) { }
+
+    public void SetPosition() {
+      
+      rightWall.transform.position = new Vector3(
+        Utilities.GameObjectTransformPosition(
+          parent.gameObject
+        ).x + roomWidth,
+        rightWall.transform.position.y,
+        Utilities.GameObjectTransformPosition(
+          parent.gameObject
+        ).z
+      );
+
+      backWall.transform.position = new Vector3(
+        Utilities.GameObjectTransformPosition(
+            parent.gameObject
+          )
+          .x
+        + roomWidth / 2,
+        Utilities.GameObjectTransformPosition(
+            parent.gameObject
+          )
+          .y
+        + roomHeight / 2,
+        Utilities.GameObjectTransformPosition(
+            parent.gameObject
+          )
+          .z
+        + 2.5f
+      );
+    }
+
+  }
 }

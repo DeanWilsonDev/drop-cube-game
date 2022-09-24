@@ -6,24 +6,34 @@ namespace BlackPad.Core
 {
     public class Singleton<T> : MonoBehaviour where T: Component {
 
-        static T _instance;
+        static T instance;
 
         public static T Instance {
             get {
-                if (_instance != null) return _instance;
+                if (instance != null) return instance;
                 var obj = new GameObject {
                     name = typeof(T).Name,
                     hideFlags = HideFlags.HideAndDontSave
                 };
-                _instance = obj.AddComponent<T>();
-                Debug.Log(_instance);
-                return _instance;
+                instance = obj.AddComponent<T>();
+                return instance;
             }
         }
 
+        void Awake() {
+            if (instance != null && instance != this) {
+                Destroy(this);
+            }
+            var obj = new GameObject {
+                name = typeof(T).Name,
+                hideFlags = HideFlags.HideAndDontSave
+            };
+            instance = obj.AddComponent<T>();
+        }
+
         void OnDestroy() {
-            if (_instance == this) {
-                _instance = null;
+            if (instance == this) {
+                instance = null;
             }
         }
 

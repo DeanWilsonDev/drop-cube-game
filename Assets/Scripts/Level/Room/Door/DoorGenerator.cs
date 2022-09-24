@@ -1,30 +1,42 @@
+using BlackPad.Core.Utilities;
+using BlackPad.DropCube.Core;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level
 {
-    public class DoorGenerator {
-
-        readonly Component parent;
+    public class DoorGenerator: Generator, IGenerator<Door> {
         readonly float size;
-
-        public DoorGenerator(Component floor, float doorSize) {
-            parent = floor;
-            size = doorSize;
+        readonly Floor floor;
+        const string DoorParentName = "Door";
+        Door doorComponent;
+        public DoorGenerator(Component parent, float size, Floor floor) {
+            Parent = parent;
+            this.size = size;
+            this.floor = floor;
         }
         
-        public Door InitializeDoor() {
-            var parentTransform = parent.transform;
-                
-            var doorParent = new GameObject() {
-                transform = {
-                    position = parentTransform.position,
-                    localScale = new Vector3(size, 1, 5),
-                    parent = parentTransform
-                },
-                name = "Door"
-            };
-            var door = doorParent.AddComponent<Door>();
-            return door;
+        public void SetPosition() {
+            if (doorComponent == null) return;
+            doorComponent.transform.position = new Vector3(
+                Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+                    .x
+                + Utilities.GameObjectWidth(floor.floorGameObjects[0]) / 2
+                + size / 2,
+                Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+                    .y,
+                Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+                    .z
+            );
+        }
+        
+        public Door Initialize() {
+            doorComponent = this.Initialize<Door>(DoorParentName);
+            doorComponent.transform.localScale = new Vector3(size, 1, 5);
+            return doorComponent;
+        }
+
+        public void SetupPrefab(GameObject doorPrefab) {
+            SetupPrefab(doorComponent.gameObject, doorPrefab);
         }
     }
 }
