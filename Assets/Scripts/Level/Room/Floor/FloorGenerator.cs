@@ -2,12 +2,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level {
-  public static class FloorGenerator {
+  public class FloorGenerator {
 
     const float MinOffset = 0;
     const float MaxOffset = 3;
     
-    public static GameObject SetupFloorPortion(Component parent, float size) {
+    // Switch switch;
+    readonly Component parent;
+
+    float doorSize;
+    readonly float availableSpace;
+
+    public FloorGenerator(Component parent, float availableSpace, float doorSize) {
+      this.parent = parent;
+      this.availableSpace = availableSpace;
+      this.doorSize = doorSize;
+    }
+
+    public GameObject SetupFloorPortion(float size) {
       var floorSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
       var parentTransform = parent.transform;
       floorSide.transform.position = parentTransform.position;
@@ -18,45 +30,47 @@ namespace BlackPad.DropCube.Level {
 
     public static bool IsRandomlySelected(int randomValue) => randomValue < 50;
 
-    public static float GetValueIfTrue(bool flag, float value) => 
+    public static float GetValueIfTrue(bool flag, float value) =>
       flag
         ? value
         : 0;
-    
+
     static bool DetermineIfRandomlySelected() {
       var randomSelection = Random.Range(0, 100);
       return IsRandomlySelected(randomSelection);
     }
 
-    public static float[] SelectDoorSide(float availableSpace, GameObject door) {
+    public float[] SelectDoorSide() {
       var isSelected = DetermineIfRandomlySelected();
       var doorFlags = new[] {
         isSelected,
         !isSelected
       };
-      return ApplyDoorAllocation(availableSpace, doorFlags, door);
+      return ApplyDoorAllocation(doorFlags);
     }
 
-    public static float[] ApplyDoorAllocation(float availableSpace, bool[] doorFlags, GameObject door) {
+    float[] ApplyDoorAllocation(IReadOnlyList<bool> doorFlags) {
+      SetupDoor();
       var floorAllocation = new float[2];
       for (var i = 0; i < 2; i++) {
         floorAllocation[i] = availableSpace / 2;
-        floorAllocation[i] -= GetValueIfTrue(doorFlags[i], door.transform.localScale.x);
+        floorAllocation[i] -= GetValueIfTrue(doorFlags[i], doorSize);
       }
+
       return floorAllocation;
     }
-
 
     public static float[] ApplyOffset(float offset, bool[] offsetFlags, float[] floorAllocation) {
       for (var i = 0; i < 2; i++) {
-        floorAllocation[i] = offsetFlags[i] 
-          ? floorAllocation[i] - offset 
+        floorAllocation[i] = offsetFlags[i]
+          ? floorAllocation[i] - offset
           : floorAllocation[i] + offset;
       }
+
       return floorAllocation;
     }
-    
-    public static float[] SelectOffsetSide(float[] floorAllocation, float availableSpace) {
+
+    float[] SelectOffsetSide(float[] floorAllocation) {
       var isSelected = DetermineIfRandomlySelected();
       var offsetFlags = new[] {
         isSelected,
@@ -66,12 +80,12 @@ namespace BlackPad.DropCube.Level {
       return ApplyOffset(offset, offsetFlags, floorAllocation);
     }
 
-    public static GameObject[] GenerateFloorObjects(Component parent, float availableSpace, GameObject door) {
+    public GameObject[] GenerateFloorObjects() {
       var floors = new GameObject[2];
-      var floorAllocation = SelectDoorSide(availableSpace, door);
-      var offsetFloorAllocation = SelectOffsetSide(floorAllocation, availableSpace);
+      var floorAllocation = SelectDoorSide();
+      var offsetFloorAllocation = SelectOffsetSide(floorAllocation);
       for (var i = 0; i < 2; i++) {
-        floors[i] = SetupFloorPortion(parent, offsetFloorAllocation[i]);
+        floors[i] = SetupFloorPortion(offsetFloorAllocation[i]);
         floors[i]
           .name = "Floor" + (i + 1);
       }
@@ -79,7 +93,7 @@ namespace BlackPad.DropCube.Level {
       return floors;
     }
 
-    public static Vector3 GetLeftSideTransformPosition(GameObject leftSide) {
+    static Vector3 GetLeftSideTransformPosition(GameObject leftSide) {
       var leftSideTransformPosition = leftSide.transform.position;
       var leftSideLocalScale = leftSide.transform.localScale;
       return new Vector3(
@@ -89,75 +103,78 @@ namespace BlackPad.DropCube.Level {
       );
     }
 
-    static Vector3 GetRightSideTransformPosition(
-      Vector3 parentPosition,
+    Vector3 GetRightSideTransformPosition(
       GameObject rightSide,
-      GameObject leftSide,
-      float doorSize
-    ) => new (
+      GameObject leftSide
+    ) {
+      var position = parent.transform.position;
+      return new Vector3(
         FindOriginPoint(leftSide)
         + leftSide.transform.localScale.x
         + doorSize
-         + (rightSide.transform.localScale.x / 2),
-        parentPosition.y,
-        parentPosition.z
+        + (rightSide.transform.localScale.x / 2),
+        position.y,
+        position.z
       );
-    
+    }
+
     static float FindOriginPoint(GameObject gObject) => gObject.transform.position.x - (gObject.transform.localScale.x / 2);
 
-    public static IEnumerable<GameObject> GenerateFloorsAndDoors(
-      Component parent,
-      float availableSpace,
-      GameObject door
-    ) {
-      var floors = GenerateFloorObjects(parent, availableSpace, door);
-      
+    IEnumerable<GameObject> GenerateFloorsAndDoors(Component door) {
+      var floors = GenerateFloorObjects();
+
       var leftSide = floors[0];
       var rightSide = floors[1];
-      
+
       var leftSideTransformPosition = GetLeftSideTransformPosition(leftSide);
       leftSide.transform.position = leftSideTransformPosition;
-      var doorLocalScale = door.transform.localScale;
+      doorSize = door.transform.localScale.x;
       rightSide.transform.position = GetRightSideTransformPosition(
-        parent.transform.position,
         rightSide,
-        leftSide,
-        doorLocalScale.x
+        leftSide
       );
 
       door.transform.position = new Vector3(
-        leftSideTransformPosition.x + (leftSide.transform.localScale.x / 2) + (doorLocalScale.x / 2),
+        leftSideTransformPosition.x + (leftSide.transform.localScale.x / 2) + (doorSize / 2),
         leftSideTransformPosition.y,
         leftSideTransformPosition.z
       );
-      
+
       return new[] {
         leftSide, rightSide
       };
     }
 
-    public static GameObject GenerateFloor(Component parent, float availableSpace, GameObject door) {
-      var floorObjects = GenerateFloorsAndDoors(parent, availableSpace, door);
+    GameObject GenerateFloor() {
+      var door = SetupDoor();
+      var floorObjects = GenerateFloorsAndDoors(door);
       var floor = new GameObject {
         name = "Floor"
       };
       floor.AddComponent<Floor>();
       foreach (var floorObject in floorObjects) {
         floorObject.transform.parent = floor.transform;
-        
+
         floor
           .GetComponent<Floor>()
           .floorGameObjects
           .Add(floorObject);
       }
+
       return floor;
     }
 
-    public static Floor InitializeFloor(Component parent, float availableSpace, GameObject door) {
-      var floor = GenerateFloor(parent, availableSpace, door)
+    Door SetupDoor() {
+      var doorGenerator = new DoorGenerator(parent, doorSize);
+      return doorGenerator.InitializeDoor();
+    }
+
+    public Floor InitializeFloor() {
+      var floor = GenerateFloor()
         .GetComponent<Floor>();
       floor.transform.parent = parent.transform;
       return floor;
     }
+
   }
 }

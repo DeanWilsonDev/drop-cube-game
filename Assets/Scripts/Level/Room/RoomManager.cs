@@ -11,10 +11,12 @@ namespace BlackPad.DropCube.Level {
         [SerializeField] float roomHeight = 10f;
 
         [SerializeField] float roomWidth = 50f;
-        public GameObject doorPrefab;
 
+        [SerializeField] float doorSize = 5f;
         
-        
+
+        public float DoorSize => doorSize;
+
         // Start is called before the first frame update
         void Start() {
             var parent = transform;

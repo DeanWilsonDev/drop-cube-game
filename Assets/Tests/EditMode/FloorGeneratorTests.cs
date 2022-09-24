@@ -5,14 +5,30 @@ using FluentAssertions;
 
 public class FloorGeneratorTests : MonoBehaviour
 {
+  [TestFixture] 
   public class SetupFloorPortionTests {
 
+    FloorGenerator floorGenerator;
+
+    [SetUp]
+    public void SetUp() {
+
+      var parent = new GameObject {
+        transform = {
+          position = new Vector3(100, 500, 1000)
+        }
+      }.AddComponent<Room>();
+      
+      const int availableSpace = 25;
+      const float doorSize = 3;
+      floorGenerator = new FloorGenerator(parent, availableSpace, doorSize);
+    } 
+    
     [Test]
     public void ReturnsFloorPortionGameObject() {
+      const float size = 5;
 
-      var parent = new GameObject();
-
-      var actual = FloorGenerator.SetupFloorPortion(parent.transform, 5);
+      var actual = floorGenerator.SetupFloorPortion(size);
 
       actual
         .Should()
@@ -22,13 +38,10 @@ public class FloorGeneratorTests : MonoBehaviour
     [Test]
     public void ReturnsFloorPortionAtParentPosition() {
 
-      var parent = new GameObject {
-        transform = {
-          position = new Vector3(100, 500, 1000)
-        }
-      };
 
-      var actual = FloorGenerator.SetupFloorPortion(parent.transform, 5);
+      const float size = 5;
+
+      var actual = floorGenerator.SetupFloorPortion(size);
 
       actual
         .transform
@@ -40,15 +53,9 @@ public class FloorGeneratorTests : MonoBehaviour
     [Test]
     public void ReturnsFloorPortionOfGivenSize() {
 
-      var parent = new GameObject {
-        transform = {
-          position = new Vector3(100, 500, 1000)
-        }
-      };
+      const float size = 50;
 
-      var size = 50;
-
-      var actual = FloorGenerator.SetupFloorPortion(parent.transform, size);
+      var actual = floorGenerator.SetupFloorPortion(size);
 
       actual
         .transform
@@ -58,6 +65,8 @@ public class FloorGeneratorTests : MonoBehaviour
     }
   }
   public class IsRandomlySelectedTests {
+    
+    
     [Test]
     public void ZeroShouldBeTrue() {
       var actual = FloorGenerator.IsRandomlySelected(0);
@@ -92,7 +101,8 @@ public class FloorGeneratorTests : MonoBehaviour
   }
 
   public class GetValueIfTrueTests {
-
+    
+    
     [Test]
     public void ReturnsZeroIfNotSelected() {
       
@@ -117,18 +127,22 @@ public class FloorGeneratorTests : MonoBehaviour
 
   public class SelectDoorSideTests {
 
+    
+
+    
     [Test]
     public void ReturnDoorAllocatedFloorPortions() {
-
-      const int availableSpace = 25;
-      var door = new GameObject() {
-        transform = {
-          localScale = new Vector3(3,1,1)
-        }
-      };
-      var expected = availableSpace - door.transform.localScale.x;
       
-      var actual = FloorGenerator.SelectDoorSide(availableSpace, door);
+      const int availableSpace = 25;
+      const float doorSize = 3;
+      var room = new GameObject() {
+      }.AddComponent<Room>();
+      
+      var floorGenerator = new FloorGenerator(room, availableSpace, doorSize);
+      
+      const int expected = 22;
+      
+      var actual = floorGenerator.SelectDoorSide();
       var actualTotal = actual[0] + actual[1];
 
       actualTotal
@@ -138,21 +152,21 @@ public class FloorGeneratorTests : MonoBehaviour
   }
   
   public class ApplyOffsetTests {
-
+    
     [Test]
     public void ReturnDoorAllocatedFloorPortions() {
 
-      const int availableSpace = 25;
+
       var floorAllocation = new []{
         12.0f,
         10.0f
       };
-      const float doorSize = 3;
       const float offset = 2f;
       var offsetFlags = new[] {
         true, false
       };
-      const float expected = availableSpace - doorSize;
+      
+      const float expected = 22; // Available Space = 25 - Door Size = 5
       
       var actual = FloorGenerator.ApplyOffset(offset, offsetFlags, floorAllocation);
       var actualTotal = actual[0] + actual[1];
@@ -165,20 +179,20 @@ public class FloorGeneratorTests : MonoBehaviour
   }
 
   public class GenerateFloorObjectsTests {
-
+    
     [Test]
     public void ReturnsFloorsObjectsWithDoor() {
 
 
       var parent = new GameObject() {
         transform = { position = Vector3.zero }
-      };
+      }.AddComponent<Room>();
+      const float availableSpace = 25;
+      const float doorSize = 3;
+
+      var floorGenerator = new FloorGenerator(parent, availableSpace, doorSize);
       
-      var door = new GameObject() {
-        transform = { localScale = new Vector3(3,1,1) }
-      };
-      
-      var actual = FloorGenerator.GenerateFloorObjects(parent.transform, 25, door);
+      var actual = floorGenerator.GenerateFloorObjects();
 
       var actualLength = actual[0]
                            .transform.localScale.x

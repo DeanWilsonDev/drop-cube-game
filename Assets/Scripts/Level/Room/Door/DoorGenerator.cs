@@ -1,19 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level
 {
-    public static class DoorGenerator
-    {
+    public class DoorGenerator {
 
-        public static Door InitializeDoor(Component parent, float doorSize) {
+        readonly Component parent;
+        readonly float size;
+
+        public DoorGenerator(Component floor, float doorSize) {
+            parent = floor;
+            size = doorSize;
+        }
+        
+        public Door InitializeDoor() {
             var parentTransform = parent.transform;
                 
             var doorParent = new GameObject() {
                 transform = {
                     position = parentTransform.position,
-                    localScale = new Vector3(doorSize, 1, 5),
+                    localScale = new Vector3(size, 1, 5),
                     parent = parentTransform
                 },
                 name = "Door"
