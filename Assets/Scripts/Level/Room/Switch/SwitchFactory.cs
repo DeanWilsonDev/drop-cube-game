@@ -7,11 +7,13 @@ namespace BlackPad.DropCube.Level {
     readonly Component parent;
     readonly Floor floor;
     readonly GameObject prefab;
+    readonly Color color;
 
-    public SwitchFactory(Component parent, Floor floor, GameObject prefab) {
+    public SwitchFactory(Component parent, Floor floor, GameObject prefab, Color color) {
       this.parent = parent;
       this.floor = floor;
       this.prefab = prefab;
+      this.color = color;
     }
 
     public Switch Build() {
@@ -25,6 +27,7 @@ namespace BlackPad.DropCube.Level {
         )
         .SetupPrefab()
         .SetPosition()
+        .SetColor(color)
         .GetProduct();
     }
 

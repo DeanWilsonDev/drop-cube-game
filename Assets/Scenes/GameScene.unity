@@ -259,6 +259,7 @@ MonoBehaviour:
   roomHeight: {fileID: 11400000, guid: 84ff806333aa841aa9c3f30046feb095, type: 2}
   roomWidth: {fileID: 11400000, guid: 2c05fec438c5a4286ba2d3e17e22c48e, type: 2}
   doorSize: {fileID: 11400000, guid: 095a59b6778634d9b80cfdb66612ffa3, type: 2}
+  doorSpawnThreshold: {fileID: 11400000, guid: 5b99289c005794509abf37eaede03b30, type: 2}
   doorPrefab: {fileID: 11400000, guid: 5c8aff29905614b558b5ea28b6aa604f, type: 2}
   switchPrefab: {fileID: 11400000, guid: f37f78284c80a47d8bfb8019f58d2a8f, type: 2}
 --- !u!114 &342869671

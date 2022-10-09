@@ -1,3 +1,4 @@
+using System.Linq;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Core;
 using UnityEngine;
@@ -37,6 +38,24 @@ namespace BlackPad.DropCube.Level
 
         public void SetupPrefab(GameObject doorPrefab) {
             SetupPrefab(doorComponent.gameObject, doorPrefab);
+        }
+
+        public void SetColor(Color color) {
+            var colorId = Shader.PropertyToID(
+                "_Color"
+            );
+            var doorRenderers = doorComponent
+                .gameObject
+                .GetComponentsInChildren<Renderer>()
+                .Select(
+                renderer => {
+                    renderer.material.SetColor(
+                        colorId,
+                        color
+                    );
+                    return renderer;
+                }
+            );
         }
     }
 }

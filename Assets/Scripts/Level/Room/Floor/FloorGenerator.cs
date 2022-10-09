@@ -131,5 +131,27 @@ namespace BlackPad.DropCube.Level {
       SetFloorParentAndReference();
     }
 
+    public void SetColor(Color color) {
+      var colorId = Shader.PropertyToID(
+        "_Color"
+      );
+      floorObjects[0]
+        .gameObject
+        .GetComponent<Renderer>()
+        .material
+        .SetColor(
+          colorId,
+          color
+        );
+      floorObjects[1]
+        .gameObject
+        .GetComponent<Renderer>()
+        .material
+        .SetColor(
+          colorId,
+          color
+        );
+    }
+
   }
 }

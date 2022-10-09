@@ -40,5 +40,20 @@ namespace BlackPad.DropCube.Level
         public void SetupPrefab(GameObject prefab) {
             SetupPrefab(switchComponent.gameObject, prefab);
         }
+
+        public void SetColor(Color color) {
+            var colorId = Shader.PropertyToID(
+                "_Color"
+            );
+            switchComponent
+                .gameObject
+                .GetComponentInChildren<Renderer>()
+                .material
+                .SetColor(
+                    colorId,
+                    color
+                );
+
+        }
     }
 }

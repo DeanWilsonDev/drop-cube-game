@@ -31,7 +31,8 @@ namespace BlackPad.DropCube.Level {
       return this;
     }
 
-    public IBuilder<TGenerator, TComponent> BuildPartC() {
+    public IBuilder<TGenerator, TComponent> SetColor(Color color) {
+      this.generator.SetColor(color);
       return this;
     }
 

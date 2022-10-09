@@ -12,10 +12,6 @@ namespace BlackPad.DropCube.Level {
     const string RightWallName = "Right Wall";
     const string BackWallName = "Back Wall";
 
-    readonly int colorId = Shader.PropertyToID(
-      "_Color"
-    );
-
     GameObject walls;
     readonly float roomHeight;
     readonly Component parent;
@@ -39,13 +35,6 @@ namespace BlackPad.DropCube.Level {
         roomWidth,
         roomHeight,
         1
-      );
-
-      var renderer = backWallObject.GetComponent<Renderer>();
-      
-      renderer.material.SetColor(
-        colorId,
-        Color.black
       );
       backWallObject.transform.parent = parent.transform;
       return backWallObject.AddComponent<BackWall>();
@@ -84,15 +73,15 @@ namespace BlackPad.DropCube.Level {
       walls = new GameObject {
         name = WallsParentObjectName
       };
-      
+
       leftWall.transform.parent = walls.transform;
       rightWall.transform.parent = walls.transform;
       backWall.transform.parent = walls.transform;
       walls.transform.parent = parent.transform;
-      
+
       var wallComponent = walls.AddComponent<Wall>();
-      
-      wallComponent.wallGameObjects = new List<GameObject> { 
+
+      wallComponent.wallGameObjects = new List<GameObject> {
         leftWall.gameObject,
         rightWall.gameObject,
         backWall.gameObject
@@ -109,15 +98,17 @@ namespace BlackPad.DropCube.Level {
     public void SetupPrefab(GameObject prefab) { }
 
     public void SetPosition() {
-      
       rightWall.transform.position = new Vector3(
         Utilities.GameObjectTransformPosition(
-          parent.gameObject
-        ).x + roomWidth,
+            parent.gameObject
+          )
+          .x
+        + roomWidth,
         rightWall.transform.position.y,
         Utilities.GameObjectTransformPosition(
-          parent.gameObject
-        ).z
+            parent.gameObject
+          )
+          .z
       );
 
       backWall.transform.position = new Vector3(
@@ -137,6 +128,38 @@ namespace BlackPad.DropCube.Level {
           .z
         + 2.5f
       );
+    }
+
+    public void SetColor(Color color) {
+      var colorId = Shader.PropertyToID(
+        "_Color"
+      );
+      backWall
+        .gameObject
+        .GetComponent<Renderer>()
+        .material
+        .SetColor(
+          colorId,
+          color
+        );
+
+      leftWall
+        .gameObject
+        .GetComponent<Renderer>()
+        .material
+        .SetColor(
+          colorId,
+          color
+        );
+
+      rightWall
+        .gameObject
+        .GetComponent<Renderer>()
+        .material
+        .SetColor(
+          colorId,
+          color
+        );
     }
 
   }

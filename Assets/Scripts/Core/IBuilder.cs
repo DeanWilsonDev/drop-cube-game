@@ -9,7 +9,7 @@ namespace BlackPad.DropCube.Core {
 
     IBuilder<TGenerator, TComponent> SetupPrefab();
     IBuilder<TGenerator, TComponent> SetPosition();
-    IBuilder<TGenerator, TComponent> BuildPartC();
+    IBuilder<TGenerator, TComponent> SetColor(Color color);
 
     TComponent GetProduct();
 

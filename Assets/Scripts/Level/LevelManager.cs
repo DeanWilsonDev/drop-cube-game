@@ -75,26 +75,30 @@ namespace BlackPad.DropCube.Level {
       parentComponent,
       floorComponent,
       doorSize.value,
-      doorPrefab.value
+      doorPrefab.value,
+      colorPalette.value[3]
     ).Build();
 
     Switch BuildSwitch(Component parentComponent, Floor floorComponent) => new SwitchFactory(
       parentComponent,
       floorComponent,
-      switchPrefab.value
+      switchPrefab.value,
+      colorPalette.value[4]
     ).Build();
 
     Floor BuildFloor(Component parentComponent) => new FloorFactory(
         parentComponent,
         roomWidth.value,
-        doorSize.value
+        doorSize.value,
+        colorPalette.value[1]
       )
       .Build();
 
     Wall BuildWalls(Component parentComponent) => new WallsFactory(
       parentComponent,
       roomHeight.value,
-      roomWidth.value
+      roomWidth.value,
+      colorPalette.value[0]
     ).Build();
 
   }

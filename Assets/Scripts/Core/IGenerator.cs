@@ -10,5 +10,7 @@ namespace BlackPad.DropCube.Core
 
         void SetPosition();
 
+        void SetColor(Color color);
+
     }
 }

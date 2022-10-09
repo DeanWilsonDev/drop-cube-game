@@ -38,5 +38,7 @@ namespace BlackPad.DropCube.Level
         public void SetupPrefab(GameObject prefab) { 
             // this.SetupPrefab(roomComponent.gameObject, prefab);
         }
+
+        public void SetColor(Color color) { }
     }
 }
