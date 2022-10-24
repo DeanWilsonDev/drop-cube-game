@@ -31,10 +31,12 @@ namespace BlackPad.DropCube.Level {
       return isClosedDoor = Random.Range(0, 100) >= 50;
     }
 
-    public Room SetupRoom(float roomHeight, float roomWidth, List<Color> colorPalette) {
+    public Room Initialize(float roomHeight, float roomWidth, List<Color> colorPalette, Door doorComponent, Switch switchComponent) {
       this.roomHeight = roomHeight;
       this.roomWidth = roomWidth;
       this.colorPalette = colorPalette;
+      this.doorComponent = doorComponent;
+      this.switchComponent = switchComponent;
       return this;
     }
   }

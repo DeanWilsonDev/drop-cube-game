@@ -6,6 +6,6 @@ namespace BlackPad.DropCube.Level
 
         BoxCollider doorCollider;
         GameObject doorObject;
-        
+        Renderer[] prefabRenderers;
     }
 }
