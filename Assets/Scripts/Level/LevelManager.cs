@@ -18,10 +18,10 @@ namespace BlackPad.DropCube.Level {
     [Header(
       "Room"
     )]
-    [SerializeField]
-    FloatVariable roomHeight;
-
+    [SerializeField] FloatVariable roomHeight;
     [SerializeField] FloatVariable roomWidth;
+
+    public float RoomWidth => roomWidth.value;
 
     [Header(
       "Door"
