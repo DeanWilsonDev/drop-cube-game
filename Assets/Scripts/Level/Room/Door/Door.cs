@@ -8,10 +8,17 @@ namespace BlackPad.DropCube.Level.Room.Door
         BoxCollider doorCollider;
         GameObject doorObject;
         Renderer[] prefabRenderers;
-
+        BoxCollider boxCollider;
+        Animation anim;
+        
         void Start()
         {
-            gameObject.AddComponent<BoxCollider>();
+            boxCollider = gameObject.AddComponent<BoxCollider>();
+        }
+
+        public void OpenDoor()
+        {
+            boxCollider.enabled = false;
         }
     }
 }

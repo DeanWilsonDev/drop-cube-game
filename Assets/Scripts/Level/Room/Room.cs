@@ -9,6 +9,7 @@ namespace BlackPad.DropCube.Level.Room {
     // Door Variables
     [Header("Door Variables")]
     [SerializeField] Door.Door doorComponent;
+    public Door.Door DoorComponent => doorComponent;
     [SerializeField] GameObject doorPrefab;
     [SerializeField] float doorSize;
     bool isClosedDoor;
