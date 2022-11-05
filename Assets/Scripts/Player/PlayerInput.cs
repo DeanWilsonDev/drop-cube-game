@@ -11,6 +11,9 @@ namespace BlackPad.DropCube.Player {
     bool isTouching;
     float speed;
     readonly float halfTheWidthOfTheScreen  = Screen.width / 2f;
+    int layerMask;
+    bool leftWallFlag;
+    bool rightWallFlag;
     
     public void Initialize() => speed = 50;
 
@@ -18,6 +21,8 @@ namespace BlackPad.DropCube.Player {
     void Awake() {
       inputManager = InputManager.Instance;
       cameraMain = UnityEngine.Camera.main;
+      layerMask = 1 << 6;
+      // layerMask = ~layerMask;
     }
 
     void Start() => Initialize();
@@ -31,20 +36,36 @@ namespace BlackPad.DropCube.Player {
 
     bool DetectWallInDirection(Vector3 direction)
     {
-      return Physics.Raycast(transform.position, direction, 1);
+      return Physics.Raycast(
+        transform.position, 
+        transform.TransformDirection(direction), 
+        1,
+        layerMask
+      );
     }
 
     float GetPlayerMoveDirection(Vector2 screenPosition)
     {
-      return DetectWallInDirection(Vector3.left) || DetectWallInDirection(Vector3.right)
-        ? 0f
-        : screenPosition.x / halfTheWidthOfTheScreen - 1f;
+      var direction = screenPosition.x / halfTheWidthOfTheScreen - 1f;
+      leftWallFlag = DetectWallInDirection(Vector3.left);
+      rightWallFlag = DetectWallInDirection(Vector3.right);
+
+      return direction switch
+      {
+        > 0 when !rightWallFlag => direction,
+        < 0 when !leftWallFlag => direction,
+        _ => 0
+      };
     }
     
     void Move(Vector2 screenPosition) {
       var position = transform.position;
       var direction = GetPlayerMoveDirection(screenPosition);
-      position = Vector3.MoveTowards(position, new Vector3(position.x + direction, position.y, position.z), speed * Time.deltaTime);
+      position = Vector3.MoveTowards(
+        position, 
+        new Vector3(position.x + direction, position.y, position.z), 
+        speed * Time.deltaTime
+        );
       transform.position = position;
     }
 

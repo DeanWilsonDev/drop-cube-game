@@ -15,6 +15,9 @@ namespace BlackPad.DropCube.Player
         // Start is called before the first frame update
         void Start() {
             rb ??= gameObject.AddComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezeRotation 
+                             | RigidbodyConstraints.FreezePositionX 
+                             | RigidbodyConstraints.FreezePositionZ;
         }
 
         // Update is called once per frame
