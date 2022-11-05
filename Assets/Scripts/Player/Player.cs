@@ -15,7 +15,6 @@ namespace BlackPad.DropCube.Player
         // Start is called before the first frame update
         void Start() {
             rb ??= gameObject.AddComponent<Rigidbody>();
-            Debug.Log(rb);
         }
 
         // Update is called once per frame

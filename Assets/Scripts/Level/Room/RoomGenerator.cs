@@ -1,9 +1,8 @@
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Core;
-using UnityEditor;
 using UnityEngine;
 
-namespace BlackPad.DropCube.Level
+namespace BlackPad.DropCube.Level.Room
 {
     public class RoomGenerator : Generator, IGenerator<Room> {
         

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BlackPad.DropCube.Level {
+namespace BlackPad.DropCube.Level.Room.Wall {
   public class WallsFactory {
 
     readonly Component parent;

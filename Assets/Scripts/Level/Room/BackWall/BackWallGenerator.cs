@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace BlackPad.DropCube.Level
+namespace BlackPad.DropCube.Level.Room.BackWall
 {
     public static class BackWallGenerator
     {
 
         static readonly int Color1 = Shader.PropertyToID("_Color");
 
-        public static BackWall InitializeBackWall(Component parent, float roomHeight, float totalRoomWidth) {
+        public static Wall.BackWall InitializeBackWall(Component parent, float roomHeight, float totalRoomWidth) {
             var backWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             backWall.name = "Back Wall";
             backWall.transform.localScale = new Vector3(totalRoomWidth, roomHeight, 1);
@@ -19,9 +19,9 @@ namespace BlackPad.DropCube.Level
             );
             var renderer = backWall.GetComponent<Renderer>();
             renderer.material.SetColor(Color1, Color.black);
-            backWall.AddComponent<BackWall>();
+            backWall.AddComponent<Wall.BackWall>();
             backWall.transform.parent = parent.transform;
-            return backWall.GetComponent<BackWall>();
+            return backWall.GetComponent<Wall.BackWall>();
         }
     }
 }

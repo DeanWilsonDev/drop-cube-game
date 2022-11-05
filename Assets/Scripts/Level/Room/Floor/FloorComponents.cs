@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace BlackPad.DropCube.Level
+namespace BlackPad.DropCube.Level.Room.Floor
 {
     public struct FloorComponents {
-      public Door DoorComponent;
-      public Switch SwitchComponent;
+      public Door.Door DoorComponent;
+      public Level.Switch SwitchComponent;
     }
 }

@@ -1,18 +1,17 @@
-using System;
 using System.Linq;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Core;
 using UnityEngine;
 
-namespace BlackPad.DropCube.Level {
+namespace BlackPad.DropCube.Level.Room.Door {
   public class DoorGenerator : Generator, IGenerator<Door> {
 
     readonly float size;
-    readonly Floor floor;
+    readonly Floor.Floor floor;
     const string DoorParentName = "Door";
     Door doorComponent;
 
-    public DoorGenerator(Component parent, float size, Floor floor) {
+    public DoorGenerator(Component parent, float size, Floor.Floor floor) {
       Parent = parent;
       this.size = size;
       this.floor = floor;

@@ -1,5 +1,10 @@
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Data;
+using BlackPad.DropCube.Level.Room;
+using BlackPad.DropCube.Level.Room.Door;
+using BlackPad.DropCube.Level.Room.Floor;
+using BlackPad.DropCube.Level.Room.Switch;
+using BlackPad.DropCube.Level.Room.Wall;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level {
@@ -63,7 +68,7 @@ namespace BlackPad.DropCube.Level {
         var wallsComponent = BuildWalls(
           roomObject
         );
-        roomObject.GetComponent<Room>()
+        roomObject.GetComponent<Room.Room>()
           .Initialize(
             roomWidth.value,
             roomHeight.value,
@@ -74,7 +79,7 @@ namespace BlackPad.DropCube.Level {
       }
     }
 
-    Room BuildRoom() => new RoomFactory(
+    Room.Room BuildRoom() => new RoomFactory(
       transform,
       roomHeight.value,
       roomNumber

@@ -3,7 +3,7 @@ using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Core;
 using UnityEngine;
 
-namespace BlackPad.DropCube.Level {
+namespace BlackPad.DropCube.Level.Room.Wall {
 
   public class WallGenerator : Generator, IGenerator<Wall> {
 

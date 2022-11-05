@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using UnityEngine;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Core;
+using UnityEngine;
 
-namespace BlackPad.DropCube.Level {
+namespace BlackPad.DropCube.Level.Room.Floor {
   public class FloorGenerator : Generator, IGenerator<Floor> {
 
     const float MIN_OFFSET = 0;

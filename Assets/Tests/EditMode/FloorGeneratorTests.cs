@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BlackPad.DropCube.Level;
+using BlackPad.DropCube.Level.Room.Floor;
 using NUnit.Framework;
 using UnityEngine;
 using FluentAssertions;

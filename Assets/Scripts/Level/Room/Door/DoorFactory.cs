@@ -1,18 +1,18 @@
 using UnityEngine;
 
-namespace BlackPad.DropCube.Level {
+namespace BlackPad.DropCube.Level.Room.Door {
 
   public class DoorFactory {
 
     readonly Component parent;
-    readonly Floor floor;
+    readonly Floor.Floor floor;
     readonly float doorSize;
     readonly GameObject prefab;
     readonly Color color;
 
     public DoorFactory(
       Component parent,
-      Floor floor,
+      Floor.Floor floor,
       float doorSize,
       GameObject prefab,
       Color color

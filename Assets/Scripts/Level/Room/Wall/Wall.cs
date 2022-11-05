@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+namespace BlackPad.DropCube.Level.Room.Wall
 {
-  public List<GameObject> wallGameObjects = new ();
+    public class Wall : MonoBehaviour
+    {
+        public List<GameObject> wallGameObjects = new ();
+    }
+
 }

@@ -1,17 +1,16 @@
-using System.Collections.Generic;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Core;
 using UnityEngine;
 
-namespace BlackPad.DropCube.Level
+namespace BlackPad.DropCube.Level.Room.Switch
 {
-    public class SwitchGenerator: Generator, IGenerator<Switch> {
+    public class SwitchGenerator: Generator, IGenerator<Level.Switch> {
 
         const string SwitchParentName = "Switch";
-        readonly Floor floor;
-        Switch switchComponent;
+        readonly Floor.Floor floor;
+        Level.Switch switchComponent;
         
-        public SwitchGenerator(Component parent, Floor floor) {
+        public SwitchGenerator(Component parent, Floor.Floor floor) {
             Parent = parent;
             this.floor = floor;
         }
@@ -32,8 +31,8 @@ namespace BlackPad.DropCube.Level
                 : SwitchPosition(floor.floorGameObjects[1]);
         }
 
-        public Switch Initialize() {
-            switchComponent = Initialize<Switch>(SwitchParentName);
+        public Level.Switch Initialize() {
+            switchComponent = Initialize<Level.Switch>(SwitchParentName);
             return switchComponent;
         }
 
