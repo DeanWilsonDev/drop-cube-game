@@ -35,8 +35,7 @@ namespace BlackPad.DropCube.Level {
           generatedObject.transform.position,
           Quaternion.identity
         );
-
-        generatedObject.AddComponent<BoxCollider>();
+        
         prefabInstance.transform.parent = generatedObject.transform;
       }
       catch (NullReferenceException nullReferenceException) {

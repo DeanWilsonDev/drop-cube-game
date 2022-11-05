@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level.Room.Door
@@ -7,5 +8,10 @@ namespace BlackPad.DropCube.Level.Room.Door
         BoxCollider doorCollider;
         GameObject doorObject;
         Renderer[] prefabRenderers;
+
+        void Start()
+        {
+            gameObject.AddComponent<BoxCollider>();
+        }
     }
 }
