@@ -6,13 +6,14 @@ namespace BlackPad.DropCube.Player
     public class PlayerManager : Singleton<PlayerManager> {
 
         public GameObject player;
-
+        [SerializeField] float fallSpeed;
+        
         void Initialize() {
             player = GameObject.CreatePrimitive(PrimitiveType.Cube);
             player.name = "Cube";
-            var rb = player.AddComponent<Rigidbody>();
-            rb.useGravity = true;
             var playerInput = player.AddComponent<PlayerInput>();
+            var playerComponent = player.AddComponent<Player>();
+            playerComponent.Initialize(fallSpeed);
             playerInput.Initialize();
             player.transform.position = Vector3.zero;
         }

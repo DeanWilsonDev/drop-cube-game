@@ -1,40 +1,53 @@
 using BlackPad.DropCube.Controls;
+using BlackPad.DropCube.Level;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Player {
   public class PlayerInput : MonoBehaviour {
 
-    InputManager _inputManager;
-    UnityEngine.Camera _cameraMain;
-    bool _isTouching;
-    float _speed; 
+    InputManager inputManager;
+    LevelManager levelManager;
+    UnityEngine.Camera cameraMain;
+    bool isTouching;
+    float speed;
+    readonly float halfTheWidthOfTheScreen  = Screen.width / 2f;
     
-
-    public void Initialize() => _speed = 50;
+    public void Initialize() => speed = 50;
 
     // Start is called before the first frame update
     void Awake() {
-      _inputManager = InputManager.Instance;
-      _cameraMain = UnityEngine.Camera.main;
+      inputManager = InputManager.Instance;
+      cameraMain = UnityEngine.Camera.main;
     }
 
     void Start() => Initialize();
 
     void OnEnable() {
-      _inputManager.OnTouchStart += Move;
-      _inputManager.OnTouchEnd += StopMoving;
+      inputManager.OnTouchStart += Move;
+      inputManager.OnTouchEnd += StopMoving;
     }
 
-    void OnDisable() => _inputManager.OnTouchStart -= Move;
+    void OnDisable() => inputManager.OnTouchStart -= Move;
 
+    bool DetectWallInDirection(Vector3 direction)
+    {
+      return Physics.Raycast(transform.position, direction, 1);
+    }
+
+    float GetPlayerMoveDirection(Vector2 screenPosition)
+    {
+      return DetectWallInDirection(Vector3.left) || DetectWallInDirection(Vector3.right)
+        ? 0f
+        : screenPosition.x / halfTheWidthOfTheScreen - 1f;
+    }
+    
     void Move(Vector2 screenPosition) {
-      var screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, _cameraMain.nearClipPlane);
-      var worldCoordinates = _cameraMain.ScreenToWorldPoint(screenCoordinates);
       var position = transform.position;
-      var destination = new Vector3(worldCoordinates.x, position.y, 0);
-      position = Vector3.MoveTowards(position, destination, _speed * Time.deltaTime);
+      var direction = GetPlayerMoveDirection(screenPosition);
+      position = Vector3.MoveTowards(position, new Vector3(position.x + direction, position.y, position.z), speed * Time.deltaTime);
       transform.position = position;
     }
+
 
     void StopMoving() {}
 

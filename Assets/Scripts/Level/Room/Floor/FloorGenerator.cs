@@ -6,11 +6,11 @@ using BlackPad.DropCube.Core;
 namespace BlackPad.DropCube.Level {
   public class FloorGenerator : Generator, IGenerator<Floor> {
 
-    const float MinOffset = 0;
-    const float MaxOffset = 3;
-    const string FloorGameObjectName = "Floor";
-    const int LeftSide = 0;
-    const int RightSide = 1;
+    const float MIN_OFFSET = 0;
+    const float MAX_OFFSET = 3;
+    const string FLOOR_GAME_OBJECT_NAME = "Floor";
+    const int LEFT_SIDE = 0;
+    const int RIGHT_SIDE = 1;
 
     Floor floor;
     GameObject[] floorObjects;
@@ -24,7 +24,7 @@ namespace BlackPad.DropCube.Level {
       this.doorSize = doorSize;
     }
 
-    public GameObject SetupFloorPortion(float size) {
+    GameObject SetupFloorPortion(float size) {
       var floorSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
       var parentTransform = Parent.transform;
       floorSide.transform.position = parentTransform.position;
@@ -33,7 +33,7 @@ namespace BlackPad.DropCube.Level {
       return floorSide;
     }
 
-    public float[] SelectDoorSide() {
+    float[] SelectDoorSide() {
       var isSelected = Utilities.DetermineIfRandomlySelected(50);
       var doorFlags = new[] {
         isSelected,
@@ -52,7 +52,7 @@ namespace BlackPad.DropCube.Level {
       return floorAllocation;
     }
 
-    public static float[] ApplyOffset(float offset, bool[] offsetFlags, float[] floorAllocation) {
+    static float[] ApplyOffset(float offset, bool[] offsetFlags, float[] floorAllocation) {
       for (var i = 0; i < 2; i++) {
         floorAllocation[i] = offsetFlags[i]
           ? floorAllocation[i] - offset
@@ -68,7 +68,7 @@ namespace BlackPad.DropCube.Level {
         isSelected,
         !isSelected
       };
-      var offset = Random.Range(MinOffset, roomWidth / MaxOffset);
+      var offset = Random.Range(MIN_OFFSET, roomWidth / MAX_OFFSET);
       return ApplyOffset(offset, offsetFlags, floorAllocation);
     }
 
@@ -79,28 +79,28 @@ namespace BlackPad.DropCube.Level {
       for (var i = 0; i < 2; i++) {
         floorObjects[i] = SetupFloorPortion(offsetFloorAllocation[i]);
         floorObjects[i]
-          .name = FloorGameObjectName + (i + 1);
+          .name = FLOOR_GAME_OBJECT_NAME + (i + 1);
       }
     }
 
     Vector3 GetLeftSideTransformPosition() =>
       new(
-        Utilities.GameObjectTransformPosition(floorObjects[LeftSide])
+        Utilities.GameObjectTransformPosition(floorObjects[LEFT_SIDE])
           .x
-        + Utilities.GameObjectWidth(floorObjects[LeftSide]) / 2,
-        Utilities.GameObjectTransformPosition(floorObjects[LeftSide])
+        + Utilities.GameObjectWidth(floorObjects[LEFT_SIDE]) / 2,
+        Utilities.GameObjectTransformPosition(floorObjects[LEFT_SIDE])
           .y,
-        Utilities.GameObjectTransformPosition(floorObjects[LeftSide])
+        Utilities.GameObjectTransformPosition(floorObjects[LEFT_SIDE])
           .z
       );
 
     Vector3 GetRightSideTransformPosition() {
       var position = Parent.transform.position;
       return new Vector3(
-        Utilities.FindOriginPoint(floorObjects[LeftSide])
-        + Utilities.GameObjectWidth(floorObjects[LeftSide])
+        Utilities.FindOriginPoint(floorObjects[LEFT_SIDE])
+        + Utilities.GameObjectWidth(floorObjects[LEFT_SIDE])
         + doorSize
-        + (Utilities.GameObjectWidth(floorObjects[RightSide]) / 2),
+        + (Utilities.GameObjectWidth(floorObjects[RIGHT_SIDE]) / 2),
         position.y,
         position.z
       );
@@ -113,16 +113,20 @@ namespace BlackPad.DropCube.Level {
           .Add(floorObject);
       }
     }
+
+    public Floor GetGeneratedFloor() {
+      return floor;
+    }
     
     public void SetPosition() {
-      floorObjects[LeftSide]
+      floorObjects[LEFT_SIDE]
         .transform.position = GetLeftSideTransformPosition();
-      floorObjects[RightSide]
+      floorObjects[RIGHT_SIDE]
         .transform.position = GetRightSideTransformPosition();
     }
 
     public Floor Initialize() {
-      floor = this.Initialize<Floor>(FloorGameObjectName);
+      floor = this.Initialize<Floor>(FLOOR_GAME_OBJECT_NAME);
       return floor;
     }
 
@@ -152,6 +156,5 @@ namespace BlackPad.DropCube.Level {
           color
         );
     }
-
   }
 }

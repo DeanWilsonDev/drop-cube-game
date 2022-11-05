@@ -18,10 +18,10 @@ namespace BlackPad.DropCube.Level {
     [Header(
       "Room"
     )]
-    [SerializeField]
-    FloatVariable roomHeight;
-
+    [SerializeField] FloatVariable roomHeight;
     [SerializeField] FloatVariable roomWidth;
+
+    public float RoomWidth => roomWidth.value;
 
     [Header(
       "Door"
@@ -41,6 +41,9 @@ namespace BlackPad.DropCube.Level {
 
     // Start is called before the first frame update
     void Start() {
+      Door doorComponent = null;
+      Switch switchComponent = null;
+      
       for (var i = 0; i < startingRoomAmount.value; i++) {
         isDoorClosed = Utilities.DetermineIfRandomlySelected(doorSpawnThreshold.value);
         var roomObject = BuildRoom();
@@ -48,11 +51,11 @@ namespace BlackPad.DropCube.Level {
           roomObject
         );
         if (isDoorClosed) {
-          var doorComponent = BuildDoor(
+          doorComponent = BuildDoor(
             roomObject,
             floorComponent
           );
-          var switchComponent = BuildSwitch(
+          switchComponent = BuildSwitch(
             roomObject,
             floorComponent
           );
@@ -60,7 +63,13 @@ namespace BlackPad.DropCube.Level {
         var wallsComponent = BuildWalls(
           roomObject
         );
-
+        roomObject.GetComponent<Room>()
+          .Initialize(
+            roomWidth.value,
+            roomHeight.value,
+            colorPalette.value,
+            doorComponent,
+            switchComponent);
         roomNumber++;
       }
     }
