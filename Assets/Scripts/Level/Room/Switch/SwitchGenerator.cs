@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace BlackPad.DropCube.Level.Room.Switch
 {
-    public class SwitchGenerator: Generator, IGenerator<Level.Switch> {
+    public class SwitchGenerator: Generator, IGenerator<Switch> {
 
         const string SwitchParentName = "Switch";
         readonly Floor.Floor floor;
-        Level.Switch switchComponent;
+        Switch switchComponent;
         
         public SwitchGenerator(Component parent, Floor.Floor floor) {
             Parent = parent;
@@ -31,8 +31,8 @@ namespace BlackPad.DropCube.Level.Room.Switch
                 : SwitchPosition(floor.floorGameObjects[1]);
         }
 
-        public Level.Switch Initialize() {
-            switchComponent = Initialize<Level.Switch>(SwitchParentName);
+        public Switch Initialize() {
+            switchComponent = Initialize<Switch>(SwitchParentName);
             return switchComponent;
         }
 
@@ -52,7 +52,6 @@ namespace BlackPad.DropCube.Level.Room.Switch
                     colorId,
                     color
                 );
-
         }
     }
 }

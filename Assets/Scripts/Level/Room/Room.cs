@@ -15,7 +15,7 @@ namespace BlackPad.DropCube.Level.Room {
     
     [Header("Switch")]
     [SerializeField] GameObject switchPrefab;
-    [SerializeField] Level.Switch switchComponent;
+    [SerializeField] Switch.Switch switchComponent;
     
     [Header("Room Variables")]
     [SerializeField] float roomHeight ;
@@ -31,7 +31,7 @@ namespace BlackPad.DropCube.Level.Room {
       return isClosedDoor = Random.Range(0, 100) >= 50;
     }
 
-    public Room Initialize(float roomHeight, float roomWidth, List<Color> colorPalette, Door.Door doorComponent, Level.Switch switchComponent) {
+    public Room Initialize(float roomHeight, float roomWidth, List<Color> colorPalette, Door.Door doorComponent, Switch.Switch switchComponent) {
       this.roomHeight = roomHeight;
       this.roomWidth = roomWidth;
       this.colorPalette = colorPalette;

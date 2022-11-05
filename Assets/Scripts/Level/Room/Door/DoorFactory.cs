@@ -9,7 +9,8 @@ namespace BlackPad.DropCube.Level.Room.Door {
     readonly float doorSize;
     readonly GameObject prefab;
     readonly Color color;
-
+    readonly LevelObjectBuilder<DoorGenerator, Door> doorBuilder;
+    
     public DoorFactory(
       Component parent,
       Floor.Floor floor,
@@ -22,23 +23,25 @@ namespace BlackPad.DropCube.Level.Room.Door {
       this.doorSize = doorSize;
       this.prefab = prefab;
       this.color = color;
-    }
-
-    public Door Build() {
+      
       var doorGenerator = new DoorGenerator(
         parent,
         doorSize,
         floor
       );
-      return new LevelObjectBuilder<DoorGenerator, Door>(
-          doorGenerator,
-          prefab
-        )
+
+      doorBuilder = new LevelObjectBuilder<DoorGenerator, Door>(
+        doorGenerator,
+        prefab
+      );
+    }
+
+    public Door Build() {
+      return doorBuilder
         .SetupPrefab()
         .SetPosition()
         .SetColor(color)
         .GetProduct();
     }
-
   }
 }

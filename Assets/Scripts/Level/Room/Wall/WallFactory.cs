@@ -7,27 +7,31 @@ namespace BlackPad.DropCube.Level.Room.Wall {
     readonly float roomHeight;
     readonly float roomWidth;
     readonly Color color;
-
+    readonly LevelObjectBuilder<WallGenerator, Wall> wallBuilder;
+    
     public WallsFactory(Component parent, float roomHeight, float roomWidth, Color color) {
       this.parent = parent;
       this.roomHeight = roomHeight;
       this.roomWidth = roomWidth;
       this.color = color;
-    }
-
-    public Wall Build() {
+      
       var wallGenerator = new WallGenerator(
         parent,
         roomHeight,
         roomWidth
       );
-      return new LevelObjectBuilder<WallGenerator, Wall>(
-          wallGenerator,
-          null
-        ).SetPosition()
+
+      wallBuilder = new LevelObjectBuilder<WallGenerator, Wall>(
+        wallGenerator,
+        null
+      );
+    }
+
+    public Wall Build() {
+      return wallBuilder
+        .SetPosition()
         .SetColor(color)
         .GetProduct();
     }
-
   }
 }
