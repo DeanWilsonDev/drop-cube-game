@@ -7,12 +7,13 @@ namespace BlackPad.DropCube.Level.Room.Switch
     public class SwitchGenerator: Generator, IGenerator<Switch> {
 
         const string SwitchParentName = "Switch";
-        readonly Floor.Floor floor;
-        Switch switchComponent;
+        Floor.Floor _floor;
+        Switch _switchComponent;
         
-        public SwitchGenerator(Component parent, Floor.Floor floor) {
+        public SwitchGenerator InitializeGenerator(Component parent, Floor.Floor floor) {
             Parent = parent;
-            this.floor = floor;
+            _floor = floor;
+            return this;
         }
         
         static Vector3 SwitchPosition(GameObject floorObject)
@@ -22,29 +23,29 @@ namespace BlackPad.DropCube.Level.Room.Switch
                + new Vector3(0, 1, 0);
 
         public void SetPosition() {
-            if (switchComponent == null) return;
+            if (_switchComponent == null) return;
             var isLargerFloorObject =
-                Utilities.GameObjectWidth(floor.floorGameObjects[0])
-                >= Utilities.GameObjectWidth(floor.floorGameObjects[1]);
-            switchComponent.transform.position = isLargerFloorObject
-                ? SwitchPosition(floor.floorGameObjects[0])
-                : SwitchPosition(floor.floorGameObjects[1]);
+                Utilities.GameObjectWidth(_floor.floorGameObjects[0])
+                >= Utilities.GameObjectWidth(_floor.floorGameObjects[1]);
+            _switchComponent.transform.position = isLargerFloorObject
+                ? SwitchPosition(_floor.floorGameObjects[0])
+                : SwitchPosition(_floor.floorGameObjects[1]);
         }
 
         public Switch Initialize() {
-            switchComponent = Initialize<Switch>(SwitchParentName);
-            return switchComponent;
+            _switchComponent = Initialize<Switch>(SwitchParentName);
+            return _switchComponent;
         }
 
         public void SetupPrefab(GameObject prefab) {
-            SetupPrefab(switchComponent.gameObject, prefab);
+            SetupPrefab(_switchComponent.gameObject, prefab);
         }
 
         public void SetColor(Color color) {
             var colorId = Shader.PropertyToID(
                 "_Color"
             );
-            switchComponent
+            _switchComponent
                 .gameObject
                 .GetComponentInChildren<Renderer>()
                 .material

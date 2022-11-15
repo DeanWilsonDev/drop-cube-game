@@ -20,7 +20,6 @@ namespace BlackPad.DropCube.Level.Room.Switch
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("Triggered");
                 doorComponent.OpenDoor();
             }
         }

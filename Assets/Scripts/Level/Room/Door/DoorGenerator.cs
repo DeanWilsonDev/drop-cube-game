@@ -6,39 +6,40 @@ using UnityEngine;
 namespace BlackPad.DropCube.Level.Room.Door {
   public class DoorGenerator : Generator, IGenerator<Door> {
 
-    readonly float size;
-    readonly Floor.Floor floor;
+    float _size;
+    Floor.Floor _floor;
     const string DoorParentName = "Door";
-    Door doorComponent;
+    Door _doorComponent;
 
-    public DoorGenerator(Component parent, float size, Floor.Floor floor) {
+    public DoorGenerator InitializeGenerator(Component parent, float size, Floor.Floor floor) {
       Parent = parent;
-      this.size = size;
-      this.floor = floor;
+      _size = size;
+      _floor = floor;
+      return this;
     }
 
     public void SetPosition() {
-      if (doorComponent == null) return;
-      doorComponent.transform.position = new Vector3(
-        Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+      if (_doorComponent == null) return;
+      _doorComponent.transform.position = new Vector3(
+        Utilities.GameObjectTransformPosition(_floor.floorGameObjects[0])
           .x
-        + Utilities.GameObjectWidth(floor.floorGameObjects[0]) / 2
-        + size / 2,
-        Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+        + Utilities.GameObjectWidth(_floor.floorGameObjects[0]) / 2
+        + _size / 2,
+        Utilities.GameObjectTransformPosition(_floor.floorGameObjects[0])
           .y,
-        Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+        Utilities.GameObjectTransformPosition(_floor.floorGameObjects[0])
           .z
       );
     }
 
     public Door Initialize() {
-      doorComponent = this.Initialize<Door>(DoorParentName);
-      doorComponent.transform.localScale = new Vector3(size, 1, 5);
-      return doorComponent;
+      _doorComponent = this.Initialize<Door>(DoorParentName);
+      _doorComponent.transform.localScale = new Vector3(_size, 1, 5);
+      return _doorComponent;
     }
 
     public void SetupPrefab(GameObject doorPrefab) {
-      SetupPrefab(doorComponent.gameObject, doorPrefab);
+      SetupPrefab(_doorComponent.gameObject, doorPrefab);
     }
 
     public void SetColor(Color color) {
@@ -46,7 +47,7 @@ namespace BlackPad.DropCube.Level.Room.Door {
         "_Color"
       );
 
-      foreach (var renderer in doorComponent
+      foreach (var renderer in _doorComponent
                  .gameObject
                  .GetComponentsInChildren<Renderer>()
                  .Select(

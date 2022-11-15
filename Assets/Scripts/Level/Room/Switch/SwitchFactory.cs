@@ -1,36 +1,47 @@
 using UnityEngine;
 using BlackPad.DropCube.Level.Room.Floor;
 
-namespace BlackPad.DropCube.Level.Room.Switch {
-
-  public class SwitchFactory {
-
-    readonly Component parent;
-    readonly Floor.Floor floor;
-    readonly GameObject prefab;
-    readonly Color color;
-    readonly LevelObjectBuilder<SwitchGenerator, Switch> switchBuilder;
-
-    public SwitchFactory(Component parent, Floor.Floor floor, GameObject prefab, Color color)
+namespace BlackPad.DropCube.Level.Room.Switch
+{
+    public class SwitchFactory
     {
-      this.parent = parent;
-      this.floor = floor;
-      this.prefab = prefab;
-      this.color = color;
-      
-      var switchGenerator = new SwitchGenerator(
-        parent,
-        floor
-      );
-      switchBuilder = new LevelObjectBuilder<SwitchGenerator, Switch>(switchGenerator, prefab);
-    }
+        Color _color;
 
-    public Switch Build() {
-      return switchBuilder
-        .SetupPrefab()
-        .SetPosition()
-        .SetColor(color)
-        .GetProduct();
+        readonly LevelObjectBuilder<SwitchGenerator, Switch> _switchBuilder;
+        readonly SwitchGenerator _switchGenerator;
+
+        public SwitchFactory()
+        {
+            _switchBuilder = new LevelObjectBuilder<SwitchGenerator, Switch>();
+            _switchGenerator = new SwitchGenerator();
+        }
+
+
+        public SwitchFactory Initialize(Component parent, Floor.Floor floor,
+            GameObject prefab, Color color)
+        {
+            _color = color;
+
+            _switchGenerator
+                .InitializeGenerator(
+                    parent,
+                    floor
+                );
+
+
+            _switchBuilder.Initialize(
+                _switchGenerator,
+                prefab
+            );
+
+            return this;
+        }
+
+        public Switch Build() =>
+            _switchBuilder
+                .SetupPrefab()
+                .SetPosition()
+                .SetColor(_color)
+                .GetProduct();
     }
-  }
 }

@@ -4,40 +4,53 @@ using UnityEngine;
 
 namespace BlackPad.DropCube.Level.Room
 {
-    public class RoomGenerator : Generator, IGenerator<Room> {
-        
+    public class RoomGenerator
+        : Generator,
+            IGenerator<Room>
+    {
         const string RoomName = "Room";
-        Room roomComponent;
-        readonly float roomHeight;
-        readonly int roomNumber;
-        
-        public RoomGenerator(Component parent, float roomHeight, int roomNumber) {
+        Room _roomComponent;
+        float _roomHeight;
+        int _roomNumber;
+
+        public RoomGenerator InitializeGenerator(
+            Component parent,
+            float roomHeight,
+            int roomNumber
+        )
+        {
             Parent = parent;
-            this.roomHeight = roomHeight;
-            this.roomNumber = roomNumber;
+            _roomHeight = roomHeight;
+            _roomNumber = roomNumber;
+            return this;
         }
 
-        public void SetPosition() {
-            roomComponent.transform.position = new Vector3(
+        public void SetPosition()
+        {
+            _roomComponent.transform.position = new Vector3(
                 Utilities.GameObjectTransformPosition(Parent.gameObject)
                     .x,
                 Utilities.GameObjectTransformPosition(Parent.gameObject)
                     .y
-                - roomHeight * roomNumber,
+                - _roomHeight * _roomNumber,
                 Utilities.GameObjectTransformPosition(Parent.gameObject)
                     .z
             );
         }
-        
-        public Room Initialize() {
-            roomComponent = this.Initialize<Room>(RoomName);
-            return roomComponent;
+
+        public Room Initialize()
+        {
+            _roomComponent = this.Initialize<Room>(RoomName);
+            return _roomComponent;
         }
 
-        public void SetupPrefab(GameObject prefab) { 
+        public void SetupPrefab(GameObject prefab)
+        {
             // this.SetupPrefab(roomComponent.gameObject, prefab);
         }
 
-        public void SetColor(Color color) { }
+        public void SetColor(Color color)
+        {
+        }
     }
 }

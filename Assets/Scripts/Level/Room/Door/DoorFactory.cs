@@ -3,45 +3,46 @@ using UnityEngine;
 namespace BlackPad.DropCube.Level.Room.Door {
 
   public class DoorFactory {
-
-    readonly Component parent;
-    readonly Floor.Floor floor;
-    readonly float doorSize;
-    readonly GameObject prefab;
-    readonly Color color;
-    readonly LevelObjectBuilder<DoorGenerator, Door> doorBuilder;
     
-    public DoorFactory(
+    Color _color;
+    
+    readonly LevelObjectBuilder<DoorGenerator, Door> _doorBuilder;
+    readonly DoorGenerator _doorGenerator;
+    
+    public DoorFactory()
+    {
+      _doorGenerator = new DoorGenerator();
+      _doorBuilder = new LevelObjectBuilder<DoorGenerator, Door>();
+    }
+    
+    public DoorFactory Initialize(
       Component parent,
       Floor.Floor floor,
       float doorSize,
       GameObject prefab,
       Color color
     ) {
-      this.parent = parent;
-      this.floor = floor;
-      this.doorSize = doorSize;
-      this.prefab = prefab;
-      this.color = color;
+      _color = color;
       
-      var doorGenerator = new DoorGenerator(
+      _doorGenerator.InitializeGenerator(
         parent,
         doorSize,
         floor
       );
 
-      doorBuilder = new LevelObjectBuilder<DoorGenerator, Door>(
-        doorGenerator,
+      _doorBuilder.Initialize(
+        _doorGenerator,
         prefab
       );
+      
+      return this;
     }
 
-    public Door Build() {
-      return doorBuilder
+    public Door Build() => 
+      _doorBuilder
         .SetupPrefab()
         .SetPosition()
-        .SetColor(color)
+        .SetColor(_color)
         .GetProduct();
-    }
   }
 }

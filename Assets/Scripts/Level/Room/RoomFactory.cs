@@ -2,34 +2,36 @@ using UnityEngine;
 
 namespace BlackPad.DropCube.Level.Room {
   public class RoomFactory {
-
-    readonly Component parent;
-    readonly float roomHeight;
-    readonly int roomNumber;
-    readonly LevelObjectBuilder<RoomGenerator, Room> roomBuilder;
     
-    public RoomFactory(Component parent, float roomHeight, int roomNumber) {
-      this.parent = parent;
-      this.roomHeight = roomHeight;
-      this.roomNumber = roomNumber;
-
-      var roomGenerator = new RoomGenerator(
+    readonly LevelObjectBuilder<RoomGenerator, Room> _roomBuilder;
+    readonly RoomGenerator _roomGenerator;
+    
+    public RoomFactory()
+    {
+      _roomBuilder = new LevelObjectBuilder<RoomGenerator, Room>();
+      _roomGenerator = new RoomGenerator();
+    }
+    
+    public RoomFactory Initialize(Component parent, float roomHeight, int roomNumber) {
+      
+      _roomGenerator.InitializeGenerator(
         parent,
         roomHeight,
         roomNumber
       );
       
-      roomBuilder = new LevelObjectBuilder<RoomGenerator, Room>(
-        roomGenerator,
+      _roomBuilder.Initialize(
+        _roomGenerator,
         null
       );
+
+      return this;
     }
 
-    public Room Build() {
-      return roomBuilder
+    public Room Build() =>
+      _roomBuilder
         .SetPosition()
-        .GetProduct();
-    }
+        .GetProduct(); 
   }
 }
 

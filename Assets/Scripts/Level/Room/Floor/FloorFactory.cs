@@ -1,34 +1,47 @@
 using UnityEngine;
 
-namespace BlackPad.DropCube.Level.Room.Floor {
-  public class FloorFactory {
+namespace BlackPad.DropCube.Level.Room.Floor
+{
+    public class FloorFactory
+    {
+        Color _color;
+        readonly LevelObjectBuilder<FloorGenerator, Floor> _floorBuilder;
+        readonly FloorGenerator _floorGenerator;
 
-    readonly Component parent;
-    readonly float roomWidth;
-    readonly float doorSize;
-    readonly Color color;
+        public FloorFactory()
+        {
+            _floorBuilder = new LevelObjectBuilder<FloorGenerator, Floor>();
+            _floorGenerator = new FloorGenerator();
+        }
 
-    readonly LevelObjectBuilder<FloorGenerator, Floor> floorBuilder;
-    
-    public FloorFactory(Component parent, float roomWidth, float doorSize, Color color) {
-      this.parent = parent;
-      this.roomWidth = roomWidth;
-      this.doorSize = doorSize;
-      this.color = color;
-      var floorGenerator = new FloorGenerator(
-        parent,
-        roomWidth,
-        doorSize
-      );
-      floorBuilder = new LevelObjectBuilder<FloorGenerator, Floor>(floorGenerator, null);
+        public FloorFactory Initialize(
+            Component parent,
+            float roomWidth,
+            float doorSize,
+            Color color
+        )
+        {
+            _color = color;
+
+            var floorGenerator = _floorGenerator.InitializeGenerator(
+                parent,
+                roomWidth,
+                doorSize
+            );
+
+            _floorBuilder.Initialize(
+                floorGenerator,
+                null
+            );
+
+            return this;
+        }
+
+        public Floor Build() =>
+            _floorBuilder
+                .SetupPrefab()
+                .SetPosition()
+                .SetColor(_color)
+                .GetProduct();
     }
-
-    public Floor Build() {
-      return floorBuilder
-        .SetupPrefab()
-        .SetPosition()
-        .SetColor(color)
-        .GetProduct();
-    }
-  }
 }
