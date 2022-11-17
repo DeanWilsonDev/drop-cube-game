@@ -7,12 +7,12 @@ namespace BlackPad.DropCube.Level.Room.Switch
     {
         Color _color;
 
-        readonly LevelObjectBuilder<SwitchGenerator, Switch> _switchBuilder;
+        readonly LevelObjectBuilder<> _switchLevelObjectBuilder;
         readonly SwitchGenerator _switchGenerator;
 
         public SwitchFactory()
         {
-            _switchBuilder = new LevelObjectBuilder<SwitchGenerator, Switch>();
+            _switchLevelObjectBuilder = new LevelObjectBuilder<>();
             _switchGenerator = new SwitchGenerator();
         }
 
@@ -29,7 +29,7 @@ namespace BlackPad.DropCube.Level.Room.Switch
                 );
 
 
-            _switchBuilder.Initialize(
+            _switchLevelObjectBuilder.Initialize(
                 _switchGenerator,
                 prefab
             );
@@ -38,7 +38,7 @@ namespace BlackPad.DropCube.Level.Room.Switch
         }
 
         public Switch Build() =>
-            _switchBuilder
+            _switchLevelObjectBuilder
                 .SetupPrefab()
                 .SetPosition()
                 .SetColor(_color)

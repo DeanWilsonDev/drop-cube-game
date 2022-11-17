@@ -150,7 +150,7 @@ namespace BlackPad.DropCube.Level.Room.Floor
                 .transform.position = GetRightSideTransformPosition();
         }
 
-        public Floor Initialize()
+        public Floor Generate()
         {
             _floor = this.Initialize<Floor>(FLOOR_GAME_OBJECT_NAME);
             return _floor;

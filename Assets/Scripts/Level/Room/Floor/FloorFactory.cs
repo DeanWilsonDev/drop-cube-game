@@ -5,12 +5,12 @@ namespace BlackPad.DropCube.Level.Room.Floor
     public class FloorFactory
     {
         Color _color;
-        readonly LevelObjectBuilder<FloorGenerator, Floor> _floorBuilder;
+        readonly LevelObjectBuilder<> _floorLevelObjectBuilder;
         readonly FloorGenerator _floorGenerator;
 
         public FloorFactory()
         {
-            _floorBuilder = new LevelObjectBuilder<FloorGenerator, Floor>();
+            _floorLevelObjectBuilder = new LevelObjectBuilder<>();
             _floorGenerator = new FloorGenerator();
         }
 
@@ -29,7 +29,7 @@ namespace BlackPad.DropCube.Level.Room.Floor
                 doorSize
             );
 
-            _floorBuilder.Initialize(
+            _floorLevelObjectBuilder.Initialize(
                 floorGenerator,
                 null
             );
@@ -38,7 +38,7 @@ namespace BlackPad.DropCube.Level.Room.Floor
         }
 
         public Floor Build() =>
-            _floorBuilder
+            _floorLevelObjectBuilder
                 .SetupPrefab()
                 .SetPosition()
                 .SetColor(_color)

@@ -107,12 +107,11 @@ namespace BlackPad.DropCube.Level
 
         Room.Room BuildRoom() =>
             _roomFactory
-                .Initialize(
+                .Build(
                     transform,
                     roomHeight.value,
                     roomNumber
-                )
-                .Build();
+                    );
 
         Door BuildDoor(Component parentComponent, Floor floorComponent) =>
             _doorFactory

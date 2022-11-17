@@ -1,25 +1,19 @@
-using System;
-using System.Collections.Generic;
 using BlackPad.Core.Utilities;
-using BlackPad.DropCube.Core;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level.Room.Wall
 {
     public class WallGenerator
-        : Generator,
-            IGenerator<Wall>
+        : Generator<Wall>
     {
         const string WallsParentObjectName = "Walls";
         const string LeftWallName = "Left Wall";
         const string RightWallName = "Right Wall";
-        const string BackWallName = "Back Wall";
 
         GameObject _walls;
         float _roomHeight;
-        Component _parent;
         float _roomWidth;
-        BackWall _backWall;
+        Component _parent;
         Wall _rightWall;
         Wall _leftWall;
 
@@ -82,42 +76,23 @@ namespace BlackPad.DropCube.Level.Room.Wall
             this._rightWall = GenerateWall(
                 RightWallName
             );
-
-            _backWall = GenerateBackWall();
-            _walls = new GameObject
-            {
-                name = WallsParentObjectName
-            };
+            
 
             _leftWall.transform.parent = _walls.transform;
             _rightWall.transform.parent = _walls.transform;
-            _backWall.transform.parent = _walls.transform;
             _walls.transform.parent = _parent.transform;
 
             var wallComponent = _walls.AddComponent<Wall>();
-
-            wallComponent.wallGameObjects = new List<GameObject>
-            {
-                _leftWall.gameObject,
-                _rightWall.gameObject,
-                _backWall.gameObject
-            };
-
+            
             return _walls;
         }
 
-        public Wall Initialize()
+        public override Wall Generate()
         {
-            return GenerateWalls()
-                .GetComponent<Wall>();
+            return GenerateWalls().GetComponent<Wall>();
         }
 
-        public void SetupPrefab(GameObject prefab)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetPosition()
+        public override void SetPosition()
         {
             _rightWall.transform.position = new Vector3(
                 Utilities.GameObjectTransformPosition(
@@ -132,56 +107,7 @@ namespace BlackPad.DropCube.Level.Room.Wall
                     .z
             );
 
-            _backWall.transform.position = new Vector3(
-                Utilities.GameObjectTransformPosition(
-                        _parent.gameObject
-                    )
-                    .x
-                + _roomWidth / 2,
-                Utilities.GameObjectTransformPosition(
-                        _parent.gameObject
-                    )
-                    .y
-                + _roomHeight / 2,
-                Utilities.GameObjectTransformPosition(
-                        _parent.gameObject
-                    )
-                    .z
-                + 2.5f
-            );
-        }
 
-        public void SetColor(Color color)
-        {
-            var colorId = Shader.PropertyToID(
-                "_Color"
-            );
-            _backWall
-                .gameObject
-                .GetComponent<Renderer>()
-                .material
-                .SetColor(
-                    colorId,
-                    color
-                );
-
-            _leftWall
-                .gameObject
-                .GetComponent<Renderer>()
-                .material
-                .SetColor(
-                    colorId,
-                    color
-                );
-
-            _rightWall
-                .gameObject
-                .GetComponent<Renderer>()
-                .material
-                .SetColor(
-                    colorId,
-                    color
-                );
         }
     }
 }

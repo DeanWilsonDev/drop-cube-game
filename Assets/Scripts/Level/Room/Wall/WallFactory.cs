@@ -1,3 +1,4 @@
+using BlackPad.Core.Utilities;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level.Room.Wall
@@ -6,12 +7,13 @@ namespace BlackPad.DropCube.Level.Room.Wall
     {
         Color _color;
 
-        readonly LevelObjectBuilder<WallGenerator, Wall> _wallBuilder;
+        readonly LevelObjectBuilder<> _wallLevelObjectBuilder;
         readonly WallGenerator _wallGenerator;
+        Vector3 _rightWallPosition;
         
         public WallsFactory()
         {
-            _wallBuilder = new LevelObjectBuilder<WallGenerator, Wall>();
+            _wallLevelObjectBuilder = new LevelObjectBuilder<>();
             _wallGenerator = new WallGenerator();
         }
         
@@ -31,9 +33,27 @@ namespace BlackPad.DropCube.Level.Room.Wall
                 roomWidth
             );
 
-            _wallBuilder.Initialize(
+            _wallLevelObjectBuilder.Initialize(
                 _wallGenerator,
                 null
+            );
+
+            _rightWallPosition = new Vector3(
+                Utilities.GameObjectTransformPosition(
+                        parent.gameObject
+                    )
+                    .x
+                + roomWidth / 2,
+                Utilities.GameObjectTransformPosition(
+                        parent.gameObject
+                    )
+                    .y
+                + roomHeight / 2,
+                Utilities.GameObjectTransformPosition(
+                        parent.gameObject
+                    )
+                    .z
+                + 2.5f
             );
             
             return this;
@@ -41,8 +61,9 @@ namespace BlackPad.DropCube.Level.Room.Wall
 
         public Wall Build()
         {
-            return _wallBuilder
-                .SetPosition()
+            return _wallLevelObjectBuilder
+                .SetPosition(_rightWallPosition)
+                .SetScale()
                 .SetColor(_color)
                 .GetProduct();
         }

@@ -32,7 +32,7 @@ namespace BlackPad.DropCube.Level.Room.Door {
       );
     }
 
-    public Door Initialize() {
+    public Door Generate() {
       _doorComponent = this.Initialize<Door>(DoorParentName);
       _doorComponent.transform.localScale = new Vector3(_size, 1, 5);
       return _doorComponent;

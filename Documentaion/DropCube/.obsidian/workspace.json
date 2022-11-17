@@ -11,8 +11,12 @@
             "id": "a86bb0b7fb63c7e8",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Game Design Document.md",
+                "mode": "source",
+                "source": false
+              }
             }
           },
           {
@@ -40,8 +44,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "70118b8366a506b8",
@@ -177,7 +180,7 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "084e6d6463ab1387",
+  "active": "a86bb0b7fb63c7e8",
   "lastOpenFiles": [
     "Technical Document.md",
     "Game Design Document.md"

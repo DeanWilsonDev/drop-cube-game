@@ -32,7 +32,7 @@ namespace BlackPad.DropCube.Level.Room.Switch
                 : SwitchPosition(_floor.floorGameObjects[1]);
         }
 
-        public Switch Initialize() {
+        public Switch Generate() {
             _switchComponent = Initialize<Switch>(SwitchParentName);
             return _switchComponent;
         }

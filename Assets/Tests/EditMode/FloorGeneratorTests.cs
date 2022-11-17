@@ -39,7 +39,7 @@ public class FloorGeneratorTests
         var floorGenerator = new FloorGenerator();
         floorGenerator.InitializeGenerator(parent.transform, DEFAULT_ROOM_SIZE,
             DEFAULT_DOOR_SIZE);
-        floor = floorGenerator.Initialize();
+        floor = floorGenerator.Generate();
 
         floor
             .Should()
@@ -54,7 +54,7 @@ public class FloorGeneratorTests
             DEFAULT_DOOR_SIZE);
 
         floorGenerator
-            .Initialize();
+            .Generate();
         floorGenerator
             .SetupPrefab(null);
         floor = floorGenerator
@@ -77,7 +77,7 @@ public class FloorGeneratorTests
             DEFAULT_DOOR_SIZE);
 
         floorGenerator
-            .Initialize();
+            .Generate();
         floorGenerator
             .SetupPrefab(null);
         floor = floorGenerator
@@ -110,7 +110,7 @@ public class FloorGeneratorTests
         );
 
         floorGenerator
-            .Initialize();
+            .Generate();
 
         floorGenerator
             .SetupPrefab(null);
