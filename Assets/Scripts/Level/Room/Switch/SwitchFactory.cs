@@ -1,3 +1,4 @@
+using BlackPad.Core.Utilities;
 using UnityEngine;
 using BlackPad.DropCube.Level.Room.Floor;
 
@@ -5,43 +6,55 @@ namespace BlackPad.DropCube.Level.Room.Switch
 {
     public class SwitchFactory
     {
-        Color _color;
 
-        readonly LevelObjectBuilder<> _switchLevelObjectBuilder;
-        readonly SwitchGenerator _switchGenerator;
-
+        readonly LevelObjectBuilder<Switch> _switchLevelObjectBuilder;
+        const string SwitchObjectName = "Switch";
+        Floor.Floor _floor;
+        
         public SwitchFactory()
         {
-            _switchLevelObjectBuilder = new LevelObjectBuilder<>();
-            _switchGenerator = new SwitchGenerator();
+            _switchLevelObjectBuilder = new LevelObjectBuilder<Switch>();
         }
-
-
-        public SwitchFactory Initialize(Component parent, Floor.Floor floor,
-            GameObject prefab, Color color)
+        
+        public Switch Initialize(
+            Component parent, 
+            Floor.Floor floor,
+            GameObject prefab,
+            Color color
+            )
         {
-            _color = color;
-
-            _switchGenerator
-                .InitializeGenerator(
-                    parent,
-                    floor
-                );
-
-
-            _switchLevelObjectBuilder.Initialize(
-                _switchGenerator,
-                prefab
-            );
-
-            return this;
-        }
-
-        public Switch Build() =>
-            _switchLevelObjectBuilder
+            _floor = floor;
+            
+           return _switchLevelObjectBuilder.Initialize(
+                    SwitchObjectName,
+                parent,
+                    GetSwitchPosition(),
+                null,
+                prefab,
+                color
+            )
                 .SetupPrefab()
                 .SetPosition()
-                .SetColor(_color)
+                .SetColor()
                 .GetProduct();
+        }
+
+        static Vector3 SwitchPosition(GameObject floorObject)
+            => floorObject
+                   .transform
+                   .position
+               + new Vector3(0, 1, 0);
+
+        Vector3 GetSwitchPosition() {
+            
+            var isLargerFloorObject =
+                Utilities.GameObjectWidth(_floor.floorGameObjects[0])
+                >= Utilities.GameObjectWidth(_floor.floorGameObjects[1]);
+            
+            return isLargerFloorObject
+                ? SwitchPosition(_floor.floorGameObjects[0])
+                : SwitchPosition(_floor.floorGameObjects[1]);
+        }
+
     }
 }
