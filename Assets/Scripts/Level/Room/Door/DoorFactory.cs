@@ -1,48 +1,52 @@
+using BlackPad.Core.Utilities;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level.Room.Door {
 
   public class DoorFactory {
     
-    Color _color;
-    
-    readonly LevelObjectBuilder<> _doorLevelObjectBuilder;
-    readonly DoorGenerator _doorGenerator;
+    readonly LevelObjectBuilder<Door> _doorLevelObjectBuilder;
+    const string DoorObjectName = "Door";
     
     public DoorFactory()
     {
-      _doorGenerator = new DoorGenerator();
-      _doorLevelObjectBuilder = new LevelObjectBuilder<>();
+      _doorLevelObjectBuilder = new LevelObjectBuilder<Door>();
     }
     
-    public DoorFactory Initialize(
+    public Door Build(
       Component parent,
       Floor.Floor floor,
       float doorSize,
       GameObject prefab,
       Color color
     ) {
-      _color = color;
       
-      _doorGenerator.InitializeGenerator(
+      var doorPosition = new Vector3(
+        Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+          .x
+        + Utilities.GameObjectWidth(floor.floorGameObjects[0]) / 2
+        + doorSize / 2,
+        Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+          .y,
+        Utilities.GameObjectTransformPosition(floor.floorGameObjects[0])
+          .z
+      );
+      var doorScale = new Vector3(doorSize, 1, 5);
+      
+      return _doorLevelObjectBuilder.Initialize(
+        DoorObjectName,
         parent,
-        doorSize,
-        floor
-      );
-
-      _doorLevelObjectBuilder.Initialize(
-        _doorGenerator,
-        prefab
-      );
-      
-      return this;
-    }
-
-    public Door Build() => 
-      _doorLevelObjectBuilder
-        .SetupPrefab()
+        doorPosition,
+        doorScale,
+        prefab,
+        color
+      )
+        .GeneratePrefabObject()
+        .AddComponent()
         .SetPosition()
-        .SetColor(_color)
+        .SetColor()
         .GetProduct();
+    }
+    
   }
 }

@@ -15,32 +15,32 @@ namespace BlackPad.DropCube.Level.Room {
     
     public Room Build(
       Component parent,
-      float roomHeight,
+      Vector3 roomScale,
       int roomNumber
-      ) {
+      )
+    {
 
+      var position = parent.transform.position;
       _position = new Vector3(
-        Utilities.GameObjectTransformPosition(parent.gameObject)
-          .x,
-        Utilities.GameObjectTransformPosition(parent.gameObject)
-          .y
-        - roomHeight * roomNumber,
-        Utilities.GameObjectTransformPosition(parent.gameObject)
-          .z
+        position.x,
+        position.y - roomScale.y * roomNumber,
+        position.z
       );
+      
 
       return _roomBuilder.Initialize(
           RoomName,
           parent,
           _position,
-          null,
+          roomScale,
           null,
           null
         )
-        .Generate()
+        .GenerateEmptyObject()
+        .AddComponent()
         .SetPosition()
+        .SetScale()
         .GetProduct();
-
     }
 
   }

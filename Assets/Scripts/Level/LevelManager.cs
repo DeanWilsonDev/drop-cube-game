@@ -1,3 +1,4 @@
+using System;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Data;
 using BlackPad.DropCube.Level.Room;
@@ -18,17 +19,13 @@ namespace BlackPad.DropCube.Level
         IntVariable startingRoomAmount;
 
         [SerializeField] ColorPalette colorPalette;
-        int roomNumber = 1;
+        int _roomNumber = 1;
 
         [Header(
             "Room"
         )]
         [SerializeField]
-        FloatVariable roomHeight;
-
-        [SerializeField] FloatVariable roomWidth;
-
-        public float RoomWidth => roomWidth.value;
+        Vector3Variable roomScale;
 
         [Header(
             "Door"
@@ -36,7 +33,7 @@ namespace BlackPad.DropCube.Level
         [SerializeField]
         FloatVariable doorSize;
 
-        bool isDoorClosed = false;
+        bool _isDoorClosed = false;
         [SerializeField] FloatVariable doorSpawnThreshold;
         [SerializeField] GameObjectVariable doorPrefab;
 
@@ -66,7 +63,7 @@ namespace BlackPad.DropCube.Level
 
             for (var i = 0; i < startingRoomAmount.value; i++)
             {
-                isDoorClosed =
+                _isDoorClosed =
                     Utilities.DetermineIfRandomlySelected(
                         doorSpawnThreshold
                         .value
@@ -78,7 +75,7 @@ namespace BlackPad.DropCube.Level
                     roomObject
                 );
                 
-                if (isDoorClosed)
+                if (_isDoorClosed)
                 {
                     doorComponent = BuildDoor(
                         roomObject,
@@ -90,18 +87,17 @@ namespace BlackPad.DropCube.Level
                     );
                 }
 
-                var wallsComponent = BuildWalls(
+                var (leftWall, rightWall, backWall) = BuildWalls(
                     roomObject
                 );
                 
                 roomObject.GetComponent<Room.Room>()
                     .Initialize(
-                        roomWidth.value,
-                        roomHeight.value,
+                        roomScale.value,
                         colorPalette.value,
                         doorComponent,
                         switchComponent);
-                roomNumber++;
+                _roomNumber++;
             }
         }
 
@@ -109,49 +105,45 @@ namespace BlackPad.DropCube.Level
             _roomFactory
                 .Build(
                     transform,
-                    roomHeight.value,
-                    roomNumber
+                    roomScale.value,
+                    _roomNumber
                     );
 
         Door BuildDoor(Component parentComponent, Floor floorComponent) =>
             _doorFactory
-                .Initialize(
+                .Build(
                     parentComponent,
                     floorComponent,
                     doorSize.value,
                     doorPrefab.value,
                     colorPalette.value[3]
-                )
-                .Build();
+                );
 
         Switch BuildSwitch(Component parentComponent, Floor floorComponent) =>
             _switchFactory
-                .Initialize(
+                .Build(
                     parentComponent,
                     floorComponent,
                     switchPrefab.value,
                     colorPalette.value[4]
-                )
-                .Build();
+                );
 
-        Floor BuildFloor(Component parentComponent) =>
-            _floorFactory
-                .Initialize(
+        Floor BuildFloor(Component parentComponent)
+        {
+            return _floorFactory
+                .Build(
                     parentComponent,
-                    roomWidth.value,
                     doorSize.value,
                     colorPalette.value[1]
-                )
-                .Build();
+                );
+            
+        }
 
-        Wall BuildWalls(Component parentComponent) =>
+        Tuple<Wall, Wall, BackWall> BuildWalls(Component parentComponent) =>
             _wallsFactory
-                .Initialize(
+                .Build(
                     parentComponent,
-                    roomHeight.value,
-                    roomWidth.value,
                     colorPalette.value[0]
-                )
-                .Build();
+                );
     }
 }

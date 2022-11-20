@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using BlackPad.Core.Utilities;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace BlackPad.DropCube.Level.Room.Floor
 {
@@ -9,65 +11,101 @@ namespace BlackPad.DropCube.Level.Room.Floor
         readonly LevelObjectBuilder<Floor> _floorLevelObjectBuilder;
         
         Floor _floor;
-        GameObject[] _floorObjects;
-        Component _parent;
+        Transform _parent;
+        GameObject _leftSideFloor;
+        GameObject _rightSideFloor;
         
         float _doorSize;
-        float _roomWidth;
         const float MinOffset = 0;
         const float MaxOffset = 3;
+
         const string LeftFloorGameObjectName = "Left Floor";
         const string RightFloorGameObjectName = "Right Floor";
+        const string FloorGameObjectName = "Floor";
 
-        const int LeftSide = 0;
-        const int RightSide = 1;
 
         public FloorFactory()
         {
             _floorLevelObjectBuilder = new LevelObjectBuilder<Floor>();
         }
 
-        public FloorFactory Initialize(
+        public Floor Build(
             Component parent,
-            float roomWidth,
             float doorSize,
             Color color
         )
         {
-            _parent = parent;
+            _doorSize = doorSize;
+            var parentTransform = parent.transform;
             
+            _parent = new GameObject
+            {
+                name = FloorGameObjectName,
+                transform =
+                {
+                    position = parentTransform.position,
+                    parent = parentTransform
+                }
+            }.transform;
+
+            _parent.gameObject.AddComponent<Floor>();
             
-            
-            
-            var leftSideFloor = _floorLevelObjectBuilder.Initialize(
+            var (
+                    leftSideFloorScale, 
+                    rightSideFloorScale
+                    ) =
+                GetFloorScaleVectors();
+
+
+            _leftSideFloor = _floorLevelObjectBuilder.Initialize(
                     LeftFloorGameObjectName,
                     parent,
-                    GetLeftSideTransformPosition(),
+                    null,
+                    null,
+                    null,
+                    color
           
                 )
-                .SetupPrefab()
-                .SetPosition()
+                .GeneratePrimitiveObject()
                 .SetColor()
-                .GetProduct();
-            
-            var rightSideFloor = _floorLevelObjectBuilder.Initialize(
+                .GetGeneratedObject();
+
+
+            _rightSideFloor = _floorLevelObjectBuilder.Initialize(
                 RightFloorGameObjectName,
                 parent,
-                GetRightSideTransformPosition()
-                )
+                null,
+                null,
+                null, 
+                color
+            )
+                .GeneratePrimitiveObject()
+                .SetColor()
+                .GetGeneratedObject();
+
+            var floorObjects = new List<GameObject>
+            {
+                _leftSideFloor,
+                _rightSideFloor
+            };
             
-            
+            _leftSideFloor.transform.position =
+                GetLeftSideTransformPosition(leftSideFloorScale);
+
+            _leftSideFloor.transform.position = leftSideFloorScale;
+
+            _rightSideFloor.transform.position =
+                GetRightSideTransformPosition(rightSideFloorScale);
+
+            _rightSideFloor.transform.localScale = rightSideFloorScale;
+
+            SetFloorParentAndReference(floorObjects);
+
+            return _parent.GetComponent<Floor>();
         }
-        
-        GameObject SetupFloorPortion(float size)
-        {
-            var floorSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            var parentTransform = _parent.transform;
-            floorSide.transform.position = parentTransform.position;
-            floorSide.transform.localScale = new Vector3(size, 1, 5);
-            floorSide.transform.parent = parentTransform;
-            return floorSide;
-        }
+
+
+        Vector3 GetFloorPortionScale(float size) => new (size, 1, _parent.transform.localScale.z);
 
         float[] SelectDoorSide()
         {
@@ -85,7 +123,7 @@ namespace BlackPad.DropCube.Level.Room.Floor
             var floorAllocation = new float[2];
             for (var i = 0; i < 2; i++)
             {
-                floorAllocation[i] = _roomWidth / 2;
+                floorAllocation[i] = 0.5f;
                 floorAllocation[i] -=
                     Utilities.GetValueIfTrue(doorFlags[i], _doorSize);
             }
@@ -114,72 +152,63 @@ namespace BlackPad.DropCube.Level.Room.Floor
                 isSelected,
                 !isSelected
             };
-            var offset = Random.Range(MinOffset, _roomWidth / MaxOffset);
+            var offset = Random.Range(MinOffset, _parent.transform.localScale.x / MaxOffset);
             return ApplyOffset(offset, offsetFlags, floorAllocation);
         }
 
-        void GenerateFloorObjects()
+        Tuple<Vector3, Vector3> GetFloorScaleVectors()
         {
-            _floorObjects = new GameObject[2];
+            var floorScaleVectors = new List<Vector3>
+            {
+                Vector3.zero,
+                Vector3.zero
+            };
+            
             var floorAllocation = SelectDoorSide();
             var offsetFloorAllocation = SelectOffsetSide(floorAllocation);
-            for (var i = 0; i < 2; i++)
+            
+            for (var i = 0; i < floorScaleVectors.Count; i++)
             {
-                _floorObjects[i] = SetupFloorPortion(offsetFloorAllocation[i]);
-                _floorObjects[i]
-                    .name = FloorGameObjectName + (i + 1);
+                floorScaleVectors[i] = GetFloorPortionScale(offsetFloorAllocation[i]);
             }
+
+            return new Tuple<Vector3, Vector3>(
+                floorScaleVectors[0], 
+                floorScaleVectors[1]
+            );;
         }
 
-        Vector3 GetLeftSideTransformPosition() =>
-            new(
-                Utilities.GameObjectTransformPosition(_floorObjects[LeftSide])
-                    .x
-                + Utilities.GameObjectWidth(_floorObjects[LeftSide]) / 2,
-                Utilities.GameObjectTransformPosition(_floorObjects[LeftSide])
-                    .y,
-                Utilities.GameObjectTransformPosition(_floorObjects[LeftSide])
-                    .z
-            );
-
-        Vector3 GetRightSideTransformPosition()
+        Vector3 GetLeftSideTransformPosition(Vector3 leftSideScale)
         {
             var position = _parent.transform.position;
             return new Vector3(
-                Utilities.FindOriginPoint(_floorObjects[LeftSide])
-                + Utilities.GameObjectWidth(_floorObjects[LeftSide])
-                + _doorSize
-                + (Utilities.GameObjectWidth(_floorObjects[RightSide]) / 2),
+                position.x + leftSideScale.x / 2,
                 position.y,
                 position.z
             );
         }
 
-        void SetFloorParentAndReference()
+        Vector3 GetRightSideTransformPosition(Vector3 rightSideScale) {
+            var position = _parent.transform.position;
+            return new Vector3(
+                rightSideScale.x
+                + _doorSize
+                + rightSideScale.x / 2,
+                position.y,
+                position.z
+            );
+        }
+        
+        void SetFloorParentAndReference(List<GameObject> floorObjects)
         {
-            foreach (var floorObject in _floorObjects)
+            foreach (var floorObject in floorObjects)
             {
-                floorObject.transform.parent = _floor.transform;
-                _floor
+                floorObject.transform.parent = _parent.transform;
+                _parent
+                    .GetComponent<Floor>()
                     .floorGameObjects
                     .Add(floorObject);
             }
-        }
-        
-
-        public void SetPosition()
-        {
-            _floorObjects[LeftSide]
-                .transform.position = 
-            _floorObjects[RightSide]
-                .transform.position = GetRightSideTransformPosition();
-        }
-        
-
-        public void GetPrefab()
-        {
-            GenerateFloorObjects();
-            SetFloorParentAndReference();
         }
     }
 }

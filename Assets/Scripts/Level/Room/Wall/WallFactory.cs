@@ -12,6 +12,7 @@ namespace BlackPad.DropCube.Level.Room.Wall
         const string LeftWallName = "Left Wall";
         const string RightWallName = "Right Wall";
         const string BackWallName = "Back Wall";
+        
         public WallsFactory()
         {
             _wallLevelObjectBuilder = new LevelObjectBuilder<Wall>();
@@ -21,43 +22,40 @@ namespace BlackPad.DropCube.Level.Room.Wall
 
         public Tuple<Wall, Wall, BackWall> Build(
             Component parent,
-            float roomHeight,
-            float roomWidth,
             Color color
         )
         {
             return new Tuple<Wall, Wall, BackWall>(
-                BuildLeftWall(parent, roomHeight, roomWidth, color),
-                BuildRightWall(parent, roomHeight, roomWidth, color),
-                BuildBackWall(parent, roomHeight, roomWidth, color)
+                BuildLeftWall(parent, color),
+                BuildRightWall(parent, color),
+                BuildBackWall(parent, color)
                 );
         }
         
         Wall BuildLeftWall(
             Component parent,
-            float roomHeight,
-            float roomWidth,
             Color color
         )
         {
-
+            var localScale = parent.transform.localScale;
+            
             var rightWallScaleScale = new Vector3(
+                0.1f,
                 1,
-                roomHeight,
-                5
+                1
             );
             
 
             return _wallLevelObjectBuilder.Initialize(
                     LeftWallName,
                     parent,
-                    null,
+                    parent.transform.position,
                     rightWallScaleScale,
-                    GameObject.CreatePrimitive(
-                        PrimitiveType.Cube
-                    ),
+                    null,
                     color
-                ) 
+                )
+                .GeneratePrimitiveObject()
+                .AddComponent()
                 .SetPosition()
                 .SetScale()
                 .SetColor()
@@ -66,46 +64,35 @@ namespace BlackPad.DropCube.Level.Room.Wall
 
         Wall BuildRightWall(
             Component parent,
-            float roomHeight,
-            float roomWidth,
             Color color
             )
         {
+            var transform = parent.transform;
+            var position = transform.position;
+            var localScale = transform.localScale;
+            
             var rightWallPosition = new Vector3(
-                Utilities.GameObjectTransformPosition(
-                        parent.gameObject
-                    )
-                    .x
-                + roomWidth / 2,
-                Utilities.GameObjectTransformPosition(
-                        parent.gameObject
-                    )
-                    .y
-                + roomHeight / 2,
-                Utilities.GameObjectTransformPosition(
-                        parent.gameObject
-                    )
-                    .z
-                + 2.5f
+                localScale.x / 2,
+                localScale.y / 2,
+                2.5f
             );
             
             var rightWallScale = new Vector3(
+                0.1f,
                 1,
-                roomHeight,
-                5
+                1
             );
-            
 
             return _wallLevelObjectBuilder.Initialize(
                     RightWallName,
                     parent,
                     rightWallPosition,
                     rightWallScale,
-                    GameObject.CreatePrimitive(
-                        PrimitiveType.Cube
-                    ),
+                    null,
                     color
                 ) 
+                .GeneratePrimitiveObject()
+                .AddComponent()
                 .SetPosition()
                 .SetScale()
                 .SetColor()
@@ -114,46 +101,35 @@ namespace BlackPad.DropCube.Level.Room.Wall
         
         BackWall BuildBackWall(
             Component parent,
-            float roomHeight,
-            float roomWidth,
             Color color
         )
         {
+            var transform = parent.transform;
+            var position = transform.position;
+            var localScale = transform.localScale;
+            
             var backWallPosition = new Vector3(
-                Utilities.GameObjectTransformPosition(
-                        parent.gameObject
-                    )
-                    .x
-                + roomWidth / 2,
-                Utilities.GameObjectTransformPosition(
-                        parent.gameObject
-                    )
-                    .y
-                + roomHeight / 2,
-                Utilities.GameObjectTransformPosition(
-                        parent.gameObject
-                    )
-                    .z
-                + 2.5f
+                0,
+                0,
+                localScale.z / 2
             );
             
             var backWallScale = new Vector3(
-                roomWidth,
-                roomHeight,
-                1
+                1,
+                1,
+                0.1f
             );
             
-
             return _backWallLevelObjectBuilder.Initialize(
                     BackWallName,
                     parent,
                     backWallPosition,
                     backWallScale,
-                    GameObject.CreatePrimitive(
-                        PrimitiveType.Cube
-                    ),
+                    null,
                     color
                 ) 
+                .GeneratePrimitiveObject()
+                .AddComponent()
                 .SetPosition()
                 .SetScale()
                 .SetColor()

@@ -5,24 +5,25 @@ namespace BlackPad.DropCube.Level.Room.Door
 {
     public class Door : MonoBehaviour {
 
-        BoxCollider doorCollider;
-        GameObject doorObject;
-        Renderer[] prefabRenderers;
-        BoxCollider boxCollider;
-        Animator animator;
+        BoxCollider _doorCollider;
+        GameObject _doorObject;
+        Renderer[] _prefabRenderers;
+        BoxCollider _boxCollider;
+        Animator _animator;
+        
         static readonly int Open = Animator.StringToHash("Open");
 
         void Start()
         {
-            boxCollider = gameObject.AddComponent<BoxCollider>();
-            animator = gameObject.GetComponentInChildren<Animator>();
+            _boxCollider = gameObject.AddComponent<BoxCollider>();
+            _animator = gameObject.GetComponentInChildren<Animator>();
         }
 
         public void OpenDoor()
         {
-            if (animator == null) return;
-            boxCollider.enabled = false;
-            animator.SetTrigger(Open);
+            if (_animator == null) return;
+            _boxCollider.enabled = false;
+            _animator.SetTrigger(Open);
         }
     }
 }

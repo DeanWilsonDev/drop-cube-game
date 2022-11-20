@@ -17,12 +17,11 @@ namespace BlackPad.DropCube.Level.Room {
     [Header("Switch")]
     [SerializeField] GameObject switchPrefab;
     [SerializeField] Switch.Switch switchComponent;
-    
-    [Header("Room Variables")]
-    [SerializeField] float roomHeight ;
-    [SerializeField] float roomWidth;
-    GameObject leftSide;
-    GameObject rightSide;
+
+    [Header("Room Variables")] [SerializeField]
+    Vector3 roomScale;
+    GameObject _leftSide;
+    GameObject _rightSide;
     [SerializeField] Wall.Wall walls;
     [SerializeField] Wall.BackWall backWall;
     [SerializeField] Floor.Floor floor;
@@ -33,14 +32,12 @@ namespace BlackPad.DropCube.Level.Room {
     }
 
     public Room Initialize(
-      float roomHeight,
-      float roomWidth,
+      Vector3 roomScale,
       List<Color> colorPalette,
       Door.Door doorComponent,
       Switch.Switch switchComponent
       ) {
-      this.roomHeight = roomHeight;
-      this.roomWidth = roomWidth;
+      this.roomScale = roomScale;
       this.colorPalette = colorPalette;
       this.doorComponent = doorComponent;
       this.switchComponent = switchComponent;
