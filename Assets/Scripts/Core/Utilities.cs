@@ -18,5 +18,18 @@ namespace BlackPad.Core.Utilities {
     public static float FindOriginPoint(GameObject gObject) =>
       gObject.transform.position.x - (GameObjectWidth(gObject) / 2);
 
+    public static void SetGameObjectGlobalScale(
+      GameObject obj,
+      Vector3 globalScale)
+    {
+      obj.transform.localScale = Vector3.one;
+      var lossyScale = obj.transform.lossyScale;
+      obj.transform.localScale = new Vector3(
+        globalScale.x / lossyScale.x,
+        globalScale.y / lossyScale.y,
+        globalScale.z / lossyScale.z
+      );
+    }
+
   }
 }

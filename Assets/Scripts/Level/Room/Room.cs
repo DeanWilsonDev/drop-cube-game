@@ -41,6 +41,7 @@ namespace BlackPad.DropCube.Level.Room {
       this.colorPalette = colorPalette;
       this.doorComponent = doorComponent;
       this.switchComponent = switchComponent;
+      gameObject.AddComponent<BoxCollider>().isTrigger = true;
       return this;
     }
   }

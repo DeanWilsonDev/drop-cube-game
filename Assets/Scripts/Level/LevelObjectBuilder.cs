@@ -133,20 +133,7 @@ namespace BlackPad.DropCube.Level {
     public ILevelObjectBuilder<TComponent> 
       SetColor()
     {
-      var colorId = Shader.PropertyToID(
-        "_Color"
-      );
-
-      foreach (
-        var renderer in _generatedObject
-                 .GetComponentsInChildren<Renderer>()
-              )
-      {
-        renderer.material.SetColor(
-              colorId,
-              _color ?? Color.white
-            );
-      }
+      ColorAssigner.AssignColor(_generatedObject, _color ?? Color.white);
       return this;
     }
 
