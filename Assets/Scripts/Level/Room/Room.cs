@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 namespace BlackPad.DropCube.Level.Room {
 
-  public class Room : MonoBehaviour {
+  public class Room : MonoBehaviour
+  {
+    public delegate void ExitRoom();
+    public static event ExitRoom OnRoomExit;
     
     // Door Variables
     [Header("Door Variables")]
@@ -30,7 +35,7 @@ namespace BlackPad.DropCube.Level.Room {
     bool CheckIsDoorClosed() {
       return isClosedDoor = Random.Range(0, 100) >= 50;
     }
-
+    
     public Room Initialize(
       Vector3 roomScale,
       List<Color> colorPalette,
@@ -43,6 +48,11 @@ namespace BlackPad.DropCube.Level.Room {
       this.switchComponent = switchComponent;
       gameObject.AddComponent<BoxCollider>().isTrigger = true;
       return this;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+      OnRoomExit?.Invoke();
     }
   }
 }

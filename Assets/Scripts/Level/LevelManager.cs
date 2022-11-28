@@ -52,8 +52,7 @@ namespace BlackPad.DropCube.Level
         // Start is called before the first frame update
         void Start()
         {
-            Door doorComponent = null;
-            Switch switchComponent = null;
+
 
             _floorFactory = new FloorFactory();
             _switchFactory = new SwitchFactory();
@@ -63,42 +62,63 @@ namespace BlackPad.DropCube.Level
 
             for (var i = 0; i < startingRoomAmount.value; i++)
             {
-                _isDoorClosed =
-                    Utilities.DetermineIfRandomlySelected(
-                        doorSpawnThreshold
-                        .value
-                        );
+                SpawnNewRoom();
                 
-                var roomObject = BuildRoom();
-                
-                var floorComponent = BuildFloor(
-                    roomObject
-                );
-                
-                if (_isDoorClosed)
-                {
-                    doorComponent = BuildDoor(
-                        roomObject,
-                        floorComponent
-                    );
-                    switchComponent = BuildSwitch(
-                        roomObject,
-                        floorComponent
-                    );
-                }
-
-                var (leftWall, rightWall, backWall) = BuildWalls(
-                    roomObject
-                );
-                
-                roomObject.GetComponent<Room.Room>()
-                    .Initialize(
-                        roomScale.value,
-                        colorPalette.value,
-                        doorComponent,
-                        switchComponent);
-                _roomNumber++;
             }
+        }
+
+        void OnEnable()
+        {
+            Room.Room.OnRoomExit += SpawnNewRoom;
+        }
+
+        void OnDisable()
+        {
+            Room.Room.OnRoomExit -= SpawnNewRoom;
+        }
+
+        void SpawnNewRoom()
+        {
+            Debug.Log("New Room Spawned");
+            Door doorComponent = null;
+            Switch switchComponent = null;
+            
+            _isDoorClosed =
+                Utilities.DetermineIfRandomlySelected(
+                    doorSpawnThreshold
+                        .value
+                );
+                
+            var roomObject = BuildRoom();
+
+                
+            var floorComponent = BuildFloor(
+                roomObject
+            );
+                
+            if (_isDoorClosed)
+            {
+                doorComponent = BuildDoor(
+                    roomObject,
+                    floorComponent
+                );
+                switchComponent = BuildSwitch(
+                    roomObject,
+                    floorComponent
+                );
+            }
+
+            var (leftWall, rightWall, backWall) = BuildWalls(
+                roomObject
+            );
+                
+            roomObject.GetComponent<Room.Room>()
+                .Initialize(
+                    roomScale.value,
+                    colorPalette.value,
+                    doorComponent,
+                    switchComponent);
+            _roomNumber++;
         }
 
         Room.Room BuildRoom() =>
