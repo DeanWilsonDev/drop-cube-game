@@ -33,7 +33,7 @@ namespace BlackPad.DropCube.Level
         [SerializeField]
         FloatVariable doorSize;
 
-        bool _isDoorClosed = false;
+        bool _isDoorClosed;
         [SerializeField] FloatVariable doorSpawnThreshold;
         [SerializeField] GameObjectVariable doorPrefab;
 

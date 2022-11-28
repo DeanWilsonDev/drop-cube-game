@@ -19,29 +19,29 @@ namespace BlackPad.DropCube.Level.Room {
       int roomNumber
       )
     {
+      var transform = parent.transform;
 
-      var position = parent.transform.position;
-      _position = new Vector3(
-        position.x,
-        position.y - roomScale.y * roomNumber,
-        position.z
-      );
+      var room = new GameObject
+      {
+        gameObject =
+        {
+          name = "Room " + roomNumber
+        },
+        transform =
+        {
+          parent = transform,
+          position = new Vector3(
+            0,
+            transform.position.y - roomScale.y * roomNumber,
+            0
+          ),
+          localScale = roomScale
+        }
+      };
       
-
-      return _roomBuilder.Initialize(
-          RoomName,
-          parent,
-          _position,
-          roomScale,
-          null,
-          null
-        )
-        .GenerateEmptyObject()
-        .AddComponent()
-        .SetPosition()
-        .SetScale()
-        .GetProduct();
+      return room.AddComponent<Room>();
     }
+    
 
   }
 }

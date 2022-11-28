@@ -1,5 +1,5 @@
 using System;
-using BlackPad.Core.Utilities;
+using BlackPad.DropCube.Core;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level.Room.Wall
@@ -29,111 +29,89 @@ namespace BlackPad.DropCube.Level.Room.Wall
                 BuildLeftWall(parent, color),
                 BuildRightWall(parent, color),
                 BuildBackWall(parent, color)
-                );
+            );
         }
-        
-        Wall BuildLeftWall(
+
+        static Wall BuildLeftWall(
             Component parent,
             Color color
         )
         {
-            var localScale = parent.transform.localScale;
+            var parentTransform = parent.transform;
+            var parentScale = parentTransform.localScale;
+
+            var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            wall.gameObject.name = LeftWallName;
+            wall.transform.parent = parentTransform;
+            var parentTransformPosition = parentTransform.position;
             
-            var rightWallScaleScale = new Vector3(
-                0.1f,
+            wall.transform.position = new Vector3(
+                - parentScale.x / 2,
+                parentTransformPosition.y,
+                parentTransformPosition.z
+            );
+            wall.transform.localScale = new Vector3(
+                0.05f,
                 1,
                 1
             );
-            
+            ColorAssigner.AssignColor(wall, color);
 
-            return _wallLevelObjectBuilder.Initialize(
-                    LeftWallName,
-                    parent,
-                    parent.transform.position,
-                    rightWallScaleScale,
-                    null,
-                    color
-                )
-                .GeneratePrimitiveObject()
-                .AddComponent()
-                .SetPosition()
-                .SetScale()
-                .SetColor()
-                .GetProduct();
+            return wall.AddComponent<Wall>();
         }
 
-        Wall BuildRightWall(
+        static Wall BuildRightWall(
             Component parent,
             Color color
             )
         {
-            var transform = parent.transform;
-            var position = transform.position;
-            var localScale = transform.localScale;
+            var parentTransform = parent.transform;
+            var parentScale = parentTransform.localScale;
+
+            var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            wall.gameObject.name = RightWallName;
+            wall.transform.parent = parentTransform;
+            var parentTransformPosition = parentTransform.position;
             
-            var rightWallPosition = new Vector3(
-                localScale.x / 2,
-                localScale.y / 2,
-                2.5f
+            wall.transform.position = new Vector3(
+                parentScale.x / 2,
+                parentTransformPosition.y,
+                parentTransformPosition.z
             );
-            
-            var rightWallScale = new Vector3(
-                0.1f,
+            wall.transform.localScale = new Vector3(
+                0.05f,
                 1,
                 1
             );
+            ColorAssigner.AssignColor(wall, color);
 
-            return _wallLevelObjectBuilder.Initialize(
-                    RightWallName,
-                    parent,
-                    rightWallPosition,
-                    rightWallScale,
-                    null,
-                    color
-                ) 
-                .GeneratePrimitiveObject()
-                .AddComponent()
-                .SetPosition()
-                .SetScale()
-                .SetColor()
-                .GetProduct();
+            return wall.AddComponent<Wall>();
         }
-        
-        BackWall BuildBackWall(
+
+        static BackWall BuildBackWall(
             Component parent,
             Color color
         )
         {
-            var transform = parent.transform;
-            var position = transform.position;
-            var localScale = transform.localScale;
-            
-            var backWallPosition = new Vector3(
-                0,
-                0,
-                localScale.z / 2
-            );
-            
-            var backWallScale = new Vector3(
+            var parentTransform = parent.transform;
+            var parentTransformPosition = parentTransform.position;
+
+            var backWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            backWall.gameObject.name = BackWallName;
+            backWall.transform.parent = parentTransform;
+            backWall.transform.position = new Vector3(
+                parentTransformPosition.x,
+                parentTransformPosition.y,
+                parentTransform.localScale.z / 2
+                );
+            backWall.transform.localScale = new Vector3(
                 1,
                 1,
                 0.1f
             );
-            
-            return _backWallLevelObjectBuilder.Initialize(
-                    BackWallName,
-                    parent,
-                    backWallPosition,
-                    backWallScale,
-                    null,
-                    color
-                ) 
-                .GeneratePrimitiveObject()
-                .AddComponent()
-                .SetPosition()
-                .SetScale()
-                .SetColor()
-                .GetProduct();
+            ColorAssigner.AssignColor(backWall, color);
+
+            return backWall.AddComponent<BackWall>();
         }
     }
 }
