@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Data;
 using BlackPad.DropCube.Level.Room;
@@ -7,6 +8,7 @@ using BlackPad.DropCube.Level.Room.Floor;
 using BlackPad.DropCube.Level.Room.Switch;
 using BlackPad.DropCube.Level.Room.Wall;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BlackPad.DropCube.Level
 {
@@ -18,6 +20,8 @@ namespace BlackPad.DropCube.Level
         [SerializeField]
         IntVariable startingRoomAmount;
 
+        public List<Room.Room> spawnedRooms;
+        
         [SerializeField] ColorPalette colorPalette;
         int _roomNumber = 1;
 
@@ -26,7 +30,7 @@ namespace BlackPad.DropCube.Level
         )]
         [SerializeField]
         Vector3Variable roomScale;
-
+        
         [Header(
             "Door"
         )]
@@ -52,7 +56,7 @@ namespace BlackPad.DropCube.Level
         // Start is called before the first frame update
         void Start()
         {
-
+            spawnedRooms = new List<Room.Room>();
 
             _floorFactory = new FloorFactory();
             _switchFactory = new SwitchFactory();
@@ -79,7 +83,9 @@ namespace BlackPad.DropCube.Level
 
         void SpawnNewRoom()
         {
-            Debug.Log("New Room Spawned");
+
+            RemoveOldestRoom();
+            
             Door doorComponent = null;
             Switch switchComponent = null;
             
@@ -119,7 +125,20 @@ namespace BlackPad.DropCube.Level
                     doorComponent,
                     switchComponent);
             _roomNumber++;
+            
+            spawnedRooms.Add(roomObject);
         }
+
+        void RemoveOldestRoom()
+        {
+            if (spawnedRooms.Count < startingRoomAmount.value * 2) return;
+            Debug.Log(spawnedRooms.Count);
+            var roomToDestroy = spawnedRooms[0];
+            Destroy(roomToDestroy.gameObject);
+            spawnedRooms.Remove(spawnedRooms[0]);
+            Debug.Log("Room Destroyed");
+        }
+        
 
         Room.Room BuildRoom() =>
             _roomFactory

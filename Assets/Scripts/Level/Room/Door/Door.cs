@@ -17,6 +17,12 @@ namespace BlackPad.DropCube.Level.Room.Door
         {
             _boxCollider = gameObject.AddComponent<BoxCollider>();
             _animator = gameObject.GetComponentInChildren<Animator>();
+
+            _boxCollider.size = new Vector3(
+                5.5f,
+                1, 
+                5
+                );
         }
 
         public void OpenDoor()

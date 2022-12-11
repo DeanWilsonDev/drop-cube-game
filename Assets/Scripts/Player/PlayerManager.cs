@@ -13,6 +13,7 @@ namespace BlackPad.DropCube.Player
             player.name = "Cube";
             var playerInput = player.AddComponent<PlayerInput>();
             var playerComponent = player.AddComponent<Player>();
+            player.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
             playerComponent.Initialize(fallSpeed);
             playerInput.Initialize();
             player.transform.position = Vector3.zero;

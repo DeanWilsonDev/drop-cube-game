@@ -19,6 +19,8 @@ namespace BlackPad.DropCube.Core
                     colorId,
                     color
                 );
+                
+                renderer.material.shader = Shader.Find("Unlit/Color");
             }
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
@@ -31,6 +32,15 @@ namespace BlackPad.DropCube.Level.Room {
     [SerializeField] Wall.BackWall backWall;
     [SerializeField] Floor.Floor floor;
     [SerializeField] List<Color> colorPalette;
+
+    TextMesh _roomScoreText;
+    int _roomScoreValue;
+    void Start()
+    {
+      _roomScoreValue = 250;
+      _roomScoreText = new GameObject().AddComponent<TextMesh>();
+      _roomScoreText.text = _roomScoreValue.ToString();
+    }
 
     bool CheckIsDoorClosed() {
       return isClosedDoor = Random.Range(0, 100) >= 50;
