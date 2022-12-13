@@ -53,7 +53,7 @@ namespace BlackPad.DropCube.Level.Room.Wall
             wall.transform.localScale = new Vector3(
                 0.05f,
                 1,
-                1
+                1.1f
             );
             ColorAssigner.AssignColor(wall, color);
 
@@ -81,7 +81,7 @@ namespace BlackPad.DropCube.Level.Room.Wall
             wall.transform.localScale = new Vector3(
                 0.05f,
                 1,
-                1
+                1.1f
             );
             ColorAssigner.AssignColor(wall, color);
 

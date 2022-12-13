@@ -37,9 +37,23 @@ namespace BlackPad.DropCube.Level.Room {
     int _roomScoreValue;
     void Start()
     {
-      _roomScoreValue = 250;
+      _roomScoreValue = 2500;
       _roomScoreText = new GameObject().AddComponent<TextMesh>();
       _roomScoreText.text = _roomScoreValue.ToString();
+      _roomScoreText.fontSize = 100;
+      var roomScoreTextTransform = _roomScoreText.transform;
+      roomScoreTextTransform.parent = transform.parent;
+      var position = transform.position;
+      roomScoreTextTransform.position = new Vector3( 
+        position.x - 10,
+        position.y + 5,
+        position.z + 3
+      );
+      roomScoreTextTransform.localScale = new Vector3(
+        1, 
+        1, 
+        1 
+        );
     }
 
     bool CheckIsDoorClosed() {

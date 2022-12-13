@@ -15,7 +15,7 @@ namespace BlackPad.DropCube.Player {
     bool leftWallFlag;
     bool rightWallFlag;
     
-    public void Initialize() => speed = 50;
+    public void Initialize() => speed = 75;
 
     // Start is called before the first frame update
     void Awake() {

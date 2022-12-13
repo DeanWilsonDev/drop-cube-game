@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingRoomAmount: {fileID: 11400000, guid: 73e7d683505234cbc9e7d8d0957011e7, type: 2}
+  spawnedRooms: []
   colorPalette: {fileID: 11400000, guid: 75bc6cb2069d9436d8c2280634297014, type: 2}
   roomScale: {fileID: 11400000, guid: fe52c9c254a1c4e1ab6d1ec3e34c1e23, type: 2}
   doorSize: {fileID: 11400000, guid: 095a59b6778634d9b80cfdb66612ffa3, type: 2}
