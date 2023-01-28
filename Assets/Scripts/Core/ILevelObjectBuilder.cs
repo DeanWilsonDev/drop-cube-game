@@ -1,6 +1,7 @@
 using UnityEngine;
 
-namespace BlackPad.DropCube.Core {
+namespace BlackPad.DropCube.Core
+{
   public interface ILevelObjectBuilder<out TComponent>
     where TComponent : Component {
     public ILevelObjectBuilder<TComponent> GeneratePrimitiveObject();

@@ -2,7 +2,8 @@ using BlackPad.DropCube.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace BlackPad.DropCube.Camera {
+namespace BlackPad.DropCube.Camera
+{
   public class CameraManager : MonoBehaviour {
 
     [SerializeField] float maxSpeed;
@@ -26,7 +27,7 @@ namespace BlackPad.DropCube.Camera {
       player = GameObject
         .FindGameObjectWithTag("GameManager")
         .GetComponent<PlayerManager>()
-        .player;
+        ._player;
       mainCamera = UnityEngine.Camera.main;
     }
 

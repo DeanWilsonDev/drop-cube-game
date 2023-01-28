@@ -1,10 +1,10 @@
-using System;
 using System.Collections;
-using BlackPad.Core;
+using BlackPad.DropCube.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace BlackPad.DropCube.Controls {
+namespace BlackPad.DropCube.Controls
+{
   public class InputManager : Singleton<InputManager> {
 
     public delegate void StartTouchEvent(Vector2 position);
@@ -13,23 +13,23 @@ namespace BlackPad.DropCube.Controls {
     public delegate void EndTouchEvent();
     public event EndTouchEvent OnTouchEnd;
 
-    bool isTouching;
-    TouchControls touchControls;
+    bool _isTouching;
+    TouchControls _touchControls;
 
-    void Awake() => touchControls = new TouchControls();
+    void Awake() => _touchControls = new TouchControls();
 
-    void OnEnable() => touchControls.Enable();
+    void OnEnable() => _touchControls.Enable();
 
-    void OnDisable() => touchControls.Disable();
+    void OnDisable() => _touchControls.Disable();
 
     void Start() {
-      touchControls.Touch.TouchInput.performed += StartTouch;
-      touchControls.Touch.TouchInput.canceled += EndTouch;
+      _touchControls.Touch.TouchInput.performed += StartTouch;
+      _touchControls.Touch.TouchInput.canceled += EndTouch;
     }
 
     IEnumerator HoldTouch() {
-      while (isTouching) {
-        var screenPosition = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
+      while (_isTouching) {
+        var screenPosition = _touchControls.Touch.TouchPosition.ReadValue<Vector2>();
         OnTouchStart?.Invoke(
           screenPosition
         );
@@ -38,14 +38,14 @@ namespace BlackPad.DropCube.Controls {
     }
 
     void StartTouch(InputAction.CallbackContext context) {
-      isTouching = true;
+      _isTouching = true;
       StartCoroutine(HoldTouch());
     }
 
     void EndTouch(InputAction.CallbackContext context) {
-      if (!isTouching) return;
+      if (!_isTouching) return;
       OnTouchEnd?.Invoke();
-      isTouching = false;
+      _isTouching = false;
     }
 
   }

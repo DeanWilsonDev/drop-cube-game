@@ -1,6 +1,7 @@
 using UnityEngine;
 
-namespace BlackPad.Core.Utilities {
+namespace BlackPad.Core.Utilities
+{
   public static class Utilities {
 
     public static bool IsRandomlySelected(int randomValue) => randomValue < 50;

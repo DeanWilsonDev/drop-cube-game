@@ -4,7 +4,8 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace BlackPad.DropCube.Level {
+namespace BlackPad.DropCube.Level
+{
   public class LevelObjectBuilder<TComponent> 
     : ILevelObjectBuilder<TComponent>
     where TComponent : Component
@@ -25,7 +26,7 @@ namespace BlackPad.DropCube.Level {
       Vector3? scale,
       GameObject prefab,
       Color? color
-      )
+    )
     {
       _parent = parent;
       _productName = productName;
@@ -64,7 +65,7 @@ namespace BlackPad.DropCube.Level {
         if (_parent == null)
           throw new NullReferenceException(
             "Parent not set to an instance of an object"
-            );
+          );
         
         var parentTransform = _parent.transform;
         

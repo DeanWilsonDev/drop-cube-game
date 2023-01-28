@@ -254,14 +254,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5409e60ce3aa742108b41eedef0d95b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingRoomAmount: {fileID: 11400000, guid: 73e7d683505234cbc9e7d8d0957011e7, type: 2}
-  spawnedRooms: []
-  colorPalette: {fileID: 11400000, guid: 75bc6cb2069d9436d8c2280634297014, type: 2}
-  roomScale: {fileID: 11400000, guid: fe52c9c254a1c4e1ab6d1ec3e34c1e23, type: 2}
-  doorSize: {fileID: 11400000, guid: 095a59b6778634d9b80cfdb66612ffa3, type: 2}
-  doorSpawnThreshold: {fileID: 11400000, guid: 5b99289c005794509abf37eaede03b30, type: 2}
-  doorPrefab: {fileID: 11400000, guid: 5c8aff29905614b558b5ea28b6aa604f, type: 2}
-  switchPrefab: {fileID: 11400000, guid: f37f78284c80a47d8bfb8019f58d2a8f, type: 2}
+  _startingRoomAmount: {fileID: 11400000, guid: 73e7d683505234cbc9e7d8d0957011e7, type: 2}
+  _spawnedRooms: []
+  _colorPalette: {fileID: 11400000, guid: 75bc6cb2069d9436d8c2280634297014, type: 2}
+  _roomScale: {fileID: 11400000, guid: fe52c9c254a1c4e1ab6d1ec3e34c1e23, type: 2}
+  _doorSize: {fileID: 11400000, guid: 095a59b6778634d9b80cfdb66612ffa3, type: 2}
+  _doorSpawnThreshold: {fileID: 11400000, guid: 5b99289c005794509abf37eaede03b30, type: 2}
+  _doorPrefab: {fileID: 11400000, guid: 5c8aff29905614b558b5ea28b6aa604f, type: 2}
+  _switchPrefab: {fileID: 11400000, guid: f37f78284c80a47d8bfb8019f58d2a8f, type: 2}
 --- !u!114 &342869671
 MonoBehaviour:
   m_ObjectHideFlags: 0

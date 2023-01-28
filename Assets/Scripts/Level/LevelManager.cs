@@ -2,50 +2,46 @@ using System;
 using System.Collections.Generic;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Data;
-using BlackPad.DropCube.Level.Room;
-using BlackPad.DropCube.Level.Room.Door;
-using BlackPad.DropCube.Level.Room.Floor;
-using BlackPad.DropCube.Level.Room.Switch;
-using BlackPad.DropCube.Level.Room.Wall;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BlackPad.DropCube.Level
 {
     public class LevelManager : MonoBehaviour
     {
+
         [Header(
             "Room Management"
         )]
         [SerializeField]
-        IntVariable startingRoomAmount;
+        IntVariable _startingRoomAmount;
 
-        public List<Room.Room> spawnedRooms;
+        public List<Room> _spawnedRooms;
         
-        [SerializeField] ColorPalette colorPalette;
+        [SerializeField] ColorPalette _colorPalette;
         int _roomNumber = 1;
+
 
         [Header(
             "Room"
         )]
         [SerializeField]
-        Vector3Variable roomScale;
+        Vector3Variable _roomScale;
         
         [Header(
             "Door"
         )]
         [SerializeField]
-        FloatVariable doorSize;
+        FloatVariable _doorSize;
 
         bool _isDoorClosed;
-        [SerializeField] FloatVariable doorSpawnThreshold;
-        [SerializeField] GameObjectVariable doorPrefab;
+        [SerializeField] FloatVariable _doorSpawnThreshold;
+        [SerializeField] GameObjectVariable _doorPrefab;
 
         [Header(
             "Switch"
         )]
         [SerializeField]
-        GameObjectVariable switchPrefab;
+        GameObjectVariable _switchPrefab;
 
         FloorFactory _floorFactory;
         SwitchFactory _switchFactory;
@@ -56,7 +52,7 @@ namespace BlackPad.DropCube.Level
         // Start is called before the first frame update
         void Start()
         {
-            spawnedRooms = new List<Room.Room>();
+            _spawnedRooms = new List<Room>();
 
             _floorFactory = new FloorFactory();
             _switchFactory = new SwitchFactory();
@@ -64,21 +60,20 @@ namespace BlackPad.DropCube.Level
             _wallsFactory = new WallsFactory();
             _roomFactory = new RoomFactory();
 
-            for (var i = 0; i < startingRoomAmount.value; i++)
+            for (var i = 0; i < _startingRoomAmount.value; i++)
             {
                 SpawnNewRoom();
-                
             }
         }
 
         void OnEnable()
         {
-            Room.Room.OnRoomExit += SpawnNewRoom;
+            Room.OnRoomExit += SpawnNewRoom;
         }
 
         void OnDisable()
         {
-            Room.Room.OnRoomExit -= SpawnNewRoom;
+            Room.OnRoomExit -= SpawnNewRoom;
         }
 
         void SpawnNewRoom()
@@ -88,10 +83,11 @@ namespace BlackPad.DropCube.Level
             
             Door doorComponent = null;
             Switch switchComponent = null;
+
             
             _isDoorClosed =
                 Utilities.DetermineIfRandomlySelected(
-                    doorSpawnThreshold
+                    _doorSpawnThreshold
                         .value
                 );
                 
@@ -101,6 +97,8 @@ namespace BlackPad.DropCube.Level
             var floorComponent = BuildFloor(
                 roomObject
             );
+
+            var pointsComponent = BuildRoomPoints(roomObject, 2500);
                 
             if (_isDoorClosed)
             {
@@ -118,44 +116,43 @@ namespace BlackPad.DropCube.Level
                 roomObject
             );
                 
-            roomObject.GetComponent<Room.Room>()
+            roomObject.GetComponent<Room>()
                 .Initialize(
-                    roomScale.value,
-                    colorPalette.value,
+                    _roomScale.value,
+                    _colorPalette.value,
                     doorComponent,
-                    switchComponent);
+                    switchComponent,
+                    pointsComponent);
             _roomNumber++;
             
-            spawnedRooms.Add(roomObject);
+            _spawnedRooms.Add(roomObject);
         }
 
         void RemoveOldestRoom()
         {
-            if (spawnedRooms.Count < startingRoomAmount.value * 2) return;
-            Debug.Log(spawnedRooms.Count);
-            var roomToDestroy = spawnedRooms[0];
+            if (_spawnedRooms.Count < _startingRoomAmount.value * 2) return;
+            var roomToDestroy = _spawnedRooms[0];
             Destroy(roomToDestroy.gameObject);
-            spawnedRooms.Remove(spawnedRooms[0]);
-            Debug.Log("Room Destroyed");
+            _spawnedRooms.Remove(_spawnedRooms[0]);
         }
         
 
-        Room.Room BuildRoom() =>
+        Room BuildRoom() =>
             _roomFactory
                 .Build(
                     transform,
-                    roomScale.value,
+                    _roomScale.value,
                     _roomNumber
-                    );
+                );
 
         Door BuildDoor(Component parentComponent, Floor floorComponent) =>
             _doorFactory
                 .Build(
                     parentComponent,
                     floorComponent,
-                    doorSize.value,
-                    doorPrefab.value,
-                    colorPalette.value[3]
+                    _doorSize.value,
+                    _doorPrefab.value,
+                    _colorPalette.value[3]
                 );
 
         Switch BuildSwitch(Component parentComponent, Floor floorComponent) =>
@@ -163,8 +160,8 @@ namespace BlackPad.DropCube.Level
                 .Build(
                     parentComponent,
                     floorComponent,
-                    switchPrefab.value,
-                    colorPalette.value[4]
+                    _switchPrefab.value,
+                    _colorPalette.value[4]
                 );
 
         Floor BuildFloor(Component parentComponent)
@@ -172,8 +169,8 @@ namespace BlackPad.DropCube.Level
             return _floorFactory
                 .Build(
                     parentComponent,
-                    doorSize.value,
-                    colorPalette.value[1]
+                    _doorSize.value,
+                    _colorPalette.value[1]
                 );
             
         }
@@ -182,7 +179,10 @@ namespace BlackPad.DropCube.Level
             _wallsFactory
                 .Build(
                     parentComponent,
-                    colorPalette.value[0]
+                    _colorPalette.value[0]
                 );
+
+        Points BuildRoomPoints(Component parentComponent, int roomScoreValue) =>
+            PointsFactory.Build(parentComponent, roomScoreValue);
     }
 }
