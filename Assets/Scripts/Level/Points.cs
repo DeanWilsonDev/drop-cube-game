@@ -19,7 +19,7 @@ namespace BlackPad.DropCube.Level
 
         void DisplayCurrentPointsValue()
         {
-            _roomScoreValue = PointsManager.Instance.CurrentPoints;
+            // _roomScoreValue = PointsManager.Instance.CurrentPoints;
         }
         
     }

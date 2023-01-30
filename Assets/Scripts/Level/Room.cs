@@ -28,15 +28,15 @@ namespace BlackPad.DropCube.Level
       Vector3 roomScale,
       List<Color> colorPalette,
       Door door,
-      Switch switchComponent,
-      Points points
+      Switch switchComponent
+      // Points points
     )
     {
       _roomScale = roomScale;
       _colorPalette = colorPalette;
       DoorComponent = door;
       _switch = switchComponent;
-      _points = points;
+      // _points = points;
       
       gameObject
         .AddComponent<BoxCollider>()

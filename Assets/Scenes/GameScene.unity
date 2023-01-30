@@ -216,10 +216,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 342869669}
-  - component: {fileID: 342869672}
   - component: {fileID: 342869671}
   - component: {fileID: 342869670}
   - component: {fileID: 342869673}
+  - component: {fileID: 342869674}
   m_Layer: 0
   m_Name: GAME_MANAGER
   m_TagString: GameManager
@@ -274,21 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f5278fc02f644d4b26f8263cf052bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &342869672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 342869668}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d1158ee68aab4908a238c0c98e4554e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 0
-  smoothTime: 0
-  threshold: 0
 --- !u!114 &342869673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,8 +286,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c03a3d7cd994caba66473739e28852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  fallSpeed: 1000
+  _player: {fileID: 0}
+  _fallSpeed: 1000
+--- !u!114 &342869674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342869668}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce49e4b8f846a429888c9c4f35a662d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &623580766
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,16 +3,15 @@ using TMPro;
 
 namespace BlackPad.DropCube.Level
 {
-  public static class PointsFactory
+  public class PointsFactory
   {
-    public static Points Build(
+    public Points Build(
       Component parent,
       int pointsValue
     )
     {
       var parentTransform = parent.transform;
       var parentTransformPosition = parentTransform.position;
-
       
       var points = new GameObject
         {

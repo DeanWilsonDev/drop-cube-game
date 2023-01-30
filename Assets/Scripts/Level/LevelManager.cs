@@ -48,6 +48,7 @@ namespace BlackPad.DropCube.Level
         DoorFactory _doorFactory;
         RoomFactory _roomFactory;
         WallsFactory _wallsFactory;
+        PointsFactory _pointsFactory;
 
         // Start is called before the first frame update
         void Start()
@@ -59,6 +60,7 @@ namespace BlackPad.DropCube.Level
             _doorFactory = new DoorFactory();
             _wallsFactory = new WallsFactory();
             _roomFactory = new RoomFactory();
+            // _pointsFactory = new PointsFactory();
 
             for (var i = 0; i < _startingRoomAmount.value; i++)
             {
@@ -98,7 +100,7 @@ namespace BlackPad.DropCube.Level
                 roomObject
             );
 
-            var pointsComponent = BuildRoomPoints(roomObject, 2500);
+            // var pointsComponent = BuildRoomPoints(roomObject, 2500);
                 
             if (_isDoorClosed)
             {
@@ -121,8 +123,8 @@ namespace BlackPad.DropCube.Level
                     _roomScale.value,
                     _colorPalette.value,
                     doorComponent,
-                    switchComponent,
-                    pointsComponent);
+                    switchComponent);
+            
             _roomNumber++;
             
             _spawnedRooms.Add(roomObject);
@@ -183,6 +185,6 @@ namespace BlackPad.DropCube.Level
                 );
 
         Points BuildRoomPoints(Component parentComponent, int roomScoreValue) =>
-            PointsFactory.Build(parentComponent, roomScoreValue);
+            _pointsFactory.Build(parentComponent, roomScoreValue);
     }
 }
