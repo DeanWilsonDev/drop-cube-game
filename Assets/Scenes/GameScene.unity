@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.4439403, g: 0.4931519, b: 0.5722083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -178,9 +178,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -257,6 +265,7 @@ MonoBehaviour:
   _startingRoomAmount: {fileID: 11400000, guid: 73e7d683505234cbc9e7d8d0957011e7, type: 2}
   _spawnedRooms: []
   _colorPalette: {fileID: 11400000, guid: 75bc6cb2069d9436d8c2280634297014, type: 2}
+  _roomScoreValue: {fileID: 11400000, guid: 5bab116a19ffc4aa2a0c7a18f754be1b, type: 2}
   _roomScale: {fileID: 11400000, guid: fe52c9c254a1c4e1ab6d1ec3e34c1e23, type: 2}
   _doorSize: {fileID: 11400000, guid: 095a59b6778634d9b80cfdb66612ffa3, type: 2}
   _doorSpawnThreshold: {fileID: 11400000, guid: 5b99289c005794509abf37eaede03b30, type: 2}
@@ -295,11 +304,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342869668}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce49e4b8f846a429888c9c4f35a662d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentPoints: 0
 --- !u!1 &623580766
 GameObject:
   m_ObjectHideFlags: 0

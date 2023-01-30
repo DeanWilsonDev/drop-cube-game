@@ -19,7 +19,7 @@ namespace BlackPad.DropCube.Level
         
         [SerializeField] ColorPalette _colorPalette;
         int _roomNumber = 1;
-
+        [SerializeField] IntVariable _roomScoreValue;
 
         [Header(
             "Room"
@@ -54,13 +54,12 @@ namespace BlackPad.DropCube.Level
         void Start()
         {
             _spawnedRooms = new List<Room>();
-
             _floorFactory = new FloorFactory();
             _switchFactory = new SwitchFactory();
             _doorFactory = new DoorFactory();
             _wallsFactory = new WallsFactory();
             _roomFactory = new RoomFactory();
-            // _pointsFactory = new PointsFactory();
+            _pointsFactory = new PointsFactory();
 
             for (var i = 0; i < _startingRoomAmount.value; i++)
             {
@@ -100,7 +99,11 @@ namespace BlackPad.DropCube.Level
                 roomObject
             );
 
-            // var pointsComponent = BuildRoomPoints(roomObject, 2500);
+            var pointsComponent = BuildRoomPoints(
+                roomObject, 
+                gameObject.GetComponent<PointsManager>(), 
+                _roomScoreValue.value
+                );
                 
             if (_isDoorClosed)
             {
@@ -117,13 +120,15 @@ namespace BlackPad.DropCube.Level
             var (leftWall, rightWall, backWall) = BuildWalls(
                 roomObject
             );
-                
+
             roomObject.GetComponent<Room>()
                 .Initialize(
                     _roomScale.value,
+                    _roomScoreValue.value,
                     _colorPalette.value,
                     doorComponent,
-                    switchComponent);
+                    switchComponent,
+                    pointsComponent);
             
             _roomNumber++;
             
@@ -184,7 +189,11 @@ namespace BlackPad.DropCube.Level
                     _colorPalette.value[0]
                 );
 
-        Points BuildRoomPoints(Component parentComponent, int roomScoreValue) =>
-            _pointsFactory.Build(parentComponent, roomScoreValue);
+        Points BuildRoomPoints(Component parentComponent, PointsManager pointsManager, int roomScoreValue) =>
+            _pointsFactory.Build(
+                parentComponent, 
+                pointsManager, 
+                roomScoreValue
+                );
     }
 }

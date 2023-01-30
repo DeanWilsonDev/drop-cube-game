@@ -1,11 +1,10 @@
 using System.Collections;
-using BlackPad.DropCube.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace BlackPad.DropCube.Controls
 {
-  public class InputManager : Singleton<InputManager> {
+  public class InputManager: MonoBehaviour {
 
     public delegate void StartTouchEvent(Vector2 position);
     public event StartTouchEvent OnTouchStart;

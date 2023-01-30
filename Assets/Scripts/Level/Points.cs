@@ -1,26 +1,21 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BlackPad.DropCube.Level
 {
     public class Points : MonoBehaviour
     {
-        
-        int _roomScoreValue;
+        TextMeshPro _pointsText;
 
         void Start()
         {
-            Room.OnRoomEnter += DisplayCurrentPointsValue;
-        }
-
-        void Initialize(int roomScoreValue)
-        {
-            _roomScoreValue = roomScoreValue;
-        }
-
-        void DisplayCurrentPointsValue()
-        {
-            // _roomScoreValue = PointsManager.Instance.CurrentPoints;
+            _pointsText = GetComponent<TextMeshPro>();
         }
         
+        public void DisplayCurrentPointsValue(string value)
+        {
+            _pointsText.text = value;
+        }
     }
 }

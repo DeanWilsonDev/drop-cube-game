@@ -1,11 +1,18 @@
 
-using BlackPad.DropCube.Core;
+using UnityEngine;
 
 namespace BlackPad.DropCube
 {
-    public class PointsManager: Singleton<PointsManager>
+    public class PointsManager: MonoBehaviour
     {
-        public int CurrentPoints { get; set; }
+
+        [SerializeField] int _currentPoints;
+        
+        public int CurrentPoints
+        {
+            get => _currentPoints;
+            set => _currentPoints = value;
+        }
 
         public void Start()
         {

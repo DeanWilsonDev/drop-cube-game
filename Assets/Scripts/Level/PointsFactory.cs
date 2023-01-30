@@ -7,6 +7,7 @@ namespace BlackPad.DropCube.Level
   {
     public Points Build(
       Component parent,
+      PointsManager pointsManager,
       int pointsValue
     )
     {
@@ -34,7 +35,9 @@ namespace BlackPad.DropCube.Level
         parentTransformPosition.z + 2
       );
 
-      return points.gameObject.AddComponent<Points>();
+      return points
+        .gameObject
+        .AddComponent<Points>();
     }
   }
 }

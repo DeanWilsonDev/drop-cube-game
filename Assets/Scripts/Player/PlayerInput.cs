@@ -4,24 +4,25 @@ using UnityEngine;
 
 namespace BlackPad.DropCube.Player
 {
-  public class PlayerInput : MonoBehaviour {
+  public class PlayerInput : MonoBehaviour
+  {
 
     InputManager _inputManager;
-    LevelManager _levelManager;
     bool _isTouching;
     float _speed;
     readonly float _halfTheWidthOfTheScreen = Screen.width / 2f;
     int _layerMask;
     bool _leftWallFlag;
     bool _rightWallFlag;
+    const string GameManagerTag = "GameManager";
     
     public void Initialize() => _speed = 75;
 
     // Start is called before the first frame update
     void Awake() {
-      _inputManager = InputManager.Instance;
       _layerMask = 1 << 6;
       // layerMask = ~layerMask;
+      _inputManager = GameObject.FindGameObjectWithTag(GameManagerTag).GetComponent<InputManager>();
     }
 
     void Start() => Initialize();

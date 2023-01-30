@@ -1,13 +1,11 @@
-using BlackPad.DropCube.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BlackPad.DropCube.Player
 {
-    public class PlayerManager : Singleton<PlayerManager> {
+    public class PlayerManager: MonoBehaviour {
 
-        [FormerlySerializedAs("player")] public GameObject _player;
-        [FormerlySerializedAs("fallSpeed")] [SerializeField] float _fallSpeed;
+         public GameObject _player;
+        [SerializeField] float _fallSpeed;
         
         void Initialize() {
             _player = GameObject.CreatePrimitive(PrimitiveType.Cube);
