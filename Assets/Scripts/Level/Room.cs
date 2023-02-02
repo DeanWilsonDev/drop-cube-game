@@ -40,10 +40,12 @@ namespace BlackPad.DropCube.Level
       _switch = switchComponent;
       _points = points;
       _pointsManager = GameObject.FindGameObjectWithTag(GameManagerTag).GetComponent<PointsManager>();
-      gameObject
-        .AddComponent<BoxCollider>()
-        .isTrigger = true;
       
+      var trigger = gameObject
+        .AddComponent<BoxCollider>();
+
+      trigger.isTrigger = true;
+      trigger.size = Vector3.one *  0.9f;
       return this;
     }
 
