@@ -7,7 +7,7 @@ namespace BlackPad.DropCube.Player
   public class PlayerInput : MonoBehaviour
   {
 
-    InputManager _inputManager;
+    TouchInputManager _touchInputManager;
     bool _isTouching;
     float _speed;
     readonly float _halfTheWidthOfTheScreen = Screen.width / 2f;
@@ -22,17 +22,17 @@ namespace BlackPad.DropCube.Player
     void Awake() {
       _layerMask = 1 << 6;
       // layerMask = ~layerMask;
-      _inputManager = GameObject.FindGameObjectWithTag(GameManagerTag).GetComponent<InputManager>();
+      _touchInputManager = GameObject.FindGameObjectWithTag(GameManagerTag).GetComponent<TouchInputManager>();
     }
 
     void Start() => Initialize();
 
     void OnEnable() {
-      _inputManager.OnTouchStart += Move;
-      _inputManager.OnTouchEnd += StopMoving;
+      _touchInputManager.OnTouchStart += Move;
+      _touchInputManager.OnTouchEnd += StopMoving;
     }
 
-    void OnDisable() => _inputManager.OnTouchStart -= Move;
+    void OnDisable() => _touchInputManager.OnTouchStart -= Move;
 
     bool DetectWallInDirection(Vector3 direction)
     {

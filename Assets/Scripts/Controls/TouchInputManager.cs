@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace BlackPad.DropCube.Controls
 {
-  public class InputManager: MonoBehaviour {
+  public class TouchInputManager: MonoBehaviour {
 
     public delegate void StartTouchEvent(Vector2 position);
     public event StartTouchEvent OnTouchStart;
@@ -16,7 +16,7 @@ namespace BlackPad.DropCube.Controls
     TouchControls _touchControls;
 
     void Awake() => _touchControls = new TouchControls();
-
+    
     void OnEnable() => _touchControls.Enable();
 
     void OnDisable() => _touchControls.Disable();
