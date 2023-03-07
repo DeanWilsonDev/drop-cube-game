@@ -1,21 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
+using BlackPad.DropCube.Core;
 using UnityEngine;
+using TMPro;
 
-namespace BlackPad.DropCube
+namespace BlackPad.DropCube.Menus
 {
-    public class Leaderboard : MonoBehaviour
-    {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+  public class Leaderboard : MonoBehaviour
+  {
+    [SerializeField] List<TextMeshProUGUI> names;
+    [SerializeField] List<TextMeshProUGUI> scores;
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+    public void GetLeaderboard()
+    {
+      
     }
+  }
 }
