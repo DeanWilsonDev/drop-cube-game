@@ -2,7 +2,7 @@ using BlackPad.DropCube.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace BlackPad.DropCube.Camera
+namespace BlackPad.DropCube.Game
 {
   public class CameraManager : MonoBehaviour {
 
@@ -11,39 +11,39 @@ namespace BlackPad.DropCube.Camera
     [SerializeField] float smoothTime;
     [SerializeField] float threshold;
     Vector3 velocity = Vector3.zero;
-    UnityEngine.Camera mainCamera;
+    Camera _mainCamera;
+    bool _initialized;
+    const string GameManagerTag = "GameManager";
+    
 
-    void Initialize() {
+    public void Initialize() {
       maxSpeed = 7;
       smoothTime = 0.1f;
       threshold = 1f;
-    }
-
-    void Awake() {
-      Initialize();
-    }
-
-    void Start() {
+      
       player = GameObject
-        .FindGameObjectWithTag("GameManager")
+        .FindGameObjectWithTag(GameManagerTag)
         .GetComponent<PlayerManager>()
         ._player;
-      mainCamera = UnityEngine.Camera.main;
+      _mainCamera = Camera.main;
+      _initialized = true;
     }
-
+    
     // Update is called once per frame
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
+      if (!_initialized) return;
       var playerTransformPosition = player.transform.position;
       var bottomOfTheScreen =
-        mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
-      var cameraTransform = mainCamera.transform;
+        _mainCamera.ScreenToWorldPoint(new Vector3(0, 0, _mainCamera.nearClipPlane));
+      var cameraTransform = _mainCamera.transform;
       var cameraTransformPosition = cameraTransform.position;
       var targetPosition = new Vector3(
         cameraTransformPosition.x,
         bottomOfTheScreen.y - threshold,
         cameraTransformPosition.z
       );
-      var topOfScreen = mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, mainCamera.nearClipPlane));
+      var topOfScreen = _mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, _mainCamera.nearClipPlane));
       var distanceFromTopOfScreen = topOfScreen.y - playerTransformPosition.y;
       
       transform.position = MoveCameraDown(targetPosition, distanceFromTopOfScreen);

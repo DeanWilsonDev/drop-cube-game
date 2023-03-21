@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Data;
+using BlackPad.DropCube.Game;
 using UnityEngine;
 
 namespace BlackPad.DropCube.Level
@@ -60,8 +61,11 @@ namespace BlackPad.DropCube.Level
             _wallsFactory = new WallsFactory();
             _roomFactory = new RoomFactory();
             _pointsFactory = new PointsFactory();
+        }
 
-            for (var i = 0; i < _startingRoomAmount.value; i++)
+        public void Initialize()
+        {
+            for (int i = 0; i < _startingRoomAmount.value; i++)
             {
                 SpawnNewRoom();
             }
@@ -92,14 +96,14 @@ namespace BlackPad.DropCube.Level
                         .value
                 );
                 
-            var roomObject = BuildRoom();
+            Room roomObject = BuildRoom();
 
                 
-            var floorComponent = BuildFloor(
+            Floor floorComponent = BuildFloor(
                 roomObject
             );
 
-            var pointsComponent = BuildRoomPoints(
+            Points pointsComponent = BuildRoomPoints(
                 roomObject, 
                 gameObject.GetComponent<PointsManager>(), 
                 _roomScoreValue.value
@@ -117,7 +121,7 @@ namespace BlackPad.DropCube.Level
                 );
             }
 
-            var (leftWall, rightWall, backWall) = BuildWalls(
+            BuildWalls(
                 roomObject
             );
 
@@ -138,7 +142,7 @@ namespace BlackPad.DropCube.Level
         void RemoveOldestRoom()
         {
             if (_spawnedRooms.Count < _startingRoomAmount.value * 2) return;
-            var roomToDestroy = _spawnedRooms[0];
+            Room roomToDestroy = _spawnedRooms[0];
             Destroy(roomToDestroy.gameObject);
             _spawnedRooms.Remove(_spawnedRooms[0]);
         }

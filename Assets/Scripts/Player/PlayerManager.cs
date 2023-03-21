@@ -7,7 +7,7 @@ namespace BlackPad.DropCube.Player
          public GameObject _player;
         [SerializeField] float _fallSpeed;
         
-        void Initialize() {
+        public void Initialize() {
             _player = GameObject.CreatePrimitive(PrimitiveType.Cube);
             _player.name = "Cube";
             var playerInput = _player.AddComponent<PlayerInput>();
@@ -20,6 +20,6 @@ namespace BlackPad.DropCube.Player
 
         public void Reset() => _player.transform.position = Vector3.zero;
 
-        void Awake() => Initialize();
+        // void Awake() => Initialize();
     }
 }

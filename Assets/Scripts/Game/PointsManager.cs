@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace BlackPad.DropCube
+namespace BlackPad.DropCube.Game
 {
     public class PointsManager: MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace BlackPad.DropCube
             set => _currentPoints = value;
         }
 
-        public void Start()
+        public void Initialize()
         {
             CurrentPoints = 0;
         }
