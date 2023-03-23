@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97dad99aab4034de79a5d93048e96786, type: 3}
   m_Name: DefaultSwitchPrefab
   m_EditorClassIdentifier: 
-  value: {fileID: 5960196916308492705, guid: 3d24ba8c13dfe4d9f8cda5ebc7560b2f, type: 3}
+  value: {fileID: 253274486217402051, guid: 2fc83b20e480cfa4097ef308c06f5777, type: 3}

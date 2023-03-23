@@ -7,7 +7,11 @@ namespace BlackPad.DropCube.Level
 
         [SerializeField]
         Door doorComponent;
-        
+
+        [SerializeField] Light _pointLight;
+        [SerializeField] Material SwitchGreen;
+        [SerializeField] Material SwitchRed;
+
         void Start()
         {
             var boxCollider = gameObject.AddComponent<BoxCollider>();
@@ -17,10 +21,9 @@ namespace BlackPad.DropCube.Level
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-                doorComponent.OpenDoor();
-            }
+            if (!other.CompareTag("Player")) return;
+            doorComponent.OpenDoor();
+            _pointLight.color = SwitchGreen.color;
         }
     }
 }
