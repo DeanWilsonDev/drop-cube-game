@@ -1,36 +1,50 @@
 using UnityEngine;
-
 namespace BlackPad.DropCube.Menus
 {
-    public class MenuManager : MonoBehaviour
+  public class MenuManager : MonoBehaviour
+  {
+    [SerializeField]
+    GameObject _mainMenuScreen;
+
+    [SerializeField]
+    GameObject _leaderboardScreen;
+
+    [SerializeField] GameObject _gameOverScreen;
+    
+    Leaderboard _leaderboard;
+
+    void Start()
     {
-
-        [SerializeField] GameObject _mainMenuPanel;
-        [SerializeField] GameObject _leaderboardPanel;
-        Leaderboard _leaderboard;
-
-        void Start()
-        {
-            _leaderboard = _leaderboardPanel.GetComponent<Leaderboard>();
-            _leaderboard.GetLeaderboard();
-        }
-        
-        public void BeginGame()
-        {
-            _mainMenuPanel.SetActive(false);
-        }
-
-        public void ShowLeaderboard(bool isFromMainMenu)
-        {
-            _mainMenuPanel.SetActive(false);
-            _leaderboardPanel.SetActive(true);
-            _leaderboard.IsFromMainMenu = isFromMainMenu;
-        }
-
-        public void ReturnToMainMenu()
-        {
-            _leaderboardPanel.SetActive(false);
-            _mainMenuPanel.SetActive(true);
-        }
+      _leaderboard = GetComponent<Leaderboard>();
+      _leaderboard.GetLeaderboard();
     }
+
+    public void BeginGame()
+    {
+      _mainMenuScreen.SetActive(false);
+      _mainMenuScreen.SetActive(false);
+      _gameOverScreen.SetActive(false);
+    }
+
+    public void ShowLeaderboard()
+    {
+      _mainMenuScreen.SetActive(false);
+      _gameOverScreen.SetActive(false);
+      _leaderboardScreen.SetActive(true);
+    }
+
+    public void ReturnToMainMenu()
+    {
+      _leaderboardScreen.SetActive(false);
+      _gameOverScreen.SetActive(false);
+      _mainMenuScreen.SetActive(true);
+    }
+
+    public void ShowGameOverScreen()
+    {
+      _leaderboardScreen.SetActive(false);
+      _mainMenuScreen.SetActive(false);
+      _gameOverScreen.SetActive(true);
+    }
+  }
 }

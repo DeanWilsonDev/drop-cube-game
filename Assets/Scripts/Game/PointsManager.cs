@@ -5,7 +5,9 @@ namespace BlackPad.DropCube.Game
 {
     public class PointsManager: MonoBehaviour
     {
-
+        public delegate void SetScoreEvent(int currentPoints);
+        public static SetScoreEvent OnSetScore;   
+        
         [SerializeField] int _currentPoints;
         
         public int CurrentPoints
@@ -17,6 +19,17 @@ namespace BlackPad.DropCube.Game
         public void Initialize()
         {
             CurrentPoints = 0;
+        }
+
+        public void SetScoreText()
+        {
+            OnSetScore?.Invoke(_currentPoints);
+        }
+
+        public void Reset()
+        {
+            _currentPoints = 0;
+            SetScoreText();
         }
     }
 }

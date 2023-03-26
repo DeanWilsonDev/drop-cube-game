@@ -65,10 +65,23 @@ namespace BlackPad.DropCube.Level
 
         public void Initialize()
         {
-            for (int i = 0; i < _startingRoomAmount.value; i++)
+            _roomNumber = 0;
+            for (var i = 0; i < _startingRoomAmount.value; i++)
             {
                 SpawnNewRoom();
             }
+        }
+        
+        public void Kill()
+        {
+            
+            Debug.Log($"Spawned Rooms: {_spawnedRooms.Count} Room Number: {_roomNumber}");
+            for (var index = 0; index < _roomNumber; index++)
+            {
+                Debug.Log($"Index: {index}");
+                DestroyRoomAtIndex(0);
+            }
+            _spawnedRooms = new List<Room>();
         }
 
         void OnEnable()
@@ -96,14 +109,14 @@ namespace BlackPad.DropCube.Level
                         .value
                 );
                 
-            Room roomObject = BuildRoom();
+            var roomObject = BuildRoom();
 
                 
-            Floor floorComponent = BuildFloor(
+            var floorComponent = BuildFloor(
                 roomObject
             );
 
-            Points pointsComponent = BuildRoomPoints(
+            var pointsComponent = BuildRoomPoints(
                 roomObject, 
                 gameObject.GetComponent<PointsManager>(), 
                 _roomScoreValue.value
@@ -142,9 +155,7 @@ namespace BlackPad.DropCube.Level
         void RemoveOldestRoom()
         {
             if (_spawnedRooms.Count < _startingRoomAmount.value * 2) return;
-            Room roomToDestroy = _spawnedRooms[0];
-            Destroy(roomToDestroy.gameObject);
-            _spawnedRooms.Remove(_spawnedRooms[0]);
+            DestroyRoomAtIndex(0);
         }
         
 
@@ -186,8 +197,7 @@ namespace BlackPad.DropCube.Level
             
         }
 
-        Tuple<Wall, Wall, BackWall> BuildWalls(Component parentComponent) =>
-            _wallsFactory
+        Tuple<Wall, Wall, BackWall> BuildWalls(Component parentComponent) => _wallsFactory
                 .Build(
                     parentComponent,
                     _colorPalette.value[0]
@@ -199,5 +209,13 @@ namespace BlackPad.DropCube.Level
                 pointsManager, 
                 roomScoreValue
                 );
+
+        void DestroyRoomAtIndex(int index)
+        {
+            var roomToDestroy = _spawnedRooms[index];
+            Destroy(roomToDestroy.gameObject);
+            Debug.Log($"{roomToDestroy} Destroyed! with index: {index}");
+            _spawnedRooms.Remove(_spawnedRooms[index]);
+        }
     }
 }

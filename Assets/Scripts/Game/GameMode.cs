@@ -1,4 +1,5 @@
 using BlackPad.DropCube.Level;
+using BlackPad.DropCube.Menus;
 using BlackPad.DropCube.Player;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace BlackPad.DropCube.Game
         LevelManager _levelManager;
         PointsManager _pointsManager;
         CameraManager _cameraManager;
+        [SerializeField] MenuManager _menuManager;
 
         void Awake()
         {
@@ -19,7 +21,7 @@ namespace BlackPad.DropCube.Game
             _levelManager = GetComponent<LevelManager>();
             _pointsManager = GetComponent<PointsManager>();
 
-            Camera mainCamera = Camera.main;
+            var mainCamera = Camera.main;
             if (mainCamera != null)
             {
                 _cameraManager = mainCamera
@@ -34,6 +36,28 @@ namespace BlackPad.DropCube.Game
             _levelManager.Initialize();
             _pointsManager.Initialize();
             _cameraManager.Initialize();
+            _menuManager.BeginGame();
         }
+        
+        public void QuitGame()
+        {
+            _levelManager.Kill();
+            _playerManager.Kill();
+            _pointsManager.Reset();
+        }
+
+        public void RestartGame()
+        {
+            QuitGame();
+            BeginGame();
+        }
+
+        public void EndGame()
+        {
+            _pointsManager.SetScoreText();
+            _menuManager.ShowGameOverScreen();
+        }
+
+
     }
 }

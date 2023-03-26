@@ -24,6 +24,7 @@ namespace BlackPad.DropCube.Level
     {
       return isClosedDoor = Random.Range(0, 100) >= 50;
     }
+    
 
     public Room Initialize(
       Vector3 roomScale,
@@ -54,6 +55,7 @@ namespace BlackPad.DropCube.Level
     {
       _pointsManager.CurrentPoints += _roomScoreValue;
       _points.DisplayCurrentPointsValue(_pointsManager.CurrentPoints.ToString());
+      _pointsManager.SetScoreText();
     }
 
     void OnTriggerExit(Collider other)

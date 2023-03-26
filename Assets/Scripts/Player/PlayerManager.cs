@@ -21,5 +21,10 @@ namespace BlackPad.DropCube.Player
         public void Reset() => _player.transform.position = Vector3.zero;
 
         // void Awake() => Initialize();
+
+        public void Kill()
+        {
+            Destroy(_player);
+        }
     }
 }
