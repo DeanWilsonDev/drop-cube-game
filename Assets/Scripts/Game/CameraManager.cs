@@ -68,6 +68,7 @@ namespace BlackPad.DropCube.Game
     void KillPlayer()
     {
       _gameMode.EndGame();
+      _initialized = false;
     }
 
     Vector3 MoveCameraDown(Vector3 targetPosition,

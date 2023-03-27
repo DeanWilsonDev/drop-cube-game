@@ -22,7 +22,7 @@ namespace BlackPad.DropCube.Level
         )
         {
             _floor = floor;
-
+            
             return _switchLevelObjectBuilder.Initialize(
                     SwitchObjectName,
                     parent,
@@ -32,9 +32,7 @@ namespace BlackPad.DropCube.Level
                     color
                 )
                 .GeneratePrefabObject()
-                .AddComponent()
                 .SetPosition()
-                .SetColor()
                 .GetProduct();
         }
 

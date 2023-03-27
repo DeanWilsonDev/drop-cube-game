@@ -10,6 +10,8 @@ namespace BlackPad.DropCube.Menus
     GameObject _leaderboardScreen;
 
     [SerializeField] GameObject _gameOverScreen;
+
+    [SerializeField] GameObject _settingsScreen;
     
     Leaderboard _leaderboard;
 
@@ -22,6 +24,7 @@ namespace BlackPad.DropCube.Menus
     public void BeginGame()
     {
       _mainMenuScreen.SetActive(false);
+      _settingsScreen.SetActive(false);
       _mainMenuScreen.SetActive(false);
       _gameOverScreen.SetActive(false);
     }
@@ -30,6 +33,7 @@ namespace BlackPad.DropCube.Menus
     {
       _mainMenuScreen.SetActive(false);
       _gameOverScreen.SetActive(false);
+      _settingsScreen.SetActive(false);
       _leaderboardScreen.SetActive(true);
     }
 
@@ -37,6 +41,7 @@ namespace BlackPad.DropCube.Menus
     {
       _leaderboardScreen.SetActive(false);
       _gameOverScreen.SetActive(false);
+      _settingsScreen.SetActive(false);
       _mainMenuScreen.SetActive(true);
     }
 
@@ -44,7 +49,16 @@ namespace BlackPad.DropCube.Menus
     {
       _leaderboardScreen.SetActive(false);
       _mainMenuScreen.SetActive(false);
+      _settingsScreen.SetActive(false);
       _gameOverScreen.SetActive(true);
+    }
+    
+    public void ShowSettingsScreen()
+    {
+      _leaderboardScreen.SetActive(false);
+      _mainMenuScreen.SetActive(false);
+      _gameOverScreen.SetActive(false);
+      _settingsScreen.SetActive(true);
     }
   }
 }

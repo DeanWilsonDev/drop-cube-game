@@ -75,10 +75,8 @@ namespace BlackPad.DropCube.Level
         public void Kill()
         {
             
-            Debug.Log($"Spawned Rooms: {_spawnedRooms.Count} Room Number: {_roomNumber}");
             for (var index = 0; index < _roomNumber; index++)
             {
-                Debug.Log($"Index: {index}");
                 DestroyRoomAtIndex(0);
             }
             _spawnedRooms = new List<Room>();
@@ -214,7 +212,6 @@ namespace BlackPad.DropCube.Level
         {
             var roomToDestroy = _spawnedRooms[index];
             Destroy(roomToDestroy.gameObject);
-            Debug.Log($"{roomToDestroy} Destroyed! with index: {index}");
             _spawnedRooms.Remove(_spawnedRooms[index]);
         }
     }
