@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BlackPad.Core.Utilities;
 using BlackPad.DropCube.Data;
 using BlackPad.DropCube.Game;
@@ -74,10 +75,9 @@ namespace BlackPad.DropCube.Level
         
         public void Kill()
         {
-            
-            for (var index = 0; index < _roomNumber; index++)
+            foreach (var room in _spawnedRooms)
             {
-                DestroyRoomAtIndex(0);
+                Destroy(room.gameObject);
             }
             _spawnedRooms = new List<Room>();
         }
@@ -210,6 +210,7 @@ namespace BlackPad.DropCube.Level
 
         void DestroyRoomAtIndex(int index)
         {
+            if (index > _spawnedRooms.Count) return;
             var roomToDestroy = _spawnedRooms[index];
             Destroy(roomToDestroy.gameObject);
             _spawnedRooms.Remove(_spawnedRooms[index]);

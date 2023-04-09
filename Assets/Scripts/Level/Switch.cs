@@ -5,30 +5,37 @@ namespace BlackPad.DropCube.Level
 {
   public class Switch : MonoBehaviour
   {
-    [SerializeField] Door doorComponent;
+    [SerializeField] Door _doorComponent;
 
     [SerializeField] Light _pointLight;
     [SerializeField] Material _switchGreen;
     [SerializeField] Material _switchRed;
     [SerializeField] MeshRenderer _buttonRenderer;
     [SerializeField] Animator _animator;
+    [SerializeField] AudioSource _audioSource;
     static readonly int Open = Animator.StringToHash("Open");
+    bool _isClicked;
     void Start()
     {
+      _isClicked = false;
       var boxCollider = gameObject.AddComponent<BoxCollider>();
       boxCollider.isTrigger = true;
-      doorComponent = GetComponentInParent<Room>()
+      _doorComponent = GetComponentInParent<Room>()
         .DoorComponent;
-
+      _audioSource = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
     {
+      if (_isClicked) return;
       if (!other.CompareTag("Player")) return;
-      doorComponent.OpenDoor();
+      _doorComponent.OpenDoor();
+      
       _pointLight.color = _switchGreen.color;
       _buttonRenderer.material = _switchGreen;
       _animator.SetTrigger(Open);
+      _audioSource.Play();
+      _isClicked = true;
     }
   }
 }

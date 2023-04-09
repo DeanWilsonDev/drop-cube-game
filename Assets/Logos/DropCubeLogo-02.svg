@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3317.03 2668.66">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 50px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke: #fff;
+      }
+
+      .cls-1, .cls-3, .cls-4 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-1, .cls-4 {
+        fill: none;
+      }
+
+      .cls-2 {
+        font-family: Edge-of-the-Galaxy, 'Edge of the Galaxy';
+        font-size: 1225.03px;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #231f20;
+        stroke-width: 8px;
+      }
+
+      .cls-4 {
+        stroke: #231f20;
+        stroke-width: 42px;
+      }
+    </style>
+  </defs>
+  <text class="cls-2" transform="translate(166.82 1380.34) scale(1.3 1)"><tspan x="0" y="0">D</tspan></text>
+  <text class="cls-2" transform="translate(942.39 1380.34) scale(1.3 1)"><tspan x="0" y="0">R</tspan></text>
+  <text class="cls-2" transform="translate(2530.37 1402.08) rotate(-.41) scale(1.3 1)"><tspan x="0" y="0">P</tspan></text>
+  <text class="cls-2" transform="translate(166.82 2561.73) scale(1.3 1)"><tspan x="0" y="0">C</tspan></text>
+  <text class="cls-2" transform="translate(942.39 2561.73) scale(1.3 1)"><tspan x="0" y="0">U</tspan></text>
+  <text class="cls-2" transform="translate(1729.83 2561.73) scale(1.3 1)"><tspan x="0" y="0">B</tspan></text>
+  <text class="cls-2" transform="translate(2530.37 2561.73) scale(1.3 1)"><tspan x="0" y="0">E</tspan></text>
+  <polygon class="cls-3" points="2398.99 776.02 2083.43 642.31 1765.05 776.02 1758.17 1171.62 2083.43 1384.6 2401.67 1163.37 2398.99 776.02"/>
+  <polyline class="cls-3" points="2083.43 1384.6 2083.43 970.43 2398.99 776.02"/>
+  <line class="cls-3" x1="2083.43" y1="970.43" x2="1765.05" y2="776.02"/>
+  <g>
+    <path class="cls-1" d="m2436.9,423.34v752.47l-353.48,241.84-360.42-234.56m123.82-795.2v-236.18m-123.82,95.83v-121.53m123.82,482.12v-121.53m590.07-160.23v-121.53m-353.48,403.29v-121.53m254.11-207.34v-136.43m-129.94,406.25V137.56m129.94,521.18v-304.97m-373,150.1v-115.99m0-134.33v-115.99m118.89,216.21V37.34m-360.42,343.38v802.37"/>
+    <path class="cls-4" d="m2436.9,423.34v752.47l-353.48,241.84-360.42-234.56m123.82-795.2v-236.18m-123.82,95.83v-121.53m123.82,482.12v-121.53m590.07-160.23v-121.53m-353.48,403.29v-121.53m254.11-207.34v-136.43m-129.94,406.25V137.56m129.94,521.18v-304.97m-373,150.1v-115.99m0-134.33v-115.99m118.89,216.21V37.34m-360.42,343.38v802.37"/>
+  </g>
+</svg>

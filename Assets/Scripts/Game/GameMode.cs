@@ -14,7 +14,7 @@ namespace BlackPad.DropCube.Game
         PointsManager _pointsManager;
         CameraManager _cameraManager;
         [SerializeField] MenuManager _menuManager;
-
+        [SerializeField] AudioManager _audioManager;
         void Awake()
         {
             _playerManager = GetComponent<PlayerManager>();
@@ -37,6 +37,7 @@ namespace BlackPad.DropCube.Game
             _pointsManager.Initialize();
             _cameraManager.Initialize();
             _menuManager.BeginGame();
+            _audioManager.GameMusicSource.Play();
         }
         
         public void QuitGame()
@@ -44,11 +45,13 @@ namespace BlackPad.DropCube.Game
             _levelManager.Kill();
             _playerManager.Kill();
             _pointsManager.Reset();
+            _audioManager.GameMusicSource.Stop();
         }
 
         public void RestartGame()
         {
             QuitGame();
+            _audioManager.GameMusicSource.Stop();
             BeginGame();
         }
 

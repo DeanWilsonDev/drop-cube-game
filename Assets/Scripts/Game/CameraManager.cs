@@ -68,6 +68,7 @@ namespace BlackPad.DropCube.Game
     void KillPlayer()
     {
       _gameMode.EndGame();
+      Destroy(player);
       _initialized = false;
     }
 

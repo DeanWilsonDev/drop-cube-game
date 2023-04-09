@@ -9,14 +9,15 @@ namespace BlackPad.DropCube.Level
         Renderer[] _prefabRenderers;
         BoxCollider _boxCollider;
         Animator _animator;
-        
+        [SerializeField] AudioSource _doorAudioSource;
+
         static readonly int Open = Animator.StringToHash("Open");
 
         void Start()
         {
             _boxCollider = gameObject.AddComponent<BoxCollider>();
-            _animator = gameObject.GetComponentInChildren<Animator>();
-
+            _animator = GetComponentInChildren<Animator>();
+            _doorAudioSource = GetComponent<AudioSource>();
             _boxCollider.size = new Vector3(
                 5.5f,
                 1, 
@@ -29,6 +30,7 @@ namespace BlackPad.DropCube.Level
             if (_animator == null) return;
             _boxCollider.enabled = false;
             _animator.SetTrigger(Open);
+            _doorAudioSource.Play();
         }
     }
 }

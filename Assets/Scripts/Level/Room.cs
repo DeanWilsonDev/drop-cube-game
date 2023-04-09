@@ -10,7 +10,6 @@ namespace BlackPad.DropCube.Level
     public static event ExitRoom OnRoomExit;
     
     
-    
     public Door DoorComponent { get; private set; }
     bool isClosedDoor;
     Switch _switch;
@@ -19,6 +18,7 @@ namespace BlackPad.DropCube.Level
     Points _points;
     PointsManager _pointsManager;
     int _roomScoreValue;
+    
     const string GameManagerTag = "GameManager";
     bool CheckIsDoorClosed()
     {
@@ -41,8 +41,8 @@ namespace BlackPad.DropCube.Level
       DoorComponent = door;
       _switch = switchComponent;
       _points = points;
-      _pointsManager = GameObject.FindGameObjectWithTag(GameManagerTag).GetComponent<PointsManager>();
-      
+      var gameManager = GameObject.FindGameObjectWithTag(GameManagerTag);
+      _pointsManager = gameManager.GetComponent<PointsManager>();
       var trigger = gameObject
         .AddComponent<BoxCollider>();
 
@@ -56,6 +56,7 @@ namespace BlackPad.DropCube.Level
       _pointsManager.CurrentPoints += _roomScoreValue;
       _points.DisplayCurrentPointsValue(_pointsManager.CurrentPoints.ToString());
       _pointsManager.SetScoreText();
+      _pointsManager.PlayPointsUpSound();
     }
 
     void OnTriggerExit(Collider other)

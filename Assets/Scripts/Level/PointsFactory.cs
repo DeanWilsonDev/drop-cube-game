@@ -26,7 +26,7 @@ namespace BlackPad.DropCube.Level
         .AddComponent<TextMeshPro>();
 
       points.text = pointsValue.ToString();
-      points.fontSize = 75;
+      points.fontSize = 75 - points.text.Length * 2;
       points.alignment = TextAlignmentOptions.Center;
       
       var roomScoreTextTransform = points.transform;
