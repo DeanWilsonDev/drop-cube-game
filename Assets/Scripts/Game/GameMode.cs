@@ -37,6 +37,7 @@ namespace BlackPad.DropCube.Game
             _pointsManager.Initialize();
             _cameraManager.Initialize();
             _menuManager.BeginGame();
+            _audioManager.MainMenuMusicSource.Stop();
             _audioManager.GameMusicSource.Play();
         }
         
@@ -45,12 +46,14 @@ namespace BlackPad.DropCube.Game
             _levelManager.Kill();
             _playerManager.Kill();
             _pointsManager.Reset();
+            _audioManager.MainMenuMusicSource.Stop();
             _audioManager.GameMusicSource.Stop();
         }
 
         public void RestartGame()
         {
             QuitGame();
+            _audioManager.MainMenuMusicSource.Stop();
             _audioManager.GameMusicSource.Stop();
             BeginGame();
         }
