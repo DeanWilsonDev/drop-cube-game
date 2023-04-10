@@ -15,6 +15,7 @@ namespace BlackPad.DropCube.Game
         CameraManager _cameraManager;
         [SerializeField] MenuManager _menuManager;
         [SerializeField] AudioManager _audioManager;
+        
         void Awake()
         {
             _playerManager = GetComponent<PlayerManager>();

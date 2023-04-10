@@ -54,14 +54,13 @@ namespace BlackPad.DropCube.Level
     void OnTriggerEnter(Collider other)
     {
       _pointsManager.CurrentPoints += _roomScoreValue;
-      _points.DisplayCurrentPointsValue(_pointsManager.CurrentPoints.ToString());
+      _points.DisplayCurrentPointsValue(_pointsManager.CurrentPoints);
       _pointsManager.SetScoreText();
       _pointsManager.PlayPointsUpSound();
     }
 
     void OnTriggerExit(Collider other)
     {
-      _points.DisplayCurrentPointsValue("");
       OnRoomExit?.Invoke();
     }
   }

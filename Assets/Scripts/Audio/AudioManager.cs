@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
   [SerializeField] AudioSource _clickSoundSource;
   [SerializeField] AudioMixer _mixer;
 
+
   public void PlayClickSound()
   {
     _clickSoundSource.Play();

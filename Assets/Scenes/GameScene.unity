@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 342869670}
   - component: {fileID: 342869673}
   - component: {fileID: 342869674}
+  - component: {fileID: 342869676}
   m_Layer: 0
   m_Name: GAME_MANAGER
   m_TagString: GameManager
@@ -296,7 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c03a3d7cd994caba66473739e28852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _playerPrefab: {fileID: 8237994445879871898, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+  _player: {fileID: 8237994445879871898, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
   _fallSpeed: 1000
 --- !u!114 &342869674
 MonoBehaviour:
@@ -326,6 +328,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _menuManager: {fileID: 408873695}
   _audioManager: {fileID: 1587830342}
+--- !u!65 &342869676
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342869668}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &408873695 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 240666459, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
@@ -976,77 +999,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1587830342}
     - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_Value
-      value: 0.0001
-      objectReference: {fileID: 0}
-    - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_MinValue
-      value: 0.0001
-      objectReference: {fileID: 0}
-    - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1587830343}
-    - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetMusicLevel
-      objectReference: {fileID: 0}
-    - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BlackPad.DropCube.Audio.VolumeManager, DropCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 110863315, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_Value
-      value: 0.0001
-      objectReference: {fileID: 0}
-    - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_MinValue
-      value: 0.0001
-      objectReference: {fileID: 0}
-    - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1587830343}
     - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetSoundEffectsLevel
-      objectReference: {fileID: 0}
-    - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BlackPad.DropCube.Audio.VolumeManager, DropCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 462564709, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1587830343}
     - target: {fileID: 1880015613, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1056,41 +1015,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1587830342}
     - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 408873695}
-    - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 342869675}
-    - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BeginGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: RestartGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BlackPad.DropCube.Menus.MenuManager, DropCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: BlackPad.DropCube.Game.GameMode, DropCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219346161940481754, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 3795085169083481586, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1212,3 +1139,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6608d6b150677348934cee5e0ffc86a, type: 3}
+--- !u!1001 &5141654827000589667
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8237994445879871898, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237994445879871898, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.818046
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -225.2776
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -65.01481
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725984732816331552, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4facb614d4884b74b85f8be3debd91ef, type: 3}
